@@ -1,4 +1,4 @@
-import pandas as pd
+from nltk import data
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import nltk
@@ -8,42 +8,36 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 nltk.download("stopwords")
 nltk.download("punkt")
 
-data = pd.read_csv('Data/twitter_sexism_parsed_dataset.csv')
+
+
 ps = PorterStemmer()
-
-mt = pd.DataFrame()
-data_processed = BoW_Modelo = txtBoW = []
-
-
-def make_tokenization():
-    for row in data.itertuples():
+# Este metodo tokeniza el texto,se le pasa como parametro el DataFrame y retorna un nuevo DataFrame
+def make_tokenization(d):
+    data_processed = []
+    for row in d.itertuples():
         stop_words = set(stopwords.words("english"))
         text = word_tokenize(row[3])
 
-        text = [ps.stem(w)
-                        for w in text if not w in stop_words and w.isalnum()]
+        text = [ps.stem(w) for w in text if not w in stop_words and w.isalnum()]
         text = ' '.join(text)
         data_processed.append(text)
-
-    data_new = data
+    
+    data_new = d
     data_new['Preprocessed_text'] = data_processed
 
     return data_new
 
-
-##------------------------------------------------------------------##
-
-def make_BoW(d):
+#Este metodo crea la bolsa de palabras,recibiendo como parametro el DataFrame que retorna el metodo make_tokenization,
+#retorna la lista con todas las que contiene la BoW
+def make_BoW(dN):
     bagOfWordsModel = TfidfVectorizer()
-    bagOfWordsModel.fit(d['Preprocessed_text'])
+    bagOfWordsModel.fit(dN['Preprocessed_text'])    
     return bagOfWordsModel
 
+#Este metodo crea la matriz con los terminos de frecuencia,recibiendo como parametro la BoW y la matriz que retorna make_tokenization
 def make_matrix(BoW_M,d):
     texts_BoW = BoW_M.transform(d['Preprocessed_text'])
-    print(texts_BoW)
     return texts_BoW
     
 
-mt=make_tokenization()
-BoW_Modelo = make_BoW(mt)
-make_matrix(BoW_Modelo,mt)
+
