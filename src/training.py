@@ -2,7 +2,7 @@ import core
 import pandas as pd
 
 from sklearn import svm
-training_data = pd.read_csv('Data/twitter_sexism_parsed_dataset.csv')
+training_data = pd.read_csv('Data/mix.csv')
 
 #Se divide el Dataframe en 80-20
 part_training = int(len(training_data)*0.8)
@@ -16,17 +16,19 @@ BoWMethod = core.make_BoW(m_tokenization)
 m_matrix = core.make_matrix(BoWMethod,m_tokenization)
 
 #Definimos el tipo de kernel
-svc = svm.SVC(kernel = "linear")
+svc = svm.LinearSVC()
+
 
 X_train = m_matrix
 Y_train = training_data['oh_label']
 
 #Entrenamos 
 svc.fit(X_train,Y_train)
+
 print ("ok")
 #-----------------------------------------------------------#
 
-test_data = pd.read_csv('Data/twitter_sexism_parsed_dataset.csv')
+test_data = pd.read_csv('Data/mix.csv')
 test_data = test_data.iloc[part_training:]
 
 

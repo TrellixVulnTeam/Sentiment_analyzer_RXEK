@@ -24,7 +24,7 @@ def make_tokenization(d):
     
     data_new = d
     data_new['Preprocessed_text'] = data_processed
-
+    print(data_new.head(1000))
     return data_new
 
 #Este metodo crea la bolsa de palabras,recibiendo como parametro el DataFrame que retorna el metodo make_tokenization,
