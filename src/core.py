@@ -5,6 +5,7 @@ import nltk
 from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+import time
 nltk.download("stopwords")
 nltk.download("punkt")
 
@@ -13,6 +14,7 @@ nltk.download("punkt")
 ps = PorterStemmer()
 # Este metodo tokeniza el texto,se le pasa como parametro el DataFrame y retorna un nuevo DataFrame
 def make_tokenization(d):
+    inicio = time.time()
     data_processed = []
     for row in d.itertuples():
         stop_words = set(stopwords.words("english"))
@@ -23,7 +25,10 @@ def make_tokenization(d):
         data_processed.append(text)
     
     data_new = d
-    data_new['Preprocessed_text'] = data_processed    
+    data_new['Preprocessed_text'] = data_processed
+    fin = time.time()    
+
+    print(fin-inicio)
     return data_new
 
 #Este metodo crea la bolsa de palabras,recibiendo como parametro el DataFrame que retorna el metodo make_tokenization,

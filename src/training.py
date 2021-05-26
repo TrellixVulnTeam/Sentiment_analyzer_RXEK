@@ -3,10 +3,10 @@ import pandas as pd
 from sklearn.metrics import classification_report
 from sklearn import svm
 from sklearn.calibration import CalibratedClassifierCV
-training_data = pd.read_csv('Data/mix.csv')
+training_data = pd.read_csv('Data/twitter_sexism_parsed_dataset.csv')
 
 # Se divide el Dataframe en 80-20
-part_training = int(len(training_data)*0.6)
+part_training = int(len(training_data)*0.8)
 training_data = training_data.iloc[0:part_training]
 print(training_data.shape)
 # Tokenizamos y creamos la bolsa de palabras y los terminos de frecuencia del DataSet de entrenamiento
@@ -31,7 +31,7 @@ clf.fit(X_train, Y_train)
 print("ok")
 #-----------------------------------------------------------#
 
-test_data = pd.read_csv('Data/mix.csv')
+test_data = pd.read_csv('Data/twitter_sexism_parsed_dataset.csv')
 test_data = test_data.iloc[part_training:]
 
 print('testDATA', test_data.shape)
