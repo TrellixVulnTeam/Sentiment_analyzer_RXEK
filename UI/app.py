@@ -1,4 +1,6 @@
-import core
+
+
+from pandas.core.accessor import PandasDelegate
 import streamlit as st
 import pandas as pd
 import os
@@ -7,30 +9,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 sys.path.append('../src')
-
+import core
 # Methods
 
 
-def upload_file(folderpath='/home/jules/Documentos/Personal/Sentiment_analyzer/Data'):
-    st.title("First Choose a file:")
-    input_file = st.file_uploader("", type="csv")
-    subir = st.button('Upload')
-
-    if (subir == True and input_file is None):
-        st.error("You must select a file ")
-        subir = False
-    elif (input_file is not None and subir == True):
-        arch = os.path.join(folderpath, input_file.name)
-        return arch
+import views.text_analysis
+import views.multi_file
 
 
-def type_text():
-    st.title("Or type a text to analyze:")
-    texto = st.text_input(label="", value="Type a text")
-
-    if(len(texto) == 0):
-        st.error("The text cannot be empty  ")
-    return texto
+PAGES = {
+    "Text Analysis": views.text_analysis,
+    "Multi File": views.multi_file
+}
 
 
 def make(archivo):
@@ -57,18 +47,18 @@ def make_graph():
                               "Sexism", "Bullyng", "Racism"])
     st.bar_chart(chart_data)
 
+
+def sidebar():
+   st.sidebar.title("Choose a option")
+   selection = st.sidebar.radio("",list(PAGES.keys()))
+   page = PAGES[selection]
+   page.write()
 # ----------------------------------------------------------------------------------
 
 
 def main():
-
-    file_path = upload_file()
-    type_text()
-
-    if(file_path is not None):
-
-        make(file_path)
-        make_graph()
+    sidebar()
+  
 
 
 if __name__ == '__main__':
