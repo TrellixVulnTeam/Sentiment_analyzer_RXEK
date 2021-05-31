@@ -4,8 +4,8 @@ from nltk.tokenize import word_tokenize
 import nltk
 from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
+import marshal
 
-import time
 nltk.download("stopwords")
 nltk.download("punkt")
 
@@ -15,7 +15,7 @@ ps = PorterStemmer()
 
 
 def make_tokenization(d):
-    inicio = time.time()
+    
     data_processed = []
     for row in d.itertuples():
         stop_words = set(stopwords.words("english"))
@@ -28,9 +28,7 @@ def make_tokenization(d):
 
     data_new = d
     data_new['Preprocessed_text'] = data_processed
-    fin = time.time()
-
-    print(fin-inicio)
+   
     return data_new
 
 # Este metodo crea la bolsa de palabras,recibiendo como parametro el DataFrame que retorna el metodo make_tokenization,
@@ -38,13 +36,24 @@ def make_tokenization(d):
 
 
 def make_BoW(dN):
+    
     bagOfWordsModel = TfidfVectorizer()
+    
     bagOfWordsModel.fit(dN['Preprocessed_text'])
+
+    response = bagOfWordsModel.get_feature_names()
+    fileOut = open("/home/jules/Documentos/Personal/TFG/Serialiced/sexim.dat", "bw")
+    marshal.dump(response, fileOut)
+    fileOut.close()
+
     return bagOfWordsModel
+
 
 # Este metodo crea la matriz con los terminos de frecuencia,recibiendo como parametro la BoW y la matriz que retorna make_tokenization
 
 
 def make_matrix(BoW_M, d):
     texts_BoW = BoW_M.transform(d['Preprocessed_text'])
+    
+    print(texts_BoW)
     return texts_BoW

@@ -8,7 +8,7 @@ training_data = pd.read_csv('Data/twitter_sexism_parsed_dataset.csv')
 # Se divide el Dataframe en 80-20
 part_training = int(len(training_data)*0.8)
 training_data = training_data.iloc[0:part_training]
-print(training_data.shape)
+
 # Tokenizamos y creamos la bolsa de palabras y los terminos de frecuencia del DataSet de entrenamiento
 m_tokenization = core.make_tokenization(training_data)
 
@@ -18,7 +18,7 @@ m_matrix = core.make_matrix(BoWMethod, m_tokenization)
 
 # Definimos el tipo de kernel
 svc = svm.SVC()
-print("OKlll")
+
 clf = CalibratedClassifierCV(svc)
 
 
@@ -46,8 +46,4 @@ y_proba = clf.predict_proba(X_test)
 
 Y_test = test_data['oh_label']  # Etiquetas reales de los documentos
 
-counter = 1
-for i in y_proba:
-
-    print(i*100, '---', counter)
-    counter += 1
+print(y_proba)

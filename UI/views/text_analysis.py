@@ -8,8 +8,8 @@ from annotated_text import annotated_text
 def type_itext():
 
     st.title("Type a text to analyze:")
-    col1, col2, col3, col4, col5, col6, col7, col8 = st.beta_columns(8)
-    with col8:
+    __, __, __, __, __, __, __, col_button = st.beta_columns(8)
+    with col_button:
         enviar = st.button('Send')
     texto_entrada = st.text_area(label="", value="", key="input", height=250)
 

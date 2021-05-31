@@ -7,19 +7,21 @@ import numpy as np
 
 sys.path.append('../src')
 import core
-# Methods
+
 
 
 import views.text_analysis
 import views.multi_file
+import views.super_su
 
 
 PAGES = {
     "Text Analysis": views.text_analysis,
-    "Multi File": views.multi_file
+    "Multi File": views.multi_file,
+    "Admin Panel": views.super_su
 }
 
-
+# Functions
 def make(archivo):
     df = pd.read_csv(archivo)
 
