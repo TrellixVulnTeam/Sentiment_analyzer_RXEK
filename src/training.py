@@ -3,47 +3,70 @@ import pandas as pd
 from sklearn.metrics import classification_report
 from sklearn import svm
 from sklearn.calibration import CalibratedClassifierCV
-training_data = pd.read_csv('Data/twitter_sexism_parsed_dataset.csv')
+import marshal
+import json
 
-# Se divide el Dataframe en 80-20
-part_training = int(len(training_data)*0.8)
-training_data = training_data.iloc[0:part_training]
+def create_File(response):
+    with open('/home/jules/Documentos/Personal/TFG/memory/path.json') as json_file:
+        data = json.load(json_file)
+        path_f=str(data['full_path'])
+        print(path_f)
+    fileOut = open(path_f, "bw")
+    marshal.dump(response, fileOut)
+    fileOut.close()
 
-# Tokenizamos y creamos la bolsa de palabras y los terminos de frecuencia del DataSet de entrenamiento
-m_tokenization = core.make_tokenization(training_data)
+def training_part_algorithm(DF,num):
+    training_data = pd.read_csv(DF)
+    print(num)
+    # Se divide el Dataframe en 80-20
+    part_training = int(len(training_data)*num)
+    training_data = training_data.iloc[0:part_training]
 
-BoWMethod = core.make_BoW(m_tokenization)
+    # Tokenizamos y creamos la bolsa de palabras y los terminos de frecuencia del DataSet de entrenamiento
+    m_tokenization = core.make_tokenization(training_data)
 
-m_matrix = core.make_matrix(BoWMethod, m_tokenization)
+    BoWMethod = core.make_BoW(m_tokenization)
 
-# Definimos el tipo de kernel
-svc = svm.SVC()
+    m_matrix = core.make_matrix(BoWMethod, m_tokenization)
 
-clf = CalibratedClassifierCV(svc)
+    # Definimos el tipo de kernel
+    svc = svm.SVC()
+
+    clf = CalibratedClassifierCV(svc)
 
 
-X_train = m_matrix
-Y_train = training_data['oh_label']
+    X_train = m_matrix
+    Y_train = training_data['oh_label']
 
-# Entrenamos
-clf.fit(X_train, Y_train)
+    # Entrenamos
 
-print("ok")
+    clf.fit(X_train, Y_train)
+    BoW_names = BoWMethod.get_feature_names()
+
+    create_File(BoW_names)
+
+    return BoWMethod
+
+
 #-----------------------------------------------------------#
 
-test_data = pd.read_csv('Data/twitter_sexism_parsed_dataset.csv')
-test_data = test_data.iloc[part_training:]
 
-print('testDATA', test_data.shape)
+# def test_part_algortihm():
 
-# Tokenizamos la parte de test, pero USAMOS LA MISMA BOW que en la parte de entrenamiento
-m_tokenization_test = core.make_tokenization(test_data)
-m_matrix_t = core.make_matrix(BoWMethod, m_tokenization_test)
+#     (BoWMethod,clf) = training_part_algorithm(DF,num)
+#     test_data = pd.read_csv('Data/twitter_sexism_parsed_dataset.csv')
+#     test_data = test_data.iloc[part_training:]
 
-X_test = m_matrix_t
-y_proba = clf.predict_proba(X_test)
+#     print('testDATA', test_data.shape)
+
+#     # Tokenizamos la parte de test, pero USAMOS LA MISMA BOW que en la parte de entrenamiento
+#     m_tokenization_test = core.make_tokenization(test_data)
+#     m_matrix_t = core.make_matrix(BoWMethod, m_tokenization_test)
+
+#     X_test = m_matrix_t
+#     y_proba = clf.predict_proba(X_test)
 
 
-Y_test = test_data['oh_label']  # Etiquetas reales de los documentos
+#     Y_test = test_data['oh_label']  # Etiquetas reales de los documentos
 
-print(y_proba)
+#     print(y_proba)

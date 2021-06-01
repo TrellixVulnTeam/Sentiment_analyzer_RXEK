@@ -6,6 +6,7 @@ from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 import marshal
 
+
 nltk.download("stopwords")
 nltk.download("punkt")
 
@@ -37,14 +38,13 @@ def make_tokenization(d):
 
 def make_BoW(dN):
     
+   
     bagOfWordsModel = TfidfVectorizer()
     
     bagOfWordsModel.fit(dN['Preprocessed_text'])
 
-    response = bagOfWordsModel.get_feature_names()
-    fileOut = open("/home/jules/Documentos/Personal/TFG/Serialiced/sexim.dat", "bw")
-    marshal.dump(response, fileOut)
-    fileOut.close()
+    
+   
 
     return bagOfWordsModel
 
@@ -54,6 +54,6 @@ def make_BoW(dN):
 
 def make_matrix(BoW_M, d):
     texts_BoW = BoW_M.transform(d['Preprocessed_text'])
-    
-    print(texts_BoW)
+    # response = texts_BoW.get_feature_names()
+    # print(response)
     return texts_BoW
