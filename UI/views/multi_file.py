@@ -5,11 +5,11 @@ import pandas as pd
 import tools.extra_functions
 
 
-def upload_file(folderpath='/home/jules/Documentos/Personal/Sentiment_analyzer/Data'):
+def upload_file(folderpath='/home/jules/Documentos/Personal/TFG/Data'):
     main_dict = {}
     st.title("Choose a file:")
     input_file = st.file_uploader("", type="csv")
-    subir = st.form_submit_button('Upload')
+    subir = st.button('Upload')
 
     if (subir == True and input_file is None):
         st.error("You must select a file ")
@@ -21,23 +21,27 @@ def upload_file(folderpath='/home/jules/Documentos/Personal/Sentiment_analyzer/D
         return arch
 
 
-def open_csv(csv_path):
-    # csv_path = tools.extra_functions.load("path_df.json",'path_upload_file')
+def open_csv():
+    csv_path = tools.extra_functions.load("path_df.json",'path_upload_file')
 
     if(csv_path is not None):
         df = pd.read_csv(csv_path)
         st.write(df)
         columns = df.columns
-        option = st.selectbox('How would you like to be contacted?', (columns))
+        print(type(columns))
+        option = st.selectbox('Choose a column to analyze', (columns))
+        
         st.write('You selected:', option)
+        lista = df[option].tolist()
+        for i in lista[0:9]:
+            text_analysis.output_text(i)
     else:
         st.warning("Dont data")
 
 
-def form():
-    with st.form("my_form"):
-        
-        open_csv(upload_file())
-    st.write("Outside the form")
+
 def write():
-    form()
+    upload_file()        
+    open_csv()
+    
+    

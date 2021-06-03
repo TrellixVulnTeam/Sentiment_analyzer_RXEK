@@ -28,7 +28,8 @@ def option():
 def output_text(input_text):
 
     word = input_text.split(' ')
-    p = ['negro', 'racismo']
+    
+    p = ['Cook', 'woman','shit']
     list_of_strings_ands_tuples = []
     for i in word:
 
@@ -42,8 +43,12 @@ def output_text(input_text):
             print(list_of_strings_ands_tuples) 
     annotated_text(*list_of_strings_ands_tuples)
 
-
+def clear_data():
+    open('/home/jules/Documentos/Personal/TFG/memory/path_df.json','w').close
+   
 def write():
+
+    clear_data()
     input_t = type_itext()
     option()
     output_text(input_t)
