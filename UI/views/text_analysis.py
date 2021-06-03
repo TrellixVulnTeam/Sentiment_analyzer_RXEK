@@ -33,13 +33,13 @@ def output_text(input_text):
     for i in word:
 
         if(i in p):
-            tuple1 = (i, "", "rgb(255, 228, 51)")
-            list_of_strings_ands_tuples.append(tuple1)
-            list_of_strings_ands_tuples.append(' ')
+            tuple1 = (i, "", "rgb(248, 239, 195)")
+            list_of_strings_ands_tuples.append(tuple1)                   
         else:
-            list_of_strings_ands_tuples.append(i)
-            print(list_of_strings_ands_tuples)
-            list_of_strings_ands_tuples.append(' ')
+            tuple2 = (i, "", "rgb(234, 234, 234)")
+            
+            list_of_strings_ands_tuples.append(tuple2)
+            print(list_of_strings_ands_tuples) 
     annotated_text(*list_of_strings_ands_tuples)
 
 

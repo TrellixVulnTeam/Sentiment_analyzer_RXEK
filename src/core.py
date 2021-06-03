@@ -37,15 +37,8 @@ def make_tokenization(d):
 
 
 def make_BoW(dN):
-    
-   
     bagOfWordsModel = TfidfVectorizer()
-    
     bagOfWordsModel.fit(dN['Preprocessed_text'])
-
-    
-   
-
     return bagOfWordsModel
 
 
@@ -54,6 +47,4 @@ def make_BoW(dN):
 
 def make_matrix(BoW_M, d):
     texts_BoW = BoW_M.transform(d['Preprocessed_text'])
-    # response = texts_BoW.get_feature_names()
-    # print(response)
     return texts_BoW

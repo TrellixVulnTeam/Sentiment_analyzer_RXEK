@@ -5,13 +5,11 @@ from sklearn import svm
 from sklearn.calibration import CalibratedClassifierCV
 import marshal
 import json
+import tools.extra_functions
 
 def create_File(response):
-    with open('/home/jules/Documentos/Personal/TFG/memory/path.json') as json_file:
-        data = json.load(json_file)
-        path_f=str(data['full_path'])
-        print(path_f)
-    fileOut = open(path_f, "bw")
+    path_file = tools.extra_functions.load('full_path')
+    fileOut = open(path_file, "bw")
     marshal.dump(response, fileOut)
     fileOut.close()
 
@@ -24,17 +22,12 @@ def training_part_algorithm(DF,num):
 
     # Tokenizamos y creamos la bolsa de palabras y los terminos de frecuencia del DataSet de entrenamiento
     m_tokenization = core.make_tokenization(training_data)
-
     BoWMethod = core.make_BoW(m_tokenization)
-
     m_matrix = core.make_matrix(BoWMethod, m_tokenization)
 
     # Definimos el tipo de kernel
     svc = svm.SVC()
-
     clf = CalibratedClassifierCV(svc)
-
-
     X_train = m_matrix
     Y_train = training_data['oh_label']
 
@@ -42,9 +35,7 @@ def training_part_algorithm(DF,num):
 
     clf.fit(X_train, Y_train)
     BoW_names = BoWMethod.get_feature_names()
-
     create_File(BoW_names)
-
     return BoWMethod
 
 
