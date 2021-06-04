@@ -1,5 +1,4 @@
 import streamlit as st
-
 from annotated_text import annotated_text
 # styles
 
@@ -28,24 +27,28 @@ def option():
 def output_text(input_text):
 
     word = input_text.split(' ')
-    
-    p = ['Cook', 'woman','shit']
+
+    p = ['Cook', 'woman', 'shit']
     list_of_strings_ands_tuples = []
+
     for i in word:
 
         if(i in p):
             tuple1 = (i, "", "rgb(248, 239, 195)")
-            list_of_strings_ands_tuples.append(tuple1)                   
+            list_of_strings_ands_tuples.append(tuple1)
         else:
-            tuple2 = (i, "", "rgb(234, 234, 234)")
-            
+            tuple2 = (i, "", "", "rgb(193, 193, 193)")
+
             list_of_strings_ands_tuples.append(tuple2)
-            print(list_of_strings_ands_tuples) 
+
     annotated_text(*list_of_strings_ands_tuples)
+    print(list_of_strings_ands_tuples)
+
 
 def clear_data():
-    open('/home/jules/Documentos/Personal/TFG/memory/path_df.json','w').close
-   
+    open('/home/jules/Documentos/Personal/Sentiment_analyzer/memory/path_df.json', 'w').close
+
+
 def write():
 
     clear_data()

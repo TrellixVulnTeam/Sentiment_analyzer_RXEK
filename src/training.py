@@ -8,7 +8,7 @@ import json
 import tools.extra_functions
 
 def create_File(response):
-    path_file = '/home/jules/Documentos/Personal/TFG/Serialized/sexism.'
+    path_file = '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialiced.'
     fileOut = open(path_file, "bw")
     marshal.dump(response, fileOut)
     fileOut.close()

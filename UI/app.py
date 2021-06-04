@@ -21,7 +21,7 @@ PAGES = {
 
 
 def sidebar():
-   st.sidebar.title("Choose a option")
+   
    selection = st.sidebar.radio("",list(PAGES.keys()))
    page = PAGES[selection]
    page.write()
