@@ -4,29 +4,31 @@ from sklearn.metrics import classification_report
 from sklearn import svm
 from sklearn.calibration import CalibratedClassifierCV
 import marshal
-import json
-import tools.extra_functions
+import joblib
 
-def create_File(response):
-    path_file = '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialiced.'
+def create_File(BoW):
+    path_file = '/home/jules/Documentos/Personal/TFG/Serialized/Racism.dat'
     fileOut = open(path_file, "bw")
-    marshal.dump(response, fileOut)
+    marshal.dump(BoW, fileOut)
     fileOut.close()
 
-def training_part_algorithm(DF,num):
-    training_data = pd.read_csv(DF)
-    print(num)
+def training_part_algorithm():
+    training_data = pd.read_csv('/home/jules/Documentos/Personal/TFG/Data/twitter_racism_parsed_dataset.csv')
+    
     # Se divide el Dataframe en 80-20
-    part_training = int(len(training_data)*num)
+    part_training = int(len(training_data)*0.8)
     training_data = training_data.iloc[0:part_training]
 
     # Tokenizamos y creamos la bolsa de palabras y los terminos de frecuencia del DataSet de entrenamiento
     m_tokenization = core.make_tokenization(training_data)
     BoWMethod = core.make_BoW(m_tokenization)
+    print(BoWMethod)
     m_matrix = core.make_matrix(BoWMethod, m_tokenization)
 
     # Definimos el tipo de kernel
     svc = svm.SVC()
+    # saved = joblib.dump(svc,'fielname.pkl')
+    
     clf = CalibratedClassifierCV(svc)
     X_train = m_matrix
     Y_train = training_data['oh_label']
@@ -34,11 +36,10 @@ def training_part_algorithm(DF,num):
     # Entrenamos
 
     clf.fit(X_train, Y_train)
-    BoW_names = BoWMethod.get_feature_names()
-    create_File(BoW_names)
+    # BoW_names = BoWMethod.get_feature_names()
+    # create_File(BoW_names)
     return BoWMethod
-
-
+training_part_algorithm()
 #-----------------------------------------------------------#
 
 
