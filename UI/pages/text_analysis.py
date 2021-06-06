@@ -30,8 +30,9 @@ def option():
     machism = tipo[1].checkbox('Sexism', key="m")
     bullying = tipo[2].checkbox('Bullying', key="b")
     analysis = tipo[3].button(label="Analysis")
-
+   
     if(racismo == True):
+        
         return True
 
 
@@ -44,5 +45,6 @@ def write():
 
     clear_data()
     div_size()
-    input_t = type_itext()    
+    input_t = type_itext()
+        
     underline_text.output_text(option(),input_t,"rgb(248, 239, 195)")

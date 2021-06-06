@@ -20,7 +20,7 @@ def make_tokenization(d):
     data_processed = []
     for row in d.itertuples():
         stop_words = set(stopwords.words("english"))
-        text = word_tokenize(row[3])
+        text = word_tokenize(row[3])#solucionar
 
         text = [ps.stem(w)
                 for w in text if not w in stop_words and w.isalnum()]
