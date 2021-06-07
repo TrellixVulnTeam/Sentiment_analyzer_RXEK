@@ -4,8 +4,8 @@ sys.path.append('/home/jules/Documentos/Personal/TFG/src/tools')
 
 sys.path.append('/home/jules/Documentos/Personal/TFG/UI/pages/views')
 import underline_text
-
-
+sys.path.append('/home/jules/Documentos/Personal/TFG/src')
+import training
 # styles
 def div_size():
     f = open('/home/jules/Documentos/Personal/TFG/memory/size.txt','w')
@@ -18,8 +18,11 @@ def type_itext():
     __, __, __, __, __, __, __, col_button = st.beta_columns(8)
     with col_button:
         enviar = st.button('Send')
+        print(enviar)
     texto_entrada = st.text_area(label="", value="", key="input", height=250)
-
+    if(enviar == True and texto_entrada is not None ):
+        s = training.classifier(texto_entrada)
+        st.write(s)
     return texto_entrada
 
 
