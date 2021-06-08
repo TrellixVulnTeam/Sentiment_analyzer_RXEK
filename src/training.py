@@ -6,6 +6,7 @@ from sklearn.calibration import CalibratedClassifierCV
 import marshal
 import joblib
 import streamlit as st
+import json 
 def create_File(BoW):
     path_file = '/home/jules/Documentos/Personal/TFG/Serialized/binary/Racism.dat'
     fileOut = open(path_file, "bw")
@@ -68,7 +69,17 @@ def classifier(text):
     clf = joblib.load('/home/jules/Documentos/Personal/TFG/Serialized/plk/classifiers/racism_clf_.pkl') 
 
     cla = clf.predict_proba(X_test)
-    return cla
+  
+    for i in cla:
+        
+        lista = i.tolist()
+        with open("/home/jules/Documentos/Personal/TFG/R.txt", 'w') as filehandle:
+            json.dump(lista, filehandle)
+       
+        
+    
+        
+    return lista
    
 
 # def test_part_algortihm():
