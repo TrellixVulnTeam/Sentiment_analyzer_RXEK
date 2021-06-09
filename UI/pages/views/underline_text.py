@@ -1,8 +1,8 @@
 from annotated_text import annotated_text   
 import sys
-
-sys.path.append('/home/jules/Documentos/Personal/TFG/src/tools')
+sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/tools')
 import read_file
+
 def output_text(flag,input_text,color_p):
    
     print(flag)
@@ -10,6 +10,7 @@ def output_text(flag,input_text,color_p):
     text_color(flag,word,color_p)
 
 def text_color(flag,lista,color_p):
+    
     p = read_file.deserialize_file()
     color_p = str(color_p)
     if(flag == True):

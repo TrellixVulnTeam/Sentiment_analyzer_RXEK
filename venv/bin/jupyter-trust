@@ -1,4 +1,4 @@
-#!/home/jules/Documentos/Personal/TFG/venv/bin/python3
+#!/home/jules/Documentos/Personal/Sentiment_analyzer/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

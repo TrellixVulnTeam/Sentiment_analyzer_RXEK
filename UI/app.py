@@ -6,7 +6,6 @@ import sys
 import numpy as np
 
 sys.path.append('../src')
-import core
 
 import pages.text_analysis
 import pages.multi_file
