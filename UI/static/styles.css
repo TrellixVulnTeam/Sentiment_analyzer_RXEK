@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Nav bar menu  */
+nav {
+  background: #222;
+  padding: 5px 10px;
+  
+}
+ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+}
+li a {
+  color: #fff;
+  padding: 16px 16px;
+  text-align: center;
+  text-decoration: none;
+ 
+  
+}
+li a:hover {
+  background-color: #565342;
+}
+.menu li {
+  font-size: 16px;
+  padding: 15px 5px;
+  
+}
