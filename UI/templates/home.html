@@ -1,16 +1,53 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Welcome</title>
-    <link rel="stylesheet" href="{{url_for("static",filename="styles.css")}}">
-  </head>
-  <body>
-    <nav id= "nav_menu">
-      <ul class="menu">
-        <li><a href=""> Home</a></li>
-        <li><a href=""> Text Analyzer</a></li>
-        <li><a href="">Document Analyzer</a></li>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome</title>
+  <link rel="stylesheet" href="{{url_for("static",filename="styles.css")}}">
+</head>
+
+<body>
+  <nav id="nav_menu">
+    <ul class="menu">
+      <li><a href=""> Home</a></li>
+      <li><a href=""> Text Analyzer</a></li>
+      <li><a href="">Document Analyzer</a></li>
+      <li><a href="">Twitter Analyzer</a></li>
+    </ul>
+  </nav>
+  <div id="principal_tt">
+
+    <div id="header_tt">
+      <h2>Type a text to analyze:</h2>
+
+    </div>
+    <div id="formulario">
+      <form action="/" method="post">
+        <div id="button_send">
+          <button type="submit" class="boton">Submit</button>
+        </div>
+        <textarea name="text_area" id="input_text" cols="100" rows="16"></textarea>
+
+    </div>
+    <div id="selectores">
+      <ul>
+        <li><label><input type="checkbox" id="racism" value="racismo"> Racism</label></li>
+        <li><label><input type="checkbox" id="sexism" value="sexism"> Sexism</label></li>
+        <li><label><input type="checkbox" id="bullying" value="bullying"> Bullying</label></li>
+
       </ul>
-    </nav>
-  </body>
+      <div id="button_analyze">
+        <button type="button" class="boton">Analysis</button>
+      </div>
+    </div>
+  
+  </form>
+  </div>
+
+  <div id="salida">
+    <h2>Salida</h2>
+    <div>{{resultado}}</div>
+  </div>
+</body>
+
 </html>
