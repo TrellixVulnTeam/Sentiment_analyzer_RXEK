@@ -31,7 +31,7 @@
     </div>
     <div id="selectores">
       <ul>
-        <li><label><input type="checkbox" id="racism" value="racismo"> Racism</label></li>
+        <li><label><input type="checkbox" name ="racism" id="racism" value="racismo"> Racism</label></li>
         <li><label><input type="checkbox" id="sexism" value="sexism"> Sexism</label></li>
         <li><label><input type="checkbox" id="bullying" value="bullying"> Bullying</label></li>
 
@@ -43,11 +43,16 @@
   
   </form>
   </div>
-
+  
   <div id="salida">
-    <h2>Salida</h2>
-    <div>{{resultado}}</div>
+    <h2 id="h">Salida</h2>
+    <div>     
+      {%for i in resultado%}          
+            {{i}}         
+      {% endfor %}          
+    </div>
   </div>
+  
 </body>
 
 </html>
