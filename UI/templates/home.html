@@ -24,7 +24,7 @@
     <div id="formulario">
       <form action="/" method="post">
         <div id="button_send">
-          <button type="submit" class="boton">Submit</button>
+          <button type="submit" id="btn-send">Submit</button>
         </div>
         <textarea name="text_area" id="input_text" cols="100" rows="16"></textarea>
 
@@ -37,7 +37,7 @@
 
       </ul>
       <div id="button_analyze">
-        <button type="button" class="boton">Analysis</button>
+        <button type="button" id="analysis" class="boton">Analysis</button>
       </div>
     </div>
   
@@ -51,9 +51,9 @@
             {{i}}         
       {% endfor %}          
     </div>
-    
+    <div id="grafico"></div>
   </div>
   
 </body>
-
+<script type="text/javascript" src="{{url_for("static",filename="functions.js")}}"></script>
 </html>

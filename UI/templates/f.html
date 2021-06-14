@@ -22,7 +22,7 @@
 
         </div>
         <div id="formulario">
-            <form action="/" method="post">
+            <form action="/file-analysis" method="post">
                 <div id="button_send">
                     <button type="submit" class="boton">Submit</button>
                 </div>
@@ -43,17 +43,30 @@
             </div>
         </div>
 
-        </form>
+       
     </div>
-    <div>
+    <div id="dataframe">
            
         {{respuesta}}
         
     </div>
+    <div>
+        <select name="columns" id="columns">   
+        {%for i in seleccion%}
+        <option value={{i}}>{{i}}</option>  
+        {%endfor%}
+        </select>
+        
+    </div>
+</form>
     <div id="salida">
         <h2 id="h">Salida</h2>
-      
-
+        <div>     
+            {%for i in res%}          
+                  {{i}}
+                          
+            {% endfor %}        
+          </div>
     </div>
 
 </body>

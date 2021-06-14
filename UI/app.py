@@ -21,7 +21,12 @@ def home():
 
 @app.route("/file-analysis",methods=["GET","POST"])
 def file_analysis():
-    df = ''
-    df = at.dataframe()
-    
-    return render_template('f.html',respuesta = Markup(df))
+    name = ''
+    a = ''
+    if(request.method=='POST'):
+        name=request.form.get('columns',"")
+        a = at.procesed_csv(name)
+
+
+ 
+    return render_template('f.html',respuesta = Markup(at.dataframe_show()),seleccion =at.d(),res = a)
