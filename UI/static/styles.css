@@ -3,12 +3,15 @@
   padding: 0;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
- 
+
 }
-body{
+
+body {
   width: 100%;
   height: 100%;
+  background-color: #e3e3e3;
 }
+
 /* -------------------------------------------------------------------------------------- */
 
 /* Nav bar menu  */
@@ -35,6 +38,7 @@ nav li a {
 li a:hover {
   background-color: #3c3f42;
 }
+
 /* -------------------------------------------------------------------------------------- */
 /* Text area */
 
@@ -49,88 +53,105 @@ li a:hover {
   margin-left: 510px;
 }
 
-#btn-send{
+#btn-send {
   padding: 8px;
   width: 80px;
   height: 40px;
-  background-color:#34a853 ;
+  background-color: #34a853;
   color: white;
   font-size: 14px;
-  border-radius: 8px;
+  border-radius: 20px;
 }
+
 #formulario {
   margin: auto;
 }
 
-#input_text{
+#input_text {
   border-color: #C4C0AE;
-  border-radius: 8px;
+  border-radius: 14px;
   padding: 4px;
   font-size: 17px;
-  
+  -webkit-box-shadow: 1px 10px 30px 18px rgba(209, 208, 213, 1);
+  -moz-box-shadow: 1px 10px 30px 18px rgba(209, 208, 213, 1);
+  box-shadow: 1px 10px 30px 18px rgba(209, 208, 213, 1);
+  resize: none;
 }
 
 #selectores {
-  margin-top: 20px;
+  margin-top: 40px;
   display: flex;
   flex-direction: row;
   padding-left: 520px;
- 
- 
+
+
 }
 
-#selectores ul{
+#selectores ul {
   list-style-type: none;
   display: flex;
   flex-direction: row;
 }
 
-#selectores ul li{
+#selectores ul li {
   padding: 10px;
   margin-right: 20px;
- 
-}
-#selectores ul li:hover{
-  background-color: bisque;
- 
+
 }
 
-.boton{
+#selectores ul li:hover {
+  background-color: bisque;
+
+}
+
+.boton {
   padding: 10px;
   border-radius: 6px;
- 
- 
+
+
 }
-#button_send{
+
+#button_send {
   padding-left: 750px;
   margin-bottom: 15px;
 }
 
-#salida{
+#salida {
   margin-top: 10px;
-  border: 1px solid;
+  border: 1px;
+  border-color: #C4C0AE;
   width: 630px;
+  height: 100px;
   margin-left: 500px;
+  background-color: #FFF;
+  border-radius: 14px;
+  padding: 6px;
 }
-#h{
+
+#h {
   margin-bottom: 10px;
 }
-.color{
+
+.color {
   background-color: #F9DD42;
   font-size: 16px;
 }
-.no-color{
+
+.no-color {
   color: gray;
   font-size: 16px;
 }
 
 /*  dataframe */
-.dataframe{
+.dataframe {
   border-collapse: collapse;
 }
-th{
-  background-color:#F2EFE4 ;
+
+th {
+  background-color: #F2EFE4;
 }
-td,th{
+
+td,
+th {
   padding: 4px;
 }
