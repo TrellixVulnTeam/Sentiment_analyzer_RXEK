@@ -17,21 +17,23 @@
   </nav>
   <div id="principal_tt">
 
-    <div id="header_tt">
-      <h2>Type a text to analyze:</h2>
 
-    </div>
     <div id="formulario">
+      <div id="header_tt">
+        <h2>Type a text to analyze:</h2>
+
+      </div>
+
       <form action="/" method="post">
-        <div id="button_send">
-          <button type="submit" id="btn-send">Submit</button>
-        </div>
-        <textarea name="text_area" id="input_text" cols="100" rows="16"></textarea>
+
+        <textarea name="text_area" id="input_text" cols="85" rows="16"></textarea>
 
     </div>
+    <button type="submit" id="btn-send"></button>
     <div id="selectores">
       <ul>
-        <li><label><input type="checkbox" name ="racism" id="racism" value="racismo"> Racism</label></li>
+        <label class="switch"><input type="checkbox"><span class="slider round"></span>
+        </label>
         <li><label><input type="checkbox" id="sexism" value="sexism"> Sexism</label></li>
         <li><label><input type="checkbox" id="bullying" value="bullying"> Bullying</label></li>
 
@@ -40,20 +42,22 @@
         <button type="button" id="analysis" class="boton">Analysis</button>
       </div>
     </div>
-  
-  </form>
-  </div>
-  
-  <div >
+
+    </form>
     <h2 id="h">Salida</h2>
-    <div id="salida">     
-      {%for i in resultado%}          
-            {{i}}         
-      {% endfor %}          
+    <div id="salida">
+
+      <div>
+        {%for i in resultado%}
+        {{i}}
+        {% endfor %}
+      </div>
+
     </div>
-    <div id="grafico"></div>
   </div>
-  
+
+
 </body>
 <script type="text/javascript" src="{{url_for("static",filename="functions.js")}}"></script>
+
 </html>
