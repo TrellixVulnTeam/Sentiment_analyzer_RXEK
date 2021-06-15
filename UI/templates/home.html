@@ -4,10 +4,13 @@
   <meta charset="UTF-8" />
   <title>Welcome</title>
   <link rel="stylesheet" href="{{url_for("static",filename="styles.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="header.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="content.css")}}">
 </head>
 
 <body>
-  <nav id="nav_menu">
+  <header>
+  <nav >
     <ul class="menu">
       <li><a href=""> Home</a></li>
       <li><a href=""> Text Analyzer</a></li>
@@ -15,48 +18,41 @@
       <li><a href="">Twitter Analyzer</a></li>
     </ul>
   </nav>
-  <div id="principal_tt">
-
+  </header>
+ <!--Estructura-->
+<div id="principal">
+  <div id="p">
+    <h2>Type Text to Analyze</h2>
 
     <div id="formulario">
-      <div id="header_tt">
-        <h2>Type a text to analyze:</h2>
-
-      </div>
-
+    
       <form action="/" method="post">
-
-        <textarea name="text_area" id="input_text" cols="85" rows="16"></textarea>
-
-    </div>
-    <button type="submit" id="btn-send"></button>
-    <div id="selectores">
-      <ul>
-        <label class="switch"><input type="checkbox"><span class="slider round"></span>
-        </label>
-        <li><label><input type="checkbox" id="sexism" value="sexism"> Sexism</label></li>
-        <li><label><input type="checkbox" id="bullying" value="bullying"> Bullying</label></li>
-
-      </ul>
-      <div id="button_analyze">
-        <button type="button" id="analysis" class="boton">Analysis</button>
+        <div id="fusion">
+        <div id="txt_area">
+          <textarea name="text_area" id="input_text" cols="90" rows="16"></textarea>
+        </div>
+        <div id="boton">
+        
+           <button type="submit" id="btn-send"></button>
+        </div>
       </div>
-    </div>
-
-    </form>
-    <h2 id="h">Salida</h2>
-    <div id="salida">
-
-      <div>
-        {%for i in resultado%}
-        {{i}}
-        {% endfor %}
+      <div id="selectores">
+        <ul>
+          <li>Racism<label class="switch"><input type="checkbox"><span class="slider round"></span></label></li>
+          <li>Sexism<label class="switch"><input type="checkbox"><span class="slider round"></span></label></li>
+          <li>Bullying<label class="switch"><input type="checkbox"><span class="slider round"></span></label></li>
+          <link rel="stylesheet" href="{{url_for("static",filename="botones.css")}}">
+        </ul>
+        <div id="button_analyze">
+          <button type="button" id="analysis" class="boton">Analysis</button>
+        </div>
       </div>
 
-    </div>
+      </form>  
   </div>
 
-
+</div>
+</div>
 </body>
 <script type="text/javascript" src="{{url_for("static",filename="functions.js")}}"></script>
 
