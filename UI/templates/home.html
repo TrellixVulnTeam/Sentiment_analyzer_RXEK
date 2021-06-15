@@ -6,53 +6,69 @@
   <link rel="stylesheet" href="{{url_for("static",filename="styles.css")}}">
   <link rel="stylesheet" href="{{url_for("static",filename="header.css")}}">
   <link rel="stylesheet" href="{{url_for("static",filename="content.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="botones.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="annotated.css")}}">
 </head>
 
 <body>
   <header>
-  <nav >
-    <ul class="menu">
-      <li><a href=""> Home</a></li>
-      <li><a href=""> Text Analyzer</a></li>
-      <li><a href="">Document Analyzer</a></li>
-      <li><a href="">Twitter Analyzer</a></li>
-    </ul>
-  </nav>
+    <nav>
+      <ul class="menu">
+        <li><a href=""> Home</a></li>
+        <li><a href=""> Text Analyzer</a></li>
+        <li><a href="">Document Analyzer</a></li>
+        <li><a href="">Twitter Analyzer</a></li>
+      </ul>
+    </nav>
   </header>
- <!--Estructura-->
-<div id="principal">
-  <div id="p">
-    <h2>Type Text to Analyze</h2>
+  <!--Estructura-->
+  <div id="principal">
+    <div id="p">
+      <h2>Type Text to Analyze</h2>
 
-    <div id="formulario">
-    
-      <form action="/" method="post">
-        <div id="fusion">
-        <div id="txt_area">
-          <textarea name="text_area" id="input_text" cols="90" rows="16"></textarea>
-        </div>
-        <div id="boton">
-        
-           <button type="submit" id="btn-send"></button>
+      <div id="formulario">
+
+        <form action="/" method="post">
+          <div id="fusion">
+            <div id="txt_area">
+              <textarea name="text_area" id="input_text" cols="90" rows="16"></textarea>
+            </div>
+            <div id="boton">
+
+              <button type="submit" id="btn-send"></button>
+            </div>
+          </div>
+          <div id="selectores">
+
+            <label class="nombre">Racism</label><label class="switch"><input type="checkbox"><span
+                class="slider round"></span></label>
+            <label class="nombre">Sexism</label><label class="switch"><input type="checkbox"><span
+                class="slider round"></span></label>
+            <label class="nombre">Bullying</label><label class="switch"><input type="checkbox"><span
+                class="slider round"></span></label>
+
+
+            <div id="button_analyze">
+              <button type="button" id="analysis">Analysis</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div id="h2-output">
+        <h2>Results:</h2>
+      </div>
+      <div id="output">
+        <div>
+          {%for i in resultado%}
+          {{i}}
+          {% endfor %}
         </div>
       </div>
-      <div id="selectores">
-        <ul>
-          <li>Racism<label class="switch"><input type="checkbox"><span class="slider round"></span></label></li>
-          <li>Sexism<label class="switch"><input type="checkbox"><span class="slider round"></span></label></li>
-          <li>Bullying<label class="switch"><input type="checkbox"><span class="slider round"></span></label></li>
-          <link rel="stylesheet" href="{{url_for("static",filename="botones.css")}}">
-        </ul>
-        <div id="button_analyze">
-          <button type="button" id="analysis" class="boton">Analysis</button>
-        </div>
-      </div>
 
-      </form>  
+    </div>
+
   </div>
-
-</div>
-</div>
 </body>
 <script type="text/javascript" src="{{url_for("static",filename="functions.js")}}"></script>
 
