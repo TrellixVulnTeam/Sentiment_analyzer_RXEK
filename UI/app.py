@@ -6,8 +6,11 @@ import annotated_text as at
 from flask import Markup
 app = Flask(__name__)
 
-@app.route("/",methods=["GET","POST"])
+@app.route("/")
 def home():
+    return render_template('home.html')
+@app.route("/text-analysis",methods=["GET","POST"])
+def text_analysis():
     txt_area =''
     a = ''
  
@@ -17,7 +20,7 @@ def home():
         a = at.procesed_text(txt_area)
        
         
-    return render_template('home.html',resultado = a)
+    return render_template('text-analysis.html',resultado = a)
 
 @app.route("/file-analysis",methods=["GET","POST"])
 def file_analysis():
@@ -29,4 +32,4 @@ def file_analysis():
 
 
  
-    return render_template('f.html',respuesta = Markup(at.dataframe_show()),seleccion =at.d(),res = a)
+    return render_template('file-analysis.html',respuesta = Markup(at.dataframe_show()),seleccion =at.d(),res = a)

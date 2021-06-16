@@ -1,5 +1,12 @@
+
+var b = document.getElementById("racism");
+b.addEventListener('click', modifyText, false)
 function modifyText() {
-    alert("hola")
+  if (b.checked == true) {
+    alert('ejecutado')
   }
-var b = document.getElementById("analysis");
-b.addEventListener('click',modifyText,false)
+
+
+}
+
+

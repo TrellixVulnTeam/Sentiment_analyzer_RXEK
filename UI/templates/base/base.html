@@ -1,0 +1,30 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome</title>
+  <link rel="stylesheet" href="{{url_for("static",filename="styles.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="header.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="content.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="botones.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="annotated.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="input-file.css")}}">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul class="menu">
+        <li><a href="/"> Home</a></li>
+        <li><a href="text-analysis"> Text Analyzer</a></li>
+        <li><a href="file-analysis">Document Analyzer</a></li>
+        <li><a href="">Twitter Analyzer</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!--Estructura-->
+  {%block content%}
+  {%endblock%}
+</body>
+
+</html>
