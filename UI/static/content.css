@@ -14,20 +14,24 @@
 }
 
 #formulario {
+ 
   padding-top: 20px;  
-  
+
+  width: 95%;
 }
 
-#fusion {
 
+#fusion {
+  
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 95%;
+  width: 100%;
 
 }
 
 #boton {
+  margin-left: 30px;
   width: 120px;
   height: 50px;
   margin-top: 285px;
@@ -70,6 +74,15 @@
   outline: none;
 
 }
+#botones{
+  margin-top: 40px;
+  display: flex;
+  flex-flow: row wrap;
+ 
+  width: 926px;
+  vertical-align: bottom;
+  align-items: flex-end;
+}
 #selectores  {
   background:#fff ;
   margin-top: 40px;
@@ -77,7 +90,7 @@
   display: flex;
   flex-flow: row wrap;
   border: 1px solid rgb(202, 202, 202);
-  width: 926px;
+  width: 426px;
   border-radius: 14px;
 }
 #h2-output{
@@ -96,3 +109,5 @@
   -moz-box-shadow: 1px 10px 30px 18px rgb(35, 14, 119);
   box-shadow: 1px 10px 30px 18px rgba(209, 208, 213, 1);
 }
+
+

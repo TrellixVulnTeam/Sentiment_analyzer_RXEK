@@ -73,9 +73,19 @@ input:checked+.slider:before {
   padding: 6px;
 
 }
-#button_analyze{
-padding-left: 29px;
+
+#button_analyze {
+  margin-left: 40px;
+  display: flex;
+  border: 1px solid rgb(202, 202, 202);
+  border-radius: 14px;
+  width: 180px;
+  height: 60px;
+  background-color: #ffff;
+  align-items: center;
+  justify-content: center;
 }
+
 #analysis {
   color: #02bb8c;
   border: 1px solid #02bb8c;
