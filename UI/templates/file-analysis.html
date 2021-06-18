@@ -1,24 +1,30 @@
 {%extends 'base/base.html'%}
 
- <!--Estructura-->
-  {%block content%}
-  <div id="principal">
-    <div id="p">
-      <h2>Choose a file to Analyze</h2>
+<!--Estructura-->
+{%block content%}
+<div id="principal">
+  <div id="p">
+    <h2>Choose a file to Analyze</h2>
 
-      <div id="formulario">
+    <div id="formulario">
 
-        <form action="/" method="post">
-          <div id="fusion">
-            <div id="input_file">
-             <input type="file" name="csv" id="i_csv">
-            </div>
-            <div id="boton">
+      <form action="/" method="post" class="uploader">
+        <div id="fusion">
+
+          <input type="file" name="csv" id="i_csv">
+          <label for="i_csv" id="file-drag">
+            <div id="start">
+              <i class="fas fa-download" aria-hidden="true"></i>
+              <div id="text_file">Select a file or drag here</div>
+              <span id="file-upload-btn"> Select a file</span>
+              <span id="name_f"></span>
+          </label>
+          <!-- <div id="boton">
 
               <button type="submit" id="btn-upload">BUTON</button>
-            </div>
-          </div>
-          <div id="botones">
+            </div> -->
+        </div>
+        <!-- <div id="botones">
             <div id="selectores">
     
               <label class="nombre">Racism</label><label class="switch"><input id ="racism" type="checkbox"><span
@@ -34,21 +40,22 @@
             <div id="button_analyze">
               <button type="button" id="analysis">Analysis</button>
             </div>
-          </div>
-        </form>
+          </div> -->
+      </form>
 
-      </div>
+    </div>
 
-      <div id="h2-output">
+    <!-- <div id="h2-output">
         <h2>Results:</h2>
       </div>
       <div id="output">
         <div>
          
         </div>
-      </div>
-      
-    </div>
+      </div> -->
 
   </div>
-  {%endblock%}
+
+</div>
+
+{%endblock%}

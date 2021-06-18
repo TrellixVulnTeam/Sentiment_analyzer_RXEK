@@ -1,12 +1,7 @@
 
-var b = document.getElementById("racism");
-b.addEventListener('click', modifyText, false)
-function modifyText() {
-  if (b.checked == true) {
-    alert('ejecutado')
+function checkFiles(){
+  if(document.getElementById("i_csv").files.length != 0){
+      document.getElementById("name_f").innerHTML("HOLA")
   }
-
-
 }
-
 

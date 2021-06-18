@@ -1,5 +1,52 @@
-#input_file{
-    width: 926px;
-    height: 150px;
-    background-color: #ffff;
+#i_csv {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#file-drag {
+    font-size: 14px;
+    width: 600px;
+    height: 220px;
+    border: 3px solid #eee;
+    border-radius: 14px;
+    background: #fff;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+
+}
+#file-drag:hover {
+   
+    border: 3px solid #454cad;
+    
+
+}
+
+#start {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    
+}
+
+.fa-download {
+    padding: 2px;
+    font-size: 24px;
+}
+
+#text_file {
+    padding: 10px;
+}
+#file-upload-btn{
+    background: #02bb8c;
+    font-size: 15px;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
 }
