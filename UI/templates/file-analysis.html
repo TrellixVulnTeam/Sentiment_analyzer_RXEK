@@ -7,23 +7,26 @@
     <h2>Choose a file to Analyze</h2>
 
     <div id="formulario">
-
       <form action="/" method="post" class="uploader">
         <div id="fusion">
-
-          <input type="file" name="csv" id="i_csv">
+          <input type="file" name="csv" id="i_csv" />
           <label for="i_csv" id="file-drag">
             <div id="start">
               <i class="fas fa-download" aria-hidden="true"></i>
               <div id="text_file">Select a file or drag here</div>
               <span id="file-upload-btn"> Select a file</span>
+            </div>
+            <div id="hdn" style="display: none;"> 
+              <span id="img"></span>
               <span id="name_f"></span>
+            </div>
           </label>
           <!-- <div id="boton">
 
               <button type="submit" id="btn-upload">BUTON</button>
             </div> -->
         </div>
+        
         <!-- <div id="botones">
             <div id="selectores">
     
@@ -42,7 +45,6 @@
             </div>
           </div> -->
       </form>
-
     </div>
 
     <!-- <div id="h2-output">
@@ -53,9 +55,7 @@
          
         </div>
       </div> -->
-
   </div>
-
 </div>
 
 {%endblock%}

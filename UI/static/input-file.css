@@ -33,6 +33,13 @@
     align-items: center;
     
 }
+#hdn {
+    
+    flex-flow: column wrap;
+    align-items: center;
+    font-size: 18px
+    
+}
 
 .fa-download {
     padding: 2px;
