@@ -7,54 +7,69 @@
     <h2>Choose a file to Analyze</h2>
 
     <div id="formulario">
-      <form action="/" method="post" class="uploader">
-        <div id="fusion">
-          <input type="file" name="csv" id="i_csv" />
+      <form action="/file-analysis" method="post" class="uploader">
+        <div id="secondary">
+          <input
+            type="file"
+            name="files"
+            id="i_csv"
+            accept=".csv,application/pdf"
+          />
           <label for="i_csv" id="file-drag">
             <div id="start">
               <i class="fas fa-download" aria-hidden="true"></i>
               <div id="text_file">Select a file or drag here</div>
               <span id="file-upload-btn"> Select a file</span>
             </div>
-            <div id="hdn" style="display: none;"> 
+            <div id="hdn" style="display: none">
               <span id="img"></span>
               <span id="name_f"></span>
             </div>
           </label>
-          <!-- <div id="boton">
-
-              <button type="submit" id="btn-upload">BUTON</button>
-            </div> -->
+          <div id="boton-fu">
+            <button type="submit" id="btn-send"></button>
+          </div>
         </div>
-        
-        <!-- <div id="botones">
-            <div id="selectores">
-    
-              <label class="nombre">Racism</label><label class="switch"><input id ="racism" type="checkbox"><span
-                  class="slider round"></span></label>
-              <label class="nombre">Sexism</label><label class="switch"><input type="checkbox"><span
-                  class="slider round"></span></label>
-              <label class="nombre">Bullying</label><label class="switch"><input type="checkbox"><span
-                  class="slider round"></span></label>
-    
-            </div>
-    
-    
-            <div id="button_analyze">
-              <button type="button" id="analysis">Analysis</button>
-            </div>
-          </div> -->
+
+        <div id="botones">
+          <div id="selectores">
+            <label class="nombre">Racism</label
+            ><label class="switch"
+              ><input id="racism" type="checkbox" /><span
+                class="slider round"
+              ></span
+            ></label>
+            <label class="nombre">Sexism</label
+            ><label class="switch"
+              ><input type="checkbox" /><span class="slider round"></span
+            ></label>
+            <label class="nombre">Bullying</label
+            ><label class="switch"
+              ><input type="checkbox" /><span class="slider round"></span
+            ></label>
+          </div>
+          <div id="slt-bx">
+            <select name="column">
+              {%for name in seleccion%}
+              <option value="{{name}}">{{name}}</option>
+              {%endfor%}
+            </select>
+          </div>
+
+          <div id="button_analyze">
+            <button type="button" id="analysis">Analysis</button>
+          </div>
+        </div>
       </form>
     </div>
+    <div id="tbl">{{respuesta}}</div>
 
     <!-- <div id="h2-output">
-        <h2>Results:</h2>
-      </div>
-      <div id="output">
-        <div>
-         
-        </div>
-      </div> -->
+      <h2>Results:</h2>
+    </div>
+    <div id="output">
+      <div>{% for i in res %} {{i}} {% endfor %}</div>
+    </div> -->
   </div>
 </div>
 

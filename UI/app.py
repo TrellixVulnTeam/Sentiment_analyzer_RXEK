@@ -18,18 +18,16 @@ def text_analysis():
         txt_area=request.form.get('text_area',"")
         racismo = request.form.get('racism',"")
         a = at.procesed_text(txt_area)
-       
+        print(a )
         
     return render_template('text-analysis.html',resultado = a)
 
 @app.route("/file-analysis",methods=["GET","POST"])
 def file_analysis():
-    name = ''
     a = ''
-    if(request.method=='POST'):
-        name=request.form.get('columns',"")
-        a = at.procesed_csv(name)
+    archivos = ''
+    if(request.method == 'POST'):
+        archivos = request.form.get('files',"")
+        a=at.dataframe_show(archivos)
 
-
- 
-    return render_template('file-analysis.html',respuesta = Markup(at.dataframe_show()),seleccion =at.d(),res = a)
+    return render_template('file-analysis.html',respuesta = Markup(a))

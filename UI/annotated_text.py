@@ -48,10 +48,9 @@ def deserialize_file():
     return dataLoad
 
 
-def dataframe_show():
+def dataframe_show(arc):
    
-    df = pd.read_csv(
-        '/home/jules/Documentos/Personal/Sentiment_analyzer/Data/twitter_sexism_parsed_dataset.csv')
+    df = pd.read_csv(arc)
     df =df.astype(str).apply(lambda x: x.str.slice(0, 50))
     return df.to_html(max_rows=16,justify= 'left')
 

@@ -1,59 +1,82 @@
-#i_csv {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+#secondary {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: 920px;
 }
-
+#i_csv {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+#boton-fu {
+    margin-left: 30px;
+    width: 120px;
+    height: 50px;
+    margin-top: 180px;
+   
+  }
 #file-drag {
-    font-size: 14px;
-    width: 600px;
-    height: 220px;
-    border: 3px solid #eee;
-    border-radius: 14px;
-    background: #fff;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    justify-content: center;
-
+  font-size: 14px;
+  width: 600px;
+  height: 220px;
+  border: 3px solid #eee;
+  border-radius: 14px;
+  background: #fff;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
 }
 #file-drag:hover {
-   
-    border: 3px solid #454cad;
-    
-
+  border: 3px solid #454cad;
 }
 
 #start {
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
 }
 #hdn {
-    
-    flex-flow: column wrap;
-    align-items: center;
-    font-size: 18px
-    
+  flex-flow: column wrap;
+  align-items: center;
+  font-size: 18px;
 }
 
 .fa-download {
-    padding: 2px;
-    font-size: 24px;
+  padding: 2px;
+  font-size: 24px;
 }
 
 #text_file {
-    padding: 10px;
+  padding: 10px;
 }
-#file-upload-btn{
-    background: #02bb8c;
-    font-size: 15px;
-    color: #fff;
+#file-upload-btn {
+  background: #02bb8c;
+  font-size: 15px;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#tbl{
+    margin-top: 20px;
+}
+table{
+    background: #fff;
+    border-collapse:collapse ;
+    width: 926px;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
     padding: 8px;
-    border-radius: 4px;
-    cursor: pointer;
-}
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
