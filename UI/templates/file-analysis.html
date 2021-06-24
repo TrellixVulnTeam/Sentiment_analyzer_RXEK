@@ -7,9 +7,19 @@
     <h2>Choose a file to Analyze</h2>
 
     <div id="formulario">
-      <form action="/file-analysis" method="post" class="uploader" enctype="multipart/form-data">
+      <form
+        action="/file-analysis"
+        method="post"
+        class="uploader"
+        enctype="multipart/form-data"
+      >
         <div id="secondary">
-          <input type="file" name="file" id="i_csv" accept=".csv,application/pdf" />
+          <input
+            type="file"
+            name="file"
+            id="i_csv"
+            accept=".csv,application/pdf"
+          />
           <label for="i_csv" id="file-drag">
             <div id="start">
               <i class="fas fa-download" aria-hidden="true"></i>
@@ -21,19 +31,35 @@
               <span id="name_f"></span>
             </div>
           </label>
-
         </div>
 
         <div id="botones">
           <div id="selectores">
-            <label class="nombre">Racism</label><label class="switch"><input value="racism" name="chx" id="racism"
-                type="checkbox" /><span class="slider round"></span></label>
-            <label class="nombre">Sexism</label><label class="switch"><input value="sexism" name="chx" id="sexism"
-                type="checkbox" /><span class="slider round"></span></label>
-            <label class="nombre">Bullying</label><label class="switch"><input value="bullying" name="chx" id="bullying"
-                type="checkbox" /><span class="slider round"></span></label>
+            <label class="nombre">Racism</label
+            ><label class="switch"
+              ><input
+                value="racism"
+                name="chx"
+                id="racism"
+                type="checkbox" /><span class="slider round"></span
+            ></label>
+            <label class="nombre">Sexism</label
+            ><label class="switch"
+              ><input
+                value="sexism"
+                name="chx"
+                id="sexism"
+                type="checkbox" /><span class="slider round"></span
+            ></label>
+            <label class="nombre">Bullying</label
+            ><label class="switch"
+              ><input
+                value="bullying"
+                name="chx"
+                id="bullying"
+                type="checkbox" /><span class="slider round"></span
+            ></label>
           </div>
-
 
           <div id="button_analyze">
             <button type="button" id="analysis">Analysis</button>
@@ -50,11 +76,7 @@
       <h2>Results:</h2>
     </div>
     <div id="output_file">
-      <div>
-        {% for i in res %}
-        {{i}}
-        {% endfor %}
-      </div>
+      <div id="texto">{%for i in res%} {{i}} {% endfor %}</div>
     </div>
   </div>
 </div>

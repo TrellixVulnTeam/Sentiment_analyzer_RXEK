@@ -30,8 +30,7 @@ def text_analysis():
 
 
 @app.route("/file-analysis", methods=["GET"])
-def get_file_analysis():
-    
+def get_file_analysis():   
 
     return render_template('file-analysis.html')
 
@@ -45,6 +44,6 @@ def file_analysis():
         filename = secure_filename(f.filename)
         pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         f.save(pth)
-
+       
     return render_template('file-analysis.html', respuesta=Markup(at.dataframe_show(pth)), res=at.procesed_csv(pth, checkbox))
 

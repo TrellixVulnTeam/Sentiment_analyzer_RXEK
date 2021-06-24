@@ -6,55 +6,71 @@
     <h2>Type Text to Analyze</h2>
 
     <div id="formulario">
-
       <form action="/text-analysis" method="post">
         <div id="fusion">
           <div id="txt_area">
-            <textarea name="text_area" id="input_text" cols="90" rows="16"></textarea>
+            <textarea
+              name="text_area"
+              required
+              id="input_text"
+              cols="90"
+              rows="16"
+            ></textarea>
           </div>
-
         </div>
         <div id="botones">
           <div id="selectores">
-            <label class="nombre">Racism</label><label class="switch"><input value="racism" name="chx" id="racism"
-                type="checkbox" /><span class="slider round"></span></label>
-            <label class="nombre">Sexism</label><label class="switch"><input value="sexism" name="chx" id="sexism"
-                type="checkbox" /><span class="slider round"></span></label>
-            <label class="nombre">Bullying</label><label class="switch"><input value="bullying" name="chx" id="bullying"
-                type="checkbox" /><span class="slider round"></span></label>
+            <label class="nombre">Racism</label
+            ><label class="switch"
+              ><input
+                value="racism"
+                name="chx"
+                id="racism"
+                type="checkbox" /><span class="slider round"></span
+            ></label>
+            <label class="nombre">Sexism</label
+            ><label class="switch"
+              ><input
+                value="sexism"
+                name="chx"
+                id="sexism"
+                type="checkbox" /><span class="slider round"></span
+            ></label>
+            <label class="nombre">Bullying</label
+            ><label class="switch"
+              ><input
+                value="bullying"
+                name="chx"
+                id="bullying"
+                type="checkbox" /><span class="slider round"></span
+            ></label>
           </div>
-
 
           <div id="button_analyze">
             <button type="button" id="analysis">Chart</button>
           </div>
           <div id="boton">
-
             <button type="submit" id="btn-send">Send</button>
+          </div>
+          <div id="boton-cln">
+            <button type="button" id="btncln">Clean</button>
           </div>
         </div>
       </form>
-
     </div>
-
+    {%if resultado != none%}
     <div id="h2-output">
       <h2>Results:</h2>
     </div>
+
     <div id="output">
       <div class="content">
-        <div id="texto">
-          {%for i in resultado%}
-          {{i}}
-          {% endfor %}
-        </div>
+        <div id="texto">{%for i in resultado%} {{i}} {% endfor %}</div>
         <span id="porcentaje"><b>Positive: {{res_p}}%</b></span>
       </div>
-
     </div>
-    <div id="chart" class="chart">
-
-    </div>
+    {%endif%}
+    <div id="chart" class="chart"></div>
   </div>
-
 </div>
 {%endblock%}

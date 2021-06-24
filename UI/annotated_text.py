@@ -5,18 +5,19 @@ import pandas as pd
 
 
 def procesed_text(text, c):
-    key_words = deserialize_file()
-    color = str(c)    
-    text = text.split(' ')
-    lista = []
-    for i in text:
-        if(i in key_words):
-            t = Markup('<span class='+color+'>' + i + '</span>')
-            lista.append(t)
-        else:
-            t = Markup('<span class="no-color" >' + i + '</span>')
-            lista.append(t)
-    return lista
+    if(text !=''):
+        key_words = deserialize_file()
+        color = str(c)    
+        text = text.split(' ')
+        lista = []
+        for i in text:
+            if(i in key_words):
+                t = Markup('<span class='+color+'>' + i + '</span>')
+                lista.append(t)
+            else:
+                t = Markup('<span class="no-color" >' + i + '</span>')
+                lista.append(t)
+        return lista
 
 
 def procesed_csv(path, c):
