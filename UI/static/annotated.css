@@ -1,10 +1,23 @@
-.color {
-    background-color: #F9DD42;
-    font-size: 16px;
-  }
-  
-  .no-color {
-    color: gray;
-    font-size: 16px;
-  }
-  
+.black{
+  color: gray;
+  font-size: 16px;
+}
+.racism {
+  background-color: #02bb8c;
+  font-size: 16px;
+}
+
+.sexism {
+  background-color: #53baf5;
+  font-size: 16px;
+}
+
+.bullying {
+  background-color: #fa976f;
+  font-size: 16px;
+}
+
+.no-color {
+  color: gray;
+  font-size: 16px;
+}

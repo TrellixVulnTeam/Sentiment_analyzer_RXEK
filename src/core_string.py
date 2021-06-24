@@ -60,8 +60,7 @@ def make_tokenization(d):
         stop_words = set(stopwords.words("english"))
         text = word_tokenize(row)#solucionar
         
-        text = [ps.stem(w)
-                for w in text if not w in stop_words and w.isalnum()]
+        text = [ps.stem(w)for w in text if not w in stop_words and w.isalnum()]
         print(text)
         text = ' '.join(text)
        

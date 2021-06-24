@@ -13,17 +13,11 @@
   position: absolute;
   z-index: -1;
 }
-#boton-fu {
-    margin-left: 30px;
-    width: 120px;
-    height: 50px;
-    margin-top: 180px;
-   
-  }
+
 #file-drag {
   font-size: 14px;
-  width: 600px;
-  height: 220px;
+  width: 800px;
+  height: 260px;
   border: 3px solid #eee;
   border-radius: 14px;
   background: #fff;
@@ -75,6 +69,11 @@ td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+  }
+
+  th:hover {
+    
+    background: #02bb8c;
   }
   
   tr:nth-child(even) {

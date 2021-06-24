@@ -15,7 +15,7 @@
 
 #formulario {
   padding-top: 20px;
-  
+
   width: 1100px;
 }
 
@@ -23,29 +23,29 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  
+
   width: 1100px;
 }
 
 #boton {
-  margin-left: 30px;
+  margin-left: 20px;
   width: 120px;
   height: 50px;
-  margin-top: 285px;
- 
 }
 
 #btn-send {
-  background: url(https://i.ibb.co/sg66mQV/image.png) no-repeat center center;
+  cursor: pointer;
+  color: #02bb8c;
   width: 120px;
-  height: 46px;
+  height: 50px;
   border-radius: 17px;
   background-color: #fff;
   border: 1px solid #02bb8c;
+
 }
 
 #btn-send:hover {
-  background: url(https://i.ibb.co/HtcfcgY/image-1.png) no-repeat center center;
+  color: #fff;
   background-color: #02bb8c;
   border: 1px solid #02bb8c;
 }
@@ -67,38 +67,81 @@
 #input_text:focus {
   outline: none;
 }
+
 #botones {
-  margin-top: 40px;
+  margin-top: 30px;
   display: flex;
   flex-flow: row wrap;
-
   width: 926px;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: flex-start
 }
+
 #selectores {
   background: #fff;
-  
   padding: 10px;
   display: flex;
   flex-flow: row wrap;
   border: 1px solid rgb(202, 202, 202);
-  width: 426px;
+  width: 450px;
   border-radius: 14px;
 }
+
 #h2-output {
   margin-top: 14px;
 }
+
 #output {
-  margin-top: 10px;
-  height: auto;
+
+  margin-top: 8px;
+  height:auto;
+  overflow: auto;
   width: 926px;
   padding: 6px;
-  border-radius: 14px;
+  border-radius: 10px;
   background: #fff;
   text-align: justify;
   border: 1px solid rgb(202, 202, 202);
   -webkit-box-shadow: 1px 10px 30px 18px rgba(209, 208, 213, 1);
   -moz-box-shadow: 1px 10px 30px 18px rgb(35, 14, 119);
   box-shadow: 1px 10px 30px 18px rgba(209, 208, 213, 1);
+}
+
+#output_file {
+
+  margin-top: 8px;
+  height: 600px;
+  overflow:scroll;
+  width: 926px;
+  padding: 6px;
+  border-radius: 10px;
+  background: #fff;
+  text-align: justify;
+  border: 1px solid rgb(202, 202, 202);
+  -webkit-box-shadow: 1px 10px 30px 18px rgba(209, 208, 213, 1);
+  -moz-box-shadow: 1px 10px 30px 18px rgb(35, 14, 119);
+  box-shadow: 1px 10px 30px 18px rgba(209, 208, 213, 1);
+}
+
+.content {
+  display: flex;
+  flex-flow: column wrap;
+  padding: 4px;
+  border: 1px solid rgb(211, 211, 211);
+  border-radius: 4px;
+}
+
+#porcentaje {
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 6px;
+  width: 140px;
+  padding: 4px;
+  border-radius: 16px;
+  background-color: #02bb8c;
+  color: #fff;
+  font-size: 14px;
+  
 }
