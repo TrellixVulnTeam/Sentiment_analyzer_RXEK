@@ -87,12 +87,3 @@ input:checked+.slider:before {
   height: 50px;  
 }
 
-#analysis {
-  cursor: pointer;
-  color: #02bb8c;
-  width: 120px;
-  height: 50px;
-  border-radius: 17px;
-  background-color: #fff;
-  border: 1px solid #02bb8c;
-}

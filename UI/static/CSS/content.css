@@ -32,7 +32,7 @@
   height: 50px;
 }
 
-#btn-send {
+.btn {
   cursor: pointer;
   color: #02bb8c;
   width: 120px;

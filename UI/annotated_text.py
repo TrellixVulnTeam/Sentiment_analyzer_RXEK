@@ -5,9 +5,9 @@ import pandas as pd
 
 
 def procesed_text(text, c):
-    if(text !=''):
+    if(text != ''):
         key_words = deserialize_file()
-        color = str(c)    
+        color = str(c)
         text = text.split(' ')
         lista = []
         for i in text:
@@ -20,7 +20,7 @@ def procesed_text(text, c):
         return lista
 
 
-def procesed_csv(path, c):
+def procesed_csv(path, c,f):
     if(path != ''):
         key_words = deserialize_file()
         if(c == ''):
@@ -29,7 +29,7 @@ def procesed_csv(path, c):
             color = str(c)
         df = pd.read_csv(path)
         lista = []
-        for row in df['Text'][0:100]:
+        for row in df[f][0:100]:
 
             text = row.split(' ')
 
@@ -57,10 +57,10 @@ def dataframe_show(arc):
     if(arc != ''):
         df = pd.read_csv(arc)
         df = df.astype(str).apply(lambda x: x.str.slice(0, 50))
-        return df.to_html(max_rows=16, justify='left',index=False)
+        return df.to_html(max_rows=16, justify='left', index=False)
 
 
 def d(arc):
-
-    df = pd.read_csv(arc)
-    return df.columns
+    if(arc!=''):
+        df = pd.read_csv(arc)
+        return df.columns

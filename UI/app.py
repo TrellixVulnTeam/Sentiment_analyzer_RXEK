@@ -1,12 +1,12 @@
 from flask import Flask
-from flask import render_template, request, Markup
+from flask import render_template, request, Markup,jsonify
 import annotated_text as at
 from werkzeug.utils import secure_filename
 import os
 import sys
 sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/')
-
 import training as t
+
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = '/home/jules/Documentos/Personal/Sentiment_analyzer/tmp'
@@ -17,17 +17,18 @@ def home():
     return render_template('home.html')
 
 
-@app.route("/text-analysis", methods=["GET", "POST"])
-def text_analysis():
-    txt_area = ''
-    checkbox = ''
-    porcentaje = ''
-    if(request.method == 'POST'):
-        txt_area = request.form.get('text_area', "")
-        checkbox = request.form.get('chx', "")
-        porcentaje = t.classifier(txt_area)
-    return render_template('text-analysis.html', resultado=at.procesed_text(txt_area, checkbox),res_p=porcentaje)
+@app.route("/text-analysis", methods=["GET"])
+def show_text_analysis():
+   
+    return render_template('text-analysis.html')
 
+@app.route("/text-analysis", methods=["POST"])
+def text_analysis():  
+  
+    txt_area = request.form.get('text_area', "")
+    checkbox = request.form.get('chx', "")
+    porcentaje = t.classifier(txt_area)
+    return render_template('text-analysis.html', resultado=at.procesed_text(txt_area, checkbox),res_p=porcentaje)
 
 @app.route("/file-analysis", methods=["GET"])
 def get_file_analysis():   
