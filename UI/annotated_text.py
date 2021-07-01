@@ -1,10 +1,9 @@
-import flask
-from flask import Markup
 import marshal
 import pandas as pd
 
 
 def procesed_text(text, c):
+
     if(text != ''):
         key_words = deserialize_file()
         color = str(c)
@@ -12,15 +11,16 @@ def procesed_text(text, c):
         lista = []
         for i in text:
             if(i in key_words):
-                t = Markup('<span class='+color+'>' + i + '</span>')
+                t = '<span class='+color+'>' + i + '</span>'
                 lista.append(t)
             else:
-                t = Markup('<span class="no-color" >' + i + '</span>')
+                t = '<span class="no-color" >' + i + '</span>'
                 lista.append(t)
-        return lista
+        strA = " ".join(lista)
+        return strA
 
 
-def procesed_csv(path, c,f):
+def procesed_csv(path, c, f):
     if(path != ''):
         key_words = deserialize_file()
         if(c == ''):
@@ -35,14 +35,15 @@ def procesed_csv(path, c,f):
 
             for i in text:
                 if(i in key_words):
-                    t = Markup('<span class='+color+'>' + i + '</span>')
+                    t = '<span class='+color+'>' + i + '</span>'
                     lista.append(t)
                 else:
-                    t = Markup('<span class="no-color" >' + i + '</span>')
+                    t = '<span class="no-color" >' + i + '</span>'
                     lista.append(t)
-            lista.append(Markup('</br>'))
+            lista.append('</br>')
 
-        return lista
+        strA = " ".join(lista)
+        return strA
 
 
 def deserialize_file():
@@ -61,6 +62,9 @@ def dataframe_show(arc):
 
 
 def d(arc):
-    if(arc!=''):
+    lista= []
+    if(arc != ''):
         df = pd.read_csv(arc)
-        return df.columns
+        for i in df.columns:
+            lista.append(i)
+        return lista

@@ -72,7 +72,7 @@ td, th {
   }
 
   th:hover {
-    
+    cursor: pointer;
     background: #02bb8c;
   }
   

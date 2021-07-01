@@ -51,7 +51,7 @@
 
 /* TEXT AREA */
 
-#input_text {
+#text_area {
   border: 1px solid rgb(202, 202, 202);
   border-radius: 14px;
   padding: 10px;
@@ -63,7 +63,7 @@
   resize: none;
 }
 
-#input_text:focus {
+#text_area:focus {
   outline: none;
 }
 

@@ -7,9 +7,9 @@
     <h2>Choose a file to Analyze</h2>
 
     <div id="formulario">
-      <form action="/file-analysis" method="post" class="uploader" enctype="multipart/form-data">
+      <form method="post" class="uploader" enctype="multipart/form-data" id="formuu">
         <div id="secondary">
-          <input type="file" name="file" id="i_csv" required accept=".csv,application/pdf" />
+          <input type="file" name="archivo" id="i_csv" required accept=".csv,application/pdf" />
           <label for="i_csv" id="file-drag">
             <div id="start">
               <i class="fas fa-download" aria-hidden="true"></i>
@@ -44,25 +44,22 @@
           </div>
 
         </div>
-        <div id="slt-bx">
-          <select name="column">
-            {%for name in cc%}
-            <option value="{{name}}">{{name}}</option>
-            {%endfor%}
-          </select>
-        </div>
+    
       </form>
     </div>
-    <div id="tbl">{{respuesta}}</div>
-    <div id="salida">
+    <div id="tbl">
+      
+    </div>
+  
+    <div id="salida" style="display: none">
       <div id="h2-output">
         <h2>Results:</h2>
       </div>
       <div id="output_file">
-        <div id="texto">{%for i in res%} {{i}} {% endfor %}</div>
+        <div id="texto"></div>
       </div>
     </div>
-   
+
   </div>
 </div>
 

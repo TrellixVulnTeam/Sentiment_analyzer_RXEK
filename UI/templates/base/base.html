@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{{url_for("static",filename="CSS/annotated.css")}}">
   <link rel="stylesheet" href="{{url_for("static",filename="CSS/input-file.css")}}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
 </head>
 
 <body>
@@ -26,10 +27,10 @@
   <!--Estructura-->
   {%block content%}
   {%endblock%}
-  <script type="text/javascript" src="{{url_for("static",filename="scripts/functions.js")}}"></script>
-  <script type="text/javascript" src="{{url_for("static",filename="scripts/functions2.js")}}"></script>
-  <script type="text/javascript" src="{{url_for("static",filename="scripts/form.js")}}"></script>
+
 </body>
-
-
+<script type="text/javascript" src="{{url_for("static",filename="scripts/functions.js")}}"></script>
+<script type="text/javascript" src="{{url_for("static",filename="scripts/functions2.js")}}"></script>
+<script type="text/javascript" src="{{url_for("static",filename="scripts/ajax-analysis-text.js")}}"></script>
+<script type="text/javascript" src="{{url_for("static",filename="scripts/ajax-input-file.js")}}"></script>
 </html>

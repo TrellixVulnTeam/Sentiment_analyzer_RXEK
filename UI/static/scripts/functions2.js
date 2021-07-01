@@ -28,7 +28,3 @@ function clean() {
 }
 document.getElementById("btncln").addEventListener('click', clean, false);
 
-$("th").click(function(){
-  var theLink = $(this).text();
-  alert(theLink);
-});

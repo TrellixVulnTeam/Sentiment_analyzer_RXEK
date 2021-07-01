@@ -6,15 +6,15 @@
     <h2>Type Text to Analyze</h2>
 
     <div id="formulario">
-      <form action="/text-analysis" method="post">
+      <form method="post" id="analysis-text">
         <div id="fusion">
           <div id="txt_area">
-            <textarea name="text_area" required id="input_text" cols="90" rows="16"></textarea>
+            <textarea name="text_area" id="text_area" cols="90" rows="16" required></textarea>
           </div>
         </div>
         <div id="botones">
           <div id="selectores">
-            <label class="nombre">Racism</label><label class="switch"><input value="racism" name="chx" id="racism"
+            <label  class="nombre">Racism</label><label class="switch"><input value="racism" name="chx" id="racism"
                 type="checkbox" /><span class="slider round"></span></label>
             <label class="nombre">Sexism</label><label class="switch"><input value="sexism" name="chx" id="sexism"
                 type="checkbox" /><span class="slider round"></span></label>
@@ -35,19 +35,19 @@
         </div>
       </form>
     </div>
-    {%if resultado != none%}
-    <div id="salida">
+
+    <div id="salida" style="display: none;">
       <div id="h2-output">
         <h2>Results:</h2>
       </div>
 
       <div id="output">
         <div class="content">
-          <div id="texto">{%for i in resultado%} {{i}} {% endfor %}</div>
-          <span id="porcentaje"><b>Positive: {{res_p}}%</b></span>
+          <div id="texto"></div>
+          <span id="porcentaje"><b>Positive:<span id="por_dato"></span> </b></span>
         </div>
       </div>
-      {%endif%}
+
     </div>
     <div id="chart" class="chart"></div>
   </div>

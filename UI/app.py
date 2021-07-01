@@ -1,12 +1,13 @@
-from flask import Flask
-from flask import render_template, request, Markup,jsonify
+
+from flask import Flask, json
+from flask import render_template, request, request
 import annotated_text as at
+import urllib.request
 from werkzeug.utils import secure_filename
 import os
 import sys
 sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/')
 import training as t
-
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = '/home/jules/Documentos/Personal/Sentiment_analyzer/tmp'
@@ -17,34 +18,51 @@ def home():
     return render_template('home.html')
 
 
-@app.route("/text-analysis", methods=["GET"])
+@app.route("/text-analysis")
 def show_text_analysis():
-   
+
     return render_template('text-analysis.html')
 
-@app.route("/text-analysis", methods=["POST"])
-def text_analysis():  
-  
-    txt_area = request.form.get('text_area', "")
-    checkbox = request.form.get('chx', "")
-    porcentaje = t.classifier(txt_area)
-    return render_template('text-analysis.html', resultado=at.procesed_text(txt_area, checkbox),res_p=porcentaje)
 
-@app.route("/file-analysis", methods=["GET"])
-def get_file_analysis():   
+@app.route("/process", methods=["POST"])
+def pro():
+
+    txt_area = request.form['text_area']
+    checkbox = request.form['chx']
+    porcentaje = t.classifier(txt_area)
+    data = {"text": at.procesed_text(
+        txt_area, checkbox), "porcentaje": porcentaje}
+    return json.dumps(data)
+
+
+@app.route("/file-analysis")
+def get_file_analysis():
 
     return render_template('file-analysis.html')
 
-@app.route("/file-analysis", methods=["POST"])
-def file_analysis():
-    pth = ''
-    checkbox = ''
-    if(request.method == 'POST'):
-        f = request.files['file']
-        checkbox = request.form.get('chx', "")
+
+@app.route("/process-file", methods=["POST"])
+def process_file():
+    filename = ''
+    data = ''
+  
+    if 'archivo' not in request.files:
+        print("errrr")
+    else:
+        f = request.files['archivo']
         filename = secure_filename(f.filename)
         pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         f.save(pth)
-       
-    return render_template('file-analysis.html', respuesta=Markup(at.dataframe_show(pth)), res=at.procesed_csv(pth, checkbox))
+        tabla = at.dataframe_show(pth)
+        cols = str(at.d(pth))        
+        data = {"tabla":tabla, "columnas": cols}
+    return json.dumps(data)
 
+
+@app.route("/process-file2", methods=["POST"])
+def p():
+   
+    path = '/home/jules/Documentos/Personal/Sentiment_analyzer/Data/twitter_racism_parsed_dataset.csv'
+    checkbox = request.form['chx']      
+    d= at.procesed_csv(path,checkbox,"Text")  
+    return d
