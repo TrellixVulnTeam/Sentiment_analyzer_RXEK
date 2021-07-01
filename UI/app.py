@@ -1,8 +1,8 @@
 
 from flask import Flask, json
-from flask import render_template, request, request
+from flask import render_template, request, request, jsonify
 import annotated_text as at
-import urllib.request
+
 from werkzeug.utils import secure_filename
 import os
 import sys
@@ -45,7 +45,7 @@ def get_file_analysis():
 def process_file():
     filename = ''
     data = ''
-  
+
     if 'archivo' not in request.files:
         print("errrr")
     else:
@@ -54,15 +54,31 @@ def process_file():
         pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         f.save(pth)
         tabla = at.dataframe_show(pth)
-        cols = str(at.d(pth))        
-        data = {"tabla":tabla, "columnas": cols}
+        cols = str(at.d(pth))
+        data = {"tabla": tabla, "columnas": cols}
     return json.dumps(data)
 
 
 @app.route("/process-file2", methods=["POST"])
 def p():
-   
+    f=open ('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt','r')
+    valor = f.read()
+    valor=valor.replace('"','')
+    print(valor)
     path = '/home/jules/Documentos/Personal/Sentiment_analyzer/Data/twitter_racism_parsed_dataset.csv'
-    checkbox = request.form['chx']      
-    d= at.procesed_csv(path,checkbox,"Text")  
+    checkbox = request.form['chx']
+    
+    d = at.procesed_csv(path, checkbox, valor)
     return d
+
+
+@app.route("/process-file3", methods=["POST"])
+def pa():
+    
+    rf = request.form
+    for key in rf.keys():
+        data = key
+        
+    with open('mi_fichero.txt', 'w') as f:
+        f.write(data)
+    return data

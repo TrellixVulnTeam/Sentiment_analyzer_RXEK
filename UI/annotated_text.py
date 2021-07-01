@@ -29,6 +29,7 @@ def procesed_csv(path, c, f):
             color = str(c)
         df = pd.read_csv(path)
         lista = []
+        print(f)
         for row in df[f][0:100]:
 
             text = row.split(' ')

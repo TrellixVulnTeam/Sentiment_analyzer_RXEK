@@ -11,10 +11,22 @@ $(function () {
             success: function (d) {
                 var content = JSON.parse(d)
                 $("#tbl").html(content["tabla"])
-                document.querySelector('th').addEventListener('click', function () {
-                    alert("hola")
-                  
-                })
+                $("th").click(function () {
+                    $(this).css('background',"#02bb8c")
+                    var theLink = $(this).text();
+                    $.ajax({
+                        type: "POST",
+                        url: '/process-file3',
+                        data: JSON.stringify(theLink),
+                        dataType: 'json'
+                    }).done(function (data) {
+                        console.log(data);
+                        
+                    });
+
+
+
+                });
             },
         });
     });

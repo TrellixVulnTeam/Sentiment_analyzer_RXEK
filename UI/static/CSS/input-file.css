@@ -75,6 +75,7 @@ td, th {
     cursor: pointer;
     background: #02bb8c;
   }
+
   
   tr:nth-child(even) {
     background-color: #dddddd;
