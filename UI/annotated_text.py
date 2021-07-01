@@ -1,11 +1,12 @@
 import marshal
+from os import path
 import pandas as pd
 
 
 def procesed_text(text, c):
 
     if(text != ''):
-        key_words = deserialize_file()
+        key_words = deserialize_file(c)
         color = str(c)
         text = text.split(' ')
         lista = []
@@ -22,7 +23,7 @@ def procesed_text(text, c):
 
 def procesed_csv(path, c, f):
     if(path != ''):
-        key_words = deserialize_file()
+        key_words = deserialize_file(c)
         if(c == ''):
             color = 'black'
         else:
@@ -47,9 +48,10 @@ def procesed_csv(path, c, f):
         return strA
 
 
-def deserialize_file():
-    fileIn = open(
-        "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Racism.dat", "br")
+def deserialize_file(c):
+    x=c
+    path_bow = select_BoW(x)
+    fileIn = open(path_bow, "br")
     dataLoad = marshal.load(fileIn)
     fileIn.close()
     return dataLoad
@@ -62,10 +64,10 @@ def dataframe_show(arc):
         return df.to_html(max_rows=16, justify='left', index=False)
 
 
-def d(arc):
-    lista= []
-    if(arc != ''):
-        df = pd.read_csv(arc)
-        for i in df.columns:
-            lista.append(i)
-        return lista
+def select_BoW(key):
+
+    if(key == 'racism'):
+        BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Racism.dat"
+    elif(key == 'sexism'):
+        BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Racism.dat"
+    return BoW

@@ -54,6 +54,8 @@ def process_file():
         pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         f.save(pth)
         tabla = at.dataframe_show(pth)
+        with open('ruta.txt', 'w') as f:
+            f.write(pth)
         cols = str(at.d(pth))
         data = {"tabla": tabla, "columnas": cols}
     return json.dumps(data)
@@ -65,10 +67,14 @@ def p():
     valor = f.read()
     valor=valor.replace('"','')
     print(valor)
-    path = '/home/jules/Documentos/Personal/Sentiment_analyzer/Data/twitter_racism_parsed_dataset.csv'
+
+    pa=open ('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt','r')
+    ruta = pa.read()
+    ruta=ruta.replace('"','')
+   
     checkbox = request.form['chx']
     
-    d = at.procesed_csv(path, checkbox, valor)
+    d = at.procesed_csv(ruta, checkbox, valor)
     return d
 
 
