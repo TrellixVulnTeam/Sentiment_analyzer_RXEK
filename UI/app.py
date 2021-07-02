@@ -8,6 +8,7 @@ import os
 import sys
 sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/')
 import training as t
+import PyPDF2
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = '/home/jules/Documentos/Personal/Sentiment_analyzer/tmp'
@@ -52,12 +53,23 @@ def process_file():
         f = request.files['archivo']
         filename = secure_filename(f.filename)
         pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        ext =pth.split('.').pop()
         f.save(pth)
-        tabla = at.dataframe_show(pth)
+        if(ext =='csv'):
+            tabla = at.dataframe_show(pth)
+            data = {"tabla": tabla}
+        elif(ext=='pdf'):
+            print(pth)
+            reader = PyPDF2.PdfFileReader(pth)
+
+            page = reader.getPage(0)
+            pdfDat = page.extractText()
+            print(pdfDat)
+            data = {"tabla": pdfDat}
         with open('ruta.txt', 'w') as f:
             f.write(pth)
        
-        data = {"tabla": tabla}
+       
     return json.dumps(data)
 
 
@@ -89,3 +101,13 @@ def pa():
     with open('mi_fichero.txt', 'w') as f:
         f.write(data)
     return data
+
+@app.route("/process4", methods=["POST"])
+def proPDF():
+   
+    reader = PyPDF2.PdfFileReader(ruta)
+    page = reader.getPage(0)
+    pdfDat = page.extractText()
+    print(pdfDat)
+    
+    return "a"

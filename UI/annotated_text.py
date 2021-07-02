@@ -20,7 +20,6 @@ def procesed_text(text, c):
         strA = " ".join(lista)
         return strA
 
-
 def procesed_csv(path, c, f):
 
     if(path != ''):
@@ -28,7 +27,7 @@ def procesed_csv(path, c, f):
 
         if(c == ''):
             color = 'black'
-        else:
+        else: 
             color = str(c)
         df = pd.read_csv(path)
         lista = []
@@ -51,21 +50,19 @@ def procesed_csv(path, c, f):
 
 def texto_documento(path,f):
 
-    if(path != ''):
-       
-
+    if(path != ''):  
       
         df = pd.read_csv(path)
         lista = []
         
-        for row in df[f][0:100]:
+        for row in df[f][0:10]:
             
             text = row.split(' ')            
-            lista.append(text)
-        return lista        
-           
-
+            for i in text:
+                lista.append(i)
         
+        strA = " ".join(lista)
+        return strA
 
 def deserialize_file(c):
     x = c
@@ -75,13 +72,11 @@ def deserialize_file(c):
     fileIn.close()
     return dataLoad
 
-
 def dataframe_show(arc):
     if(arc != ''):
         df = pd.read_csv(arc)
         df = df.astype(str).apply(lambda x: x.str.slice(0, 50))
         return df.to_html(max_rows=16, justify='left', index=False)
-
 
 def select_BoW(key):
 
@@ -100,7 +95,6 @@ def select_clf(key):
         clf = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/sexism_clf_.pkl"
     print(clf)
     return clf
-
 
 def select_BoW_pkl(key):
 
