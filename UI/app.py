@@ -29,7 +29,7 @@ def pro():
 
     txt_area = request.form['text_area']
     checkbox = request.form['chx']
-    porcentaje = t.classifier(txt_area)
+    porcentaje = t.classifier(txt_area,at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
     data = {"text": at.procesed_text(
         txt_area, checkbox), "porcentaje": porcentaje}
     return json.dumps(data)
@@ -56,8 +56,8 @@ def process_file():
         tabla = at.dataframe_show(pth)
         with open('ruta.txt', 'w') as f:
             f.write(pth)
-        cols = str(at.d(pth))
-        data = {"tabla": tabla, "columnas": cols}
+       
+        data = {"tabla": tabla}
     return json.dumps(data)
 
 
@@ -75,6 +75,7 @@ def p():
     checkbox = request.form['chx']
     
     d = at.procesed_csv(ruta, checkbox, valor)
+    t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
     return d
 
 

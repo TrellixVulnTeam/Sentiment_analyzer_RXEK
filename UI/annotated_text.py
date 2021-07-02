@@ -22,15 +22,17 @@ def procesed_text(text, c):
 
 
 def procesed_csv(path, c, f):
+
     if(path != ''):
         key_words = deserialize_file(c)
+
         if(c == ''):
             color = 'black'
         else:
             color = str(c)
         df = pd.read_csv(path)
         lista = []
-        print(f)
+
         for row in df[f][0:100]:
 
             text = row.split(' ')
@@ -47,9 +49,26 @@ def procesed_csv(path, c, f):
         strA = " ".join(lista)
         return strA
 
+def texto_documento(path,f):
+
+    if(path != ''):
+       
+
+      
+        df = pd.read_csv(path)
+        lista = []
+        
+        for row in df[f][0:100]:
+            
+            text = row.split(' ')            
+            lista.append(text)
+        return lista        
+           
+
+        
 
 def deserialize_file(c):
-    x=c
+    x = c
     path_bow = select_BoW(x)
     fileIn = open(path_bow, "br")
     dataLoad = marshal.load(fileIn)
@@ -69,5 +88,25 @@ def select_BoW(key):
     if(key == 'racism'):
         BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Racism.dat"
     elif(key == 'sexism'):
-        BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Racism.dat"
+        BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Sexism.dat"
+    print(BoW)
+    return BoW
+
+def select_clf(key):
+
+    if(key == 'racism'):
+        clf = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/racism_clf_.pkl"
+    elif(key == 'sexism'):
+        clf = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/sexism_clf_.pkl"
+    print(clf)
+    return clf
+
+
+def select_BoW_pkl(key):
+
+    if(key == 'racism'):
+        BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Racism.pkl"
+    elif(key == 'sexism'):
+        BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Sexism.pkl"
+    print(BoW)
     return BoW

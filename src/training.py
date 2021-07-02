@@ -18,7 +18,7 @@ def create_File(BoW):
 
 def training_part():
     # Tokenizamos y creamos la bolsa de palabras y los terminos de frecuencia del DataSet de entrenamiento
-    training_data = pd.read_csv('/home/jules/Documentos/Personal/Sentiment_analyzer/Data/twitter_racism_parsed_dataset.csv')
+    training_data = pd.read_csv('/home/jules/Documentos/Personal/Sentiment_analyzer/Data/twitter_sexism_parsed_dataset.csv')
 
 # Se divide el Dataframe en 80-20
     part_training = int(len(training_data)*0.8)
@@ -27,7 +27,7 @@ def training_part():
     m_tokenization = core_string.make_tokenization(training_data)
     BoWMethod = core_string.make_BoW(m_tokenization)
 
-    joblib.dump(BoWMethod, '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Racism.pkl')
+    joblib.dump(BoWMethod, '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Sexism.pkl')
 
     m_matrix = core_string.make_matrix(BoWMethod, m_tokenization)
 
@@ -35,8 +35,7 @@ def training_part():
     svc = svm.SVC(probability=True)
     
 
-    clf = CalibratedClassifierCV(svc)
-    joblib.dump(clf, 'clf.pkl')
+    clf = CalibratedClassifierCV(svc)    
     X_train = m_matrix
     Y_train = training_data['oh_label']
 
@@ -44,14 +43,14 @@ def training_part():
 
     clf.fit(X_train, Y_train)
     classifier = clf.fit(X_train, Y_train)
-    joblib.dump(classifier, '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/racism_clf_.pkl')
+    joblib.dump(classifier, '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/sexism_clf_.pkl')
     BoW_names = BoWMethod.get_feature_names()
     create_File(BoW_names)
 
-training_part()
+# training_part()
 #-----------------------------------------------------------#
 
-def classifier(text):
+def classifier(text,clasifier,bow):
     v=[] 
     z=''   
     print(text)
@@ -61,13 +60,13 @@ def classifier(text):
 
     # Tokenizamos la parte de test, pero USAMOS LA MISMA BOW que en la parte de entrenamiento
     m_tokenization_test = core_string.make_tokenization(v)
-    BoWMethod = joblib.load('/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Racism.pkl') 
+    BoWMethod = joblib.load(bow) 
 
     m_matrix_t = core_string.make_matrix(BoWMethod, m_tokenization_test)
 
     X_test = m_matrix_t
     
-    clf = joblib.load('/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/racism_clf_.pkl') 
+    clf = joblib.load(clasifier) 
     
     cla = clf.predict_proba(X_test)
     
