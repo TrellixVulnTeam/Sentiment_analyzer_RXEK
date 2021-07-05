@@ -57,11 +57,9 @@ def texto_documento(path,f):
         
         for row in df[f][0:10]:
             
-            text = row.split(' ')            
-            for i in text:
-                lista.append(i)
-        
-        strA = " ".join(lista)
+           lista.append(row)
+        strA=",".join(lista)
+        print(strA)
         return strA
 
 def deserialize_file(c):
@@ -84,7 +82,7 @@ def select_BoW(key):
         BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Racism.dat"
     elif(key == 'sexism'):
         BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Sexism.dat"
-    print(BoW)
+   
     return BoW
 
 def select_clf(key):
@@ -93,7 +91,7 @@ def select_clf(key):
         clf = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/racism_clf_.pkl"
     elif(key == 'sexism'):
         clf = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/sexism_clf_.pkl"
-    print(clf)
+   
     return clf
 
 def select_BoW_pkl(key):
@@ -102,5 +100,5 @@ def select_BoW_pkl(key):
         BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Racism.pkl"
     elif(key == 'sexism'):
         BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Sexism.pkl"
-    print(BoW)
+   
     return BoW

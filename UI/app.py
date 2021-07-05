@@ -1,8 +1,6 @@
-
 from flask import Flask, json
 from flask import render_template, request, request, jsonify
 import annotated_text as at
-
 from werkzeug.utils import secure_filename
 import os
 import sys
@@ -30,6 +28,7 @@ def pro():
 
     txt_area = request.form['text_area']
     checkbox = request.form['chx']
+    
     porcentaje = t.classifier(txt_area,at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
     data = {"text": at.procesed_text(
         txt_area, checkbox), "porcentaje": porcentaje}
@@ -57,7 +56,7 @@ def process_file():
         f.save(pth)
         if(ext =='csv'):
             tabla = at.dataframe_show(pth)
-            data = {"tabla": tabla}
+            data = {"contenido": tabla}
         elif(ext=='pdf'):
             print(pth)
             reader = PyPDF2.PdfFileReader(pth)
@@ -65,7 +64,7 @@ def process_file():
             page = reader.getPage(0)
             pdfDat = page.extractText()
             print(pdfDat)
-            data = {"tabla": pdfDat}
+            data = {"contenido": pdfDat}
         with open('ruta.txt', 'w') as f:
             f.write(pth)
        
@@ -83,11 +82,18 @@ def p():
     pa=open ('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt','r')
     ruta = pa.read()
     ruta=ruta.replace('"','')
-   
+    ext=ruta.split('.').pop()
+    print(ext)
     checkbox = request.form['chx']
-    
-    d = at.procesed_csv(ruta, checkbox, valor)
-    t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
+    if(ext =='csv'):
+        d = at.procesed_csv(ruta, checkbox, valor)
+        t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
+    elif(ext =='pdf'):
+        reader = PyPDF2.PdfFileReader(ruta)
+        page = reader.getPage(0)
+        pdfDat = page.extractText()
+        d=at.procesed_text(pdfDat,checkbox)
+        t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
     return d
 
 
@@ -102,12 +108,4 @@ def pa():
         f.write(data)
     return data
 
-@app.route("/process4", methods=["POST"])
-def proPDF():
-   
-    reader = PyPDF2.PdfFileReader(ruta)
-    page = reader.getPage(0)
-    pdfDat = page.extractText()
-    print(pdfDat)
-    
-    return "a"
+

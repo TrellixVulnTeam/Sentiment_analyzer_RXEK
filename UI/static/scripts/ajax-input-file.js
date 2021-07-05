@@ -10,7 +10,7 @@ $(function () {
             processData: false,
             success: function (d) {
                 var content = JSON.parse(d)
-                $("#tbl").html(content["tabla"])
+                $("#tbl").html(content["contenido"]).show()
                 $("th").click(function () {
                     $(this).css('background',"#02bb8c")
                     var theLink = $(this).text();
@@ -55,3 +55,4 @@ $(document).ready(function () {
         login()
     })
 })
+

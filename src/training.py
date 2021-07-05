@@ -51,11 +51,10 @@ def training_part():
 #-----------------------------------------------------------#
 
 def classifier(text,clasifier,bow):
+    print('cladsificador',text)
     v=[] 
-    z=''   
-    print(text)
-    # text = "ISIS beheads people. Saudi beheads people. Mohammed beheaded 600 Jews"
-   
+
+    print(text) 
     v.append(text)   
 
     # Tokenizamos la parte de test, pero USAMOS LA MISMA BOW que en la parte de entrenamiento
@@ -67,13 +66,22 @@ def classifier(text,clasifier,bow):
     X_test = m_matrix_t
     
     clf = joblib.load(clasifier) 
-    
+    l=[]
     cla = clf.predict_proba(X_test)
+    calculo=1-(cla[0][1])
+    l.append(calculo)
+    l.append(cla[0][1])
     
-    for i in cla:
-        print(i)
-        z=round((i[0]*100),2)
+    return l
+    # for i in cla:
         
-    return z
+    #     l.append(i)
+    # print(l)
+    # strA=','.join(l)
+    # return strA
+    
+        
+        
+    
         
  

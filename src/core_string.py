@@ -53,19 +53,19 @@ ps = PorterStemmer()
 #     return texts_BoW
 
 def make_tokenization(d):
-
+    print('asdasdas',d)
     data_processed = []
     for row in d:
-
+       
         stop_words = set(stopwords.words("english"))
         text = word_tokenize(row)#solucionar
 
         text = [ps.stem(w)for w in text if not w in stop_words and w.isalnum()]
-        print(text)
+        # print(text)
         text = ' '.join(text)
 
         data_processed.append(text)
-
+        # print('data',data_processed)
 
     return data_processed
 

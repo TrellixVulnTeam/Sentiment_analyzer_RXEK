@@ -59,6 +59,11 @@
 }
 #tbl{
     margin-top: 20px;
+    background:#fff;
+    width:926px ;
+    height: 280px;
+    overflow: scroll;
+    display: none;
 }
 table{
     background: #fff;
@@ -80,3 +85,4 @@ td, th {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+
