@@ -52,6 +52,7 @@ def training_part():
 
 def classifier(text,clasifier,bow):
     print('cladsificador',text)
+    text=text.split(',')
     v=[] 
 
     print(text) 
@@ -71,7 +72,7 @@ def classifier(text,clasifier,bow):
     calculo=1-(cla[0][1])
     l.append(calculo)
     l.append(cla[0][1])
-    
+    print(l)
     return l
     # for i in cla:
         

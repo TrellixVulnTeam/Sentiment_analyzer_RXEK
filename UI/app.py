@@ -58,12 +58,10 @@ def process_file():
             tabla = at.dataframe_show(pth)
             data = {"contenido": tabla}
         elif(ext=='pdf'):
-            print(pth)
             reader = PyPDF2.PdfFileReader(pth)
 
             page = reader.getPage(0)
             pdfDat = page.extractText()
-            print(pdfDat)
             data = {"contenido": pdfDat}
         with open('ruta.txt', 'w') as f:
             f.write(pth)
@@ -74,27 +72,24 @@ def process_file():
 
 @app.route("/process-file2", methods=["POST"])
 def p():
-    f=open ('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt','r')
-    valor = f.read()
-    valor=valor.replace('"','')
-    print(valor)
-
-    pa=open ('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt','r')
-    ruta = pa.read()
-    ruta=ruta.replace('"','')
+   
+    valor=at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt')
+    ruta=at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt')
     ext=ruta.split('.').pop()
-    print(ext)
+    
     checkbox = request.form['chx']
     if(ext =='csv'):
         d = at.procesed_csv(ruta, checkbox, valor)
-        t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
+        porcentaje=t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
+        data = {"contenido": d,"porcentaje":porcentaje}
     elif(ext =='pdf'):
         reader = PyPDF2.PdfFileReader(ruta)
         page = reader.getPage(0)
         pdfDat = page.extractText()
         d=at.procesed_text(pdfDat,checkbox)
-        t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
-    return d
+        porcentaje=t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
+        data = {"contenido": d,"porcentaje":porcentaje}
+    return json.dumps(data)
 
 
 @app.route("/process-file3", methods=["POST"])

@@ -89,13 +89,19 @@
 #h2-output {
   margin-top: 14px;
 }
-
+#ff{
+  
+  width: 1000px;
+  display:flex ;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
 #output {
 
   margin-top: 8px;
   height:auto;
   overflow: auto;
-  width: 926px;
+  width: 1000px;
   padding: 6px;
   border-radius: 10px;
   background: #fff;
@@ -111,7 +117,7 @@
   margin-top: 8px;
   height: 600px;
   overflow:scroll;
-  width: 926px;
+  width: 1000px;
   padding: 6px;
   border-radius: 10px;
   background: #fff;
@@ -143,4 +149,10 @@
   color: #fff;
   font-size: 14px;
   
+}
+#myChart{
+  height: 400px;
+  width: 400px;
+  margin-top: 8px;
+  background: #fff;
 }

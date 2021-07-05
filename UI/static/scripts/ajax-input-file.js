@@ -12,7 +12,7 @@ $(function () {
                 var content = JSON.parse(d)
                 $("#tbl").html(content["contenido"]).show()
                 $("th").click(function () {
-                    $(this).css('background',"#02bb8c")
+                    $(this).css('background', "#02bb8c")
                     var theLink = $(this).text();
                     $.ajax({
                         type: "POST",
@@ -21,7 +21,7 @@ $(function () {
                         dataType: 'json'
                     }).done(function (data) {
                         console.log(data);
-                        
+
                     });
 
 
@@ -41,9 +41,15 @@ $(document).ready(function () {
             type: 'POST',
             success: function (response) {
                 console.log(response);
+                var content = JSON.parse(response)
+                $("#texto").html(content["contenido"])
 
-                $("#texto").html(response)
                 $("#salida").show()
+                $("#analysis").click(function(){
+                    $("#output_file").css({"width":"590px","height":"400px"})
+
+                });
+                chart(content["porcentaje"])
             },
             error: function (error) {
                 console.log(error);
@@ -55,4 +61,39 @@ $(document).ready(function () {
         login()
     })
 })
+let myChart;
+function chart(porcentajes) {
 
+    var ctx = document.getElementById('myChart');
+    if (myChart) {
+        myChart.destroy();
+    }
+    myChart = new Chart(ctx, {
+
+        type: 'doughnut',
+        data: {
+            labels: ['Positive', 'Negative'],
+            datasets: [{
+                label: '# of Votes',
+                data: porcentajes,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)'
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)'
+
+                ],
+                circumference: 180,
+                rotation: -90,
+                borderWidth: 1
+            }]
+        },
+
+    });
+
+
+
+}

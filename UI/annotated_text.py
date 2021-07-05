@@ -1,5 +1,6 @@
 import marshal
 from os import path
+from zipfile import Path
 import pandas as pd
 
 
@@ -102,3 +103,9 @@ def select_BoW_pkl(key):
         BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Sexism.pkl"
    
     return BoW
+
+def openFiles(path):
+    f=open (path,'r')
+    data = f.read()
+    data=data.replace('"','')
+    return data
