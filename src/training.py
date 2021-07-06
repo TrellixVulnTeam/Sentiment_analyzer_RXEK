@@ -55,9 +55,9 @@ def classifier(text,clasifier,bow):
     text=text.split(',')
     v=[] 
 
-    print(text) 
+  
     v.append(text)   
-
+   
     # Tokenizamos la parte de test, pero USAMOS LA MISMA BOW que en la parte de entrenamiento
     m_tokenization_test = core_string.make_tokenization(v)
     BoWMethod = joblib.load(bow) 
@@ -72,7 +72,7 @@ def classifier(text,clasifier,bow):
     calculo=1-(cla[0][1])
     l.append(calculo)
     l.append(cla[0][1])
-    print(l)
+   
     return l
     # for i in cla:
         

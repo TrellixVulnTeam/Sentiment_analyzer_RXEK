@@ -3,8 +3,9 @@
   flex-direction: row;
   justify-content: space-between;
 
-  width: 920px;
+  width: 1000px;
 }
+
 #i_csv {
   width: 0.1px;
   height: 0.1px;
@@ -16,7 +17,7 @@
 
 #file-drag {
   font-size: 14px;
-  width: 926px;
+  width: 1000px;
   height: 260px;
   border: 3px solid #eee;
   border-radius: 14px;
@@ -26,6 +27,7 @@
   align-items: center;
   justify-content: center;
 }
+
 #file-drag:hover {
   border: 3px solid #454cad;
 }
@@ -35,6 +37,7 @@
   flex-flow: column wrap;
   align-items: center;
 }
+
 #hdn {
   flex-flow: column wrap;
   align-items: center;
@@ -49,6 +52,7 @@
 #text_file {
   padding: 10px;
 }
+
 #file-upload-btn {
   background: #02bb8c;
   font-size: 15px;
@@ -57,32 +61,35 @@
   border-radius: 4px;
   cursor: pointer;
 }
-#tbl{
-    margin-top: 20px;
-    background:#fff;
-    width:926px ;
-    height: 280px;
-    overflow: scroll;
-    display: none;
+
+#tbl {
+  margin-top: 20px;
+  background: #fff;
+  width: 1000px;
+  height: 280px;
+  overflow: scroll;
+  display: none;
 }
-table{
-    background: #fff;
-    border-collapse:collapse ;
-    width: 926px;
+
+table {
+  background: #fff;
+  border-collapse: collapse;
+  width: 1000px;
 }
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
 
-  th:hover {
-    cursor: pointer;
-    background: #02bb8c;
-  }
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
 
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+th:hover {
+  cursor: pointer;
+  background: #02bb8c;
+}
 
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

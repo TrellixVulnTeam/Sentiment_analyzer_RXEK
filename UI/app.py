@@ -81,14 +81,16 @@ def p():
     if(ext =='csv'):
         d = at.procesed_csv(ruta, checkbox, valor)
         porcentaje=t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
+        # porcentaje=at.texto_documento(ruta,valor,at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
         data = {"contenido": d,"porcentaje":porcentaje}
     elif(ext =='pdf'):
         reader = PyPDF2.PdfFileReader(ruta)
         page = reader.getPage(0)
         pdfDat = page.extractText()
         d=at.procesed_text(pdfDat,checkbox)
-        porcentaje=t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
-        data = {"contenido": d,"porcentaje":porcentaje}
+        porcentaje=at.texto_documento(ruta,valor,at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
+        
+        data = {"contenido": d,"porcentaje":[10,90]}
     return json.dumps(data)
 
 

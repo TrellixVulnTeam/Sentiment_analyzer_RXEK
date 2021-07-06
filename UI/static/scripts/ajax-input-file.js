@@ -47,9 +47,9 @@ $(document).ready(function () {
                 $("#salida").show()
                 $("#analysis").click(function(){
                     $("#output_file").css({"width":"590px","height":"400px"})
-
+                    chart(content["porcentaje"])
                 });
-                chart(content["porcentaje"])
+                
             },
             error: function (error) {
                 console.log(error);

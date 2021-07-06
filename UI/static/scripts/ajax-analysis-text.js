@@ -8,7 +8,7 @@ $(document).ready(function () {
                 var content = JSON.parse(response)
 
                 $("#texto").html(content["text"])
-                $("#por_dato").html(content["porcentaje"])
+                $("#por_dato").html(((content["porcentaje"][0])*100).toFixed(2))
                 $("#salida").show()
                
                 console.log(response);

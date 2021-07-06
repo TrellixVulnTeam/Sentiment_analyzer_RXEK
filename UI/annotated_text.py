@@ -2,7 +2,9 @@ import marshal
 from os import path
 from zipfile import Path
 import pandas as pd
-
+import sys
+sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/')
+import training as t
 
 def procesed_text(text, c):
 
@@ -48,19 +50,20 @@ def procesed_csv(path, c, f):
 
         strA = " ".join(lista)
         return strA
-
+# text,clasifier,bow
 def texto_documento(path,f):
-
+    
     if(path != ''):  
       
         df = pd.read_csv(path)
         lista = []
         
         for row in df[f][0:10]:
-            
+          
            lista.append(row)
+
         strA=",".join(lista)
-        print(strA)
+        
         return strA
 
 def deserialize_file(c):
