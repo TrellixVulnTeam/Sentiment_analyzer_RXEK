@@ -1,6 +1,7 @@
 import marshal
 from os import path
 from zipfile import Path
+from flask import json
 import pandas as pd
 import sys
 sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/')
@@ -33,38 +34,41 @@ def procesed_csv(path, c, f):
         else: 
             color = str(c)
         df = pd.read_csv(path)
-        lista = []
-
+        
+        l=[]
         for row in df[f][0:100]:
-
+            lista = []
             text = row.split(' ')
 
             for i in text:
                 if(i in key_words):
                     t = '<span class='+color+'>' + i + '</span>'
                     lista.append(t)
+                    lista.append(' ')
                 else:
                     t = '<span class="no-color" >' + i + '</span>'
                     lista.append(t)
-            lista.append('</br>')
+                    lista.append(' ')
 
-        strA = " ".join(lista)
-        return strA
+            l.append(lista)
+        
+        return l
 # text,clasifier,bow
-def texto_documento(path,f):
+def texto_documento(path,f,clasifier,bow):
     
     if(path != ''):  
       
         df = pd.read_csv(path)
         lista = []
-        
+        p=[]
         for row in df[f][0:10]:
           
            lista.append(row)
-
-        strA=",".join(lista)
+           p.append(t.classifier(row,clasifier,bow))
+       
+        data={"text":lista,"porcentaje":p}
         
-        return strA
+        return json.dumps(data)
 
 def deserialize_file(c):
     x = c

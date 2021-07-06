@@ -53,7 +53,7 @@ ps = PorterStemmer()
 #     return texts_BoW
 
 def make_tokenization(d):
-    print('asdasdas',d)
+   
     data_processed = []
 
     for row in d:

@@ -40,9 +40,25 @@ $(document).ready(function () {
             data: $('form').serialize(),
             type: 'POST',
             success: function (response) {
-                console.log(response);
+                
                 var content = JSON.parse(response)
-                $("#texto").html(content["contenido"])
+                console.log(content);
+                
+
+               for(i in content){
+                    
+                var a=''
+                  for(z of content[i]){
+                      
+                      console.log(z)
+
+                  }
+                  
+                // $('#output_file').append('<div id="texto">'+ a +'<span id="porcentaje"><b>Positive:<span id="por_dato">asdasd</span> </b></span>'+' </div>');
+                  
+                }
+               
+               
 
                 $("#salida").show()
                 $("#analysis").click(function(){

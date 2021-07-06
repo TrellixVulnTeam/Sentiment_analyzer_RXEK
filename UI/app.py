@@ -80,8 +80,9 @@ def p():
     checkbox = request.form['chx']
     if(ext =='csv'):
         d = at.procesed_csv(ruta, checkbox, valor)
-        porcentaje=t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
-        # porcentaje=at.texto_documento(ruta,valor,at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
+        # porcentaje=t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
+        porcentaje=json.loads(at.texto_documento(ruta,valor,at.select_clf(checkbox),at.select_BoW_pkl(checkbox)))
+        porcentaje=porcentaje["porcentaje"]
         data = {"contenido": d,"porcentaje":porcentaje}
     elif(ext =='pdf'):
         reader = PyPDF2.PdfFileReader(ruta)
