@@ -1,1 +1,1 @@
-/home/jules/Documentos/Personal/Sentiment_analyzer/tmp/twitter_sexism_parsed_dataset.csv
+/home/jules/Documentos/Personal/Sentiment_analyzer/tmp/twitter_racism_parsed_dataset.csv

@@ -61,7 +61,7 @@ def texto_documento(path,f,clasifier,bow):
         df = pd.read_csv(path)
         lista = []
         p=[]
-        for row in df[f][0:10]:
+        for row in df[f][0:100]:
           
            lista.append(row)
            p.append(t.classifier(row,clasifier,bow))

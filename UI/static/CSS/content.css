@@ -93,15 +93,14 @@
   
   width: 1000px;
   display:flex ;
-  flex-flow: row wrap;
+  flex-flow: row wrap;  
   justify-content: space-between;
 }
 #output {
-
   margin-top: 8px;
   height:auto;
   overflow: auto;
-  width: 1000px;
+  width: auto;
   padding: 6px;
   border-radius: 10px;
   background: #fff;
@@ -113,7 +112,7 @@
 }
 
 #output_file {
-
+ 
   margin-top: 8px;
   height: 600px;
   overflow:scroll;
@@ -136,7 +135,7 @@
   border-radius: 4px;
 }
 
-#porcentaje {
+.porcentaje {
 
   display: flex;
   flex-flow: row wrap;
@@ -152,8 +151,8 @@
 }
 #myChart{
   padding: 4px;
-  height: 400px;
-  width: 400px;
+  height: 400px!important;
+  width: 400px !important;
   margin-top: 8px;
   background: #fff;
   border-radius: 10px;

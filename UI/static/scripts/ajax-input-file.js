@@ -1,3 +1,5 @@
+var acumulador = 0;
+
 $(function () {
     $('#i_csv').change(function () {
         d = { "formu": new FormData($('#formuu')[0]) };
@@ -40,32 +42,60 @@ $(document).ready(function () {
             data: $('form').serialize(),
             type: 'POST',
             success: function (response) {
-                
+
                 var content = JSON.parse(response)
-                console.log(content);
-                
-
-               for(i in content){
-                    
-                var a=''
-                  for(z of content[i]){
-                      
-                      console.log(z)
-
-                  }
-                  
-                // $('#output_file').append('<div id="texto">'+ a +'<span id="porcentaje"><b>Positive:<span id="por_dato">asdasd</span> </b></span>'+' </div>');
-                  
+                var output_file = document.getElementById('output_file')
+                for (i = 0; i < content.contenido.length; i++) {
+                    var a = ''
+                    var newDiv = document.createElement('div')
+                    newDiv.setAttribute("id", i)
+                    for (z = 0; z < content.contenido[i].length; z++) {
+                        a += content.contenido[i][z];
+                    }
+                    newDiv.innerHTML = a
+                    output_file.appendChild(newDiv)
                 }
-               
-               
 
                 $("#salida").show()
-                $("#analysis").click(function(){
-                    $("#output_file").css({"width":"590px","height":"400px"})
-                    chart(content["porcentaje"])
+                var d2;
+                $("#analysis").click(function () {
+
+                    for (i = 0; i < content.porcentaje.length; i++) {
+                        var p = ''
+                        d2 = document.getElementById(i)
+                        var newDiv2 = document.createElement('div')
+                        newDiv2.setAttribute("class", "porcentaje")
+                        p += (content.porcentaje[i][0] * 100).toFixed(2);
+
+                        newDiv2.innerHTML = "<b>Positive: " + p + "%" + "<b/>"
+                        d2.appendChild(newDiv2)
+                        acumulador += parseFloat(p)
+
+
+                    }
+
+                    console.log(content.porcentaje.length);
+                    acumulador = acumulador / content.porcentaje.length
+                    var negativo = 100 - acumulador
+
+                    var lista = [acumulador, negativo]
+                    $("#output_file").css({ "width": "590px", "height": "400px" })
+                    chart(lista)
+
+                    $("#btncln").click(function () {
+                        var a = []
+                        document.getElementById("salida").style = "display:none";
+                        document.getElementById("output_file").innerHTML = ''
+                        
+                        acumulador = 0;
+                        chart(a)
+                        document.getElementById("output_file").style = "width:1000px";
+                    })
+
+
                 });
-                
+
+
             },
             error: function (error) {
                 console.log(error);
@@ -81,7 +111,9 @@ let myChart;
 function chart(porcentajes) {
 
     var ctx = document.getElementById('myChart');
+
     if (myChart) {
+
         myChart.destroy();
     }
     myChart = new Chart(ctx, {
@@ -109,7 +141,21 @@ function chart(porcentajes) {
         },
 
     });
-
-
-
 }
+
+
+console.log();
+
+function clean() {
+    var a = []
+    document.getElementById("salida").style = "display:none";
+    document.getElementById("output_file").innerHTML = ''
+    d2 = document.getElementById(0)
+    console.log(d2)
+    acumulador = 0;
+    chart(a)
+    document.getElementById("output_file").style = "width:1000px";
+}
+
+
+
