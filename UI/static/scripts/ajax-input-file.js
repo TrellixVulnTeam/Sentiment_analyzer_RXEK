@@ -18,10 +18,7 @@ var fun=function () {
 
             flag_porcentaje = true;
         }
-        console.log(flag_porcentaje);
-
-
-
+       
         acumulador = acumulador / content.porcentaje.length
         var negativo = 100 - acumulador
         var lista = [acumulador, negativo]
@@ -33,7 +30,11 @@ var fun=function () {
         
         flagData = false;
         flag_porcentaje = false;
-
+        acumulador=0;
+        chart(0)
+        $("#myChart").css({"display":"none"});
+        $("#output_file").css({ "width": "1000px", "height": "600px" })
+        
     })
 
 

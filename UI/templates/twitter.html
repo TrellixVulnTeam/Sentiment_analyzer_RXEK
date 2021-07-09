@@ -1,0 +1,63 @@
+{%extends 'base/base.html'%}
+<!--Estructura-->
+{%block content%}
+<div id="principal">
+    <div id="p">
+        <h2>Type URL of twitter to Analyze</h2>
+
+        <div id="formulario_twitter">
+            <form method="post" id="twitter-text">
+                <div id="input_group">
+                    <div id="option_twitter">
+                        <select name="tags" id="tags">
+                            <option name="opt" id="opt" value="hashtag"><b>#</b></option>
+                            <option name="opt" id="opt" value="user"><b>@</b></option>
+                            <option name="opt" id="opt" value="url"><b>URL</b></option>
+                        </select>
+                    </div>
+                    <div id="input_tweet">
+                        <input type="text" name="url_tweet" id="url_tweet">
+                    </div>
+                </div>
+                <div id="botones">
+                    <div id="selectores">
+                        <label class="nombre">Racism</label><label class="switch"><input value="racism" name="chx"
+                                id="racism" type="checkbox" /><span class="slider round"></span></label>
+                        <label class="nombre">Sexism</label><label class="switch"><input value="sexism" name="chx"
+                                id="sexism" type="checkbox" /><span class="slider round"></span></label>
+                        <label class="nombre">Bullying</label><label class="switch"><input value="bullying" name="chx"
+                                id="bullying" type="checkbox" /><span class="slider round"></span></label>
+                    </div>
+
+                    <!-- <div id="button_analyze">
+            <button type="button" id="analysis" class="btn">Chart</button>
+          </div> -->
+
+                    <div id="boton-cln">
+                        <button type="button" id="btncln" class="btn">Clean</button>
+                    </div>
+                    <div id="boton">
+                        <button type="submit" id="btn-send" class="btn">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="salida" style="display: none;" >
+            <div id="h2-output">
+                <h2>Results:</h2>
+            </div>
+
+            <div id="output">
+                <div class="content">
+                    <div id="texto"></div>
+                    <span class="porcentaje"><b>Positive:<span id="por_dato"></span> </b></span>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+{%endblock%}
