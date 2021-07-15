@@ -23,6 +23,34 @@ def procesed_text(text, c):
                 lista.append(t)
         strA = " ".join(lista)
         return strA
+        
+def procesed_tweet(text, c):
+
+    if(text != ''):
+        key_words = deserialize_file(c)
+        color = str(c)
+       
+        lista = []
+        print('texto_virgen',text)
+        l=[]
+        for row in text:
+            
+            lista = []
+            texto = row.split(' ')
+
+            for i in texto:
+                if(i in key_words):
+                    t = '<span class='+color+'>' + i + '</span>'
+                    lista.append(t)
+                    lista.append(' ')
+                else:
+                    t = '<span class="no-color" >' + i + '</span>'
+                    lista.append(t)
+                    lista.append(' ')
+
+            l.append(lista)
+        
+        return l
 
 def procesed_csv(path, c, f):
 
@@ -36,7 +64,8 @@ def procesed_csv(path, c, f):
         df = pd.read_csv(path)
         
         l=[]
-        for row in df[f][0:100]:
+        for row in df[f][:100]:
+            print(row)
             lista = []
             text = row.split(' ')
 
@@ -70,6 +99,20 @@ def texto_documento(path,f,clasifier,bow):
         
         return json.dumps(data)
 
+def texto_twitter(data,clasifier,bow):
+    
+    if(data != ''):       
+       
+        lista = []
+        p=[]
+        for row in data[0:100]:
+          
+           lista.append(row)
+           p.append(t.classifier(row,clasifier,bow))
+       
+        data={"text":lista,"porcentaje":p}
+        
+        return json.dumps(data)
 def deserialize_file(c):
     x = c
     path_bow = select_BoW(x)

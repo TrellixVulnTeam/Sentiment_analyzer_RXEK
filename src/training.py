@@ -51,7 +51,7 @@ def training_part():
 #-----------------------------------------------------------#
 
 def classifier(text,clasifier,bow):
-    
+  
     text=text.split(',')
     v=[] 
 

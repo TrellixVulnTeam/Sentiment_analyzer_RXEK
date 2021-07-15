@@ -87,3 +87,8 @@ input:checked+.slider:before {
   height: 50px;  
 }
 
+#btn-fun{
+  display: flex;
+  flex-flow: row wrap;
+  width: 265px;
+}

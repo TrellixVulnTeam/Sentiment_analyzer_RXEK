@@ -1,9 +1,18 @@
 var acumulador = 0;
 var flagData = false;
 var flag_porcentaje = false;
-var content={}
-var fun=function () {
-    console.log(document.getElementById("0"))
+var content = {}
+
+function insertAfter(e,i){ 
+    console.log('e'+e,i);
+    if(e.nextSibling){ 
+        e.parentNode.insertBefore(i,e.nextSibling); 
+    } else { 
+        e.parentNode.appendChild(i); 
+    }
+}
+function percentt() {
+   
     if (flag_porcentaje == false) {
         for (i = 0; i < content.porcentaje.length; i++) {
             var p = ''
@@ -13,28 +22,30 @@ var fun=function () {
             p += (content.porcentaje[i][0] * 100).toFixed(2);
 
             newDiv2.innerHTML = "<b>Positive: " + p + "%" + "<b/>"
-            d2.appendChild(newDiv2)
+            insertAfter(d2,newDiv2)
             acumulador += parseFloat(p)
 
             flag_porcentaje = true;
         }
-       
+
         acumulador = acumulador / content.porcentaje.length
         var negativo = 100 - acumulador
         var lista = [acumulador, negativo]
-        $("#output_file").css({ "width": "590px", "height": "400px" })
-        chart(lista)
+        console.log('cambio');
+     
+
+        chartt(lista)
+        $("#salida").show()
     }
     $("#btncln").click(function () {
-     $("#output_file").children().remove();
-        
+        $("#output_file").children().remove();
         flagData = false;
         flag_porcentaje = false;
-        acumulador=0;
+        acumulador = 0;
         chart(0)
-        $("#myChart").css({"display":"none"});
-        $("#output_file").css({ "width": "1000px", "height": "600px" })
-        
+        $("#fileChart").css({ "display": "none" });
+       
+
     })
 
 
@@ -83,29 +94,32 @@ $(document).ready(function () {
             success: function (response) {
 
                 content = JSON.parse(response)
-                
+
                 var output_file = document.getElementById('output_file')
-                if (flagData == false) {
+              
+                if(flagData==false){
                     for (i = 0; i < content.contenido.length; i++) {
                         var a = ''
+                        var divcContent = document.createElement('div')
+                        divcContent.setAttribute("id", "n")
+                        divcContent.setAttribute("class","contenido")
+                        console.log(divcContent);
                         var newDiv = document.createElement('div')
                         newDiv.setAttribute("id", i)
+                        
                         for (z = 0; z < content.contenido[i].length; z++) {
                             a += content.contenido[i][z];
                         }
                         newDiv.innerHTML = a
-                        output_file.appendChild(newDiv)
-                        flagData = true;
+                        divcContent.appendChild(newDiv)
+                        output_file.appendChild(divcContent)
                     }
+                   
+                    flagData = true;
                     console.log(flagData);
                 }
-
-                $("#salida").show()
-                var d2;
-                $("#analysis").unbind("click",fun)
-                $("#analysis").click(fun);
-
-
+                percentt()
+           
             },
             error: function (error) {
                 console.log(error);
@@ -117,16 +131,16 @@ $(document).ready(function () {
         login()
     })
 })
-let myChart;
-function chart(porcentajes) {
+let flChart;
+function chartt(porcentajes) {
+    console.log("fileChart");
+    var ctx = document.getElementById('fileChart').getContext("2d");
 
-    var ctx = document.getElementById('myChart');
+    if (flChart) {
 
-    if (myChart) {
-
-        myChart.destroy();
+        flChart.destroy();
     }
-    myChart = new Chart(ctx, {
+    flChart = new Chart(ctx, {
 
         type: 'doughnut',
         data: {
@@ -152,4 +166,3 @@ function chart(porcentajes) {
 
     });
 }
-

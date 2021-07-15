@@ -27,3 +27,9 @@ select{
     font-size: 20px;
     
 }
+#tags{
+    font-family: 'FontAwesome', 'Second Font name'
+}
+.fa-hashtag{
+    color: black;
+}

@@ -73,7 +73,7 @@
   flex-flow: row wrap;
   width: 1000px;
   align-items: flex-end;
-  justify-content: flex-start
+  justify-content: space-between
 }
 
 #selectores {
@@ -82,25 +82,27 @@
   display: flex;
   flex-flow: row wrap;
   border: 1px solid rgb(202, 202, 202);
-  width: 450px;
+  width: 320px;
   border-radius: 14px;
 }
 
 #h2-output {
   margin-top: 14px;
 }
-#ff{
-  
+
+#ff {
+
   width: 1000px;
-  display:flex ;
-  flex-flow: row wrap;  
+  display: flex;
+  flex-flow: row wrap;
   justify-content: space-between;
 }
+
 #output {
   margin-top: 8px;
-  height:400px;
+  height: 400px;
   overflow: auto;
-  width: auto;
+  width: 1000px;
   padding: 6px;
   border-radius: 10px;
   background: #fff;
@@ -111,12 +113,13 @@
   box-shadow: 1px 10px 30px 18px rgba(209, 208, 213, 1);
 }
 
-#output_file {
- 
+#output_file,
+#output_twitter {
+  
   margin-top: 8px;
-  height: 600px;
-  overflow:scroll;
-  width: 1000px;
+  height: 400px;
+  overflow: scroll;
+  width: 590px;
   padding: 6px;
   border-radius: 10px;
   background: #fff;
@@ -135,23 +138,38 @@
   border-radius: 4px;
 }
 
+.contenido{
+  display: flex;
+  flex-flow: column wrap;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  padding: 4px;
+  border: 1px solid rgb(202, 202, 202);
+}
+.cc{
+  border: 1px solid gold;
+}
 .porcentaje {
-
   display: flex;
   flex-flow: row wrap;
+  align-self: flex-end;
   justify-content: center;
-  margin-top: 6px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   width: 140px;
   padding: 4px;
   border-radius: 16px;
   background-color: #02bb8c;
   color: #fff;
   font-size: 14px;
-  
+
 }
-#myChart{
+
+
+#fileChart,#twitterChart {
   padding: 4px;
-  height: 400px!important;
+  height: 400px !important;
   width: 400px !important;
   margin-top: 8px;
   background: #fff;

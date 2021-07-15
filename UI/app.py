@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = '/home/jules/Documentos/Personal/Sentiment_analyzer/tmp'
 
-
+field=''
 @app.route("/")
 def home():
     return render_template('home.html')
@@ -74,7 +74,7 @@ def process_file():
 
 @app.route("/process-file2", methods=["POST"])
 def p():
-
+    
     valor = at.openFiles(
         '/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt')
     ruta = at.openFiles(
@@ -123,15 +123,18 @@ def show_twitter_analysis():
 def process_twitter():
 
     input_text = request.form['url_tweet']
+    
     opt = request.form['tags']
-    checkbox=request.form['chx']
-    data=twitter_tweepy.select_option(opt,input_text)
-    porcentaje = t.classifier(data, at.select_clf(checkbox), at.select_BoW_pkl(checkbox))
-    data = {"text": at.procesed_text(data, checkbox), "porcentaje": porcentaje}
+    checkbox = request.form['chx']
+    data = twitter_tweepy.select_option(opt, input_text)
     print(data)
-    return json.dumps(data)
-
-    
-   
-    
-  
+    if(opt=='hashtag' or opt=='user'):
+        porcentaje = json.loads(at.texto_twitter(data, at.select_clf(checkbox), at.select_BoW_pkl(checkbox)))
+        porcentaje = porcentaje["porcentaje"]
+        c=at.procesed_tweet(data, checkbox)
+    elif(opt=='url'):
+        porcentaje = t.classifier(data, at.select_clf(checkbox), at.select_BoW_pkl(checkbox))
+        c=at.procesed_text(data, checkbox)
+    contenido = {"text": c,"porcentaje":porcentaje,"tag":opt}
+ 
+    return json.dumps(contenido)
