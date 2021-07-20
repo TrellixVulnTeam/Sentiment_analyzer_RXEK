@@ -8,7 +8,7 @@ import joblib
 
 import json 
 def create_File(BoW):
-    path_file = '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Sexism.dat'
+    path_file = '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Racism.dat'
     fileOut = open(path_file, "bw")
     marshal.dump(BoW, fileOut)
     fileOut.close()
@@ -18,7 +18,7 @@ def create_File(BoW):
 
 def training_part():
     # Tokenizamos y creamos la bolsa de palabras y los terminos de frecuencia del DataSet de entrenamiento
-    training_data = pd.read_csv('/home/jules/Documentos/Personal/Sentiment_analyzer/Data/twitter_sexism_parsed_dataset.csv')
+    training_data = pd.read_csv('/home/jules/Documentos/Personal/Sentiment_analyzer/Data/twitter_racism_parsed_dataset.csv')
 
 # Se divide el Dataframe en 80-20
     part_training = int(len(training_data)*0.8)
@@ -27,7 +27,7 @@ def training_part():
     m_tokenization = core_string.make_tokenization(training_data)
     BoWMethod = core_string.make_BoW(m_tokenization)
 
-    joblib.dump(BoWMethod, '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Sexism.pkl')
+    joblib.dump(BoWMethod, '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Racism.pkl')
 
     m_matrix = core_string.make_matrix(BoWMethod, m_tokenization)
 
@@ -43,11 +43,11 @@ def training_part():
 
     clf.fit(X_train, Y_train)
     classifier = clf.fit(X_train, Y_train)
-    joblib.dump(classifier, '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/sexism_clf_.pkl')
+    joblib.dump(classifier, '/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/racism_clf_.pkl')
     BoW_names = BoWMethod.get_feature_names()
     create_File(BoW_names)
 
-# training_part()
+#training_part()
 #-----------------------------------------------------------#
 
 def classifier(text,clasifier,bow):
@@ -74,13 +74,7 @@ def classifier(text,clasifier,bow):
     l.append(cla[0][1])
    
     return l
-    # for i in cla:
-        
-    #     l.append(i)
-    # print(l)
-    # strA=','.join(l)
-    # return strA
-    
+
         
         
     

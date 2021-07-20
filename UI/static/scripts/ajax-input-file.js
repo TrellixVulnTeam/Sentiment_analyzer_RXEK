@@ -3,16 +3,54 @@ var flagData = false;
 var flag_porcentaje = false;
 var content = {}
 
-function insertAfter(e,i){ 
-    console.log('e'+e,i);
-    if(e.nextSibling){ 
-        e.parentNode.insertBefore(i,e.nextSibling); 
-    } else { 
-        e.parentNode.appendChild(i); 
+var indiceAnterior=null;
+var indiceCero=0
+var theLink;
+
+var getTH = function () {
+
+   
+   
+    var indiceActual = $(this).index()
+    $(this).css('background', "#02bb8c")
+    theLink = $(this).text();
+   
+
+    if (indiceAnterior == null) {
+       indiceAnterior=indiceActual;      
+    }else if (indiceAnterior==indiceActual) {         
+       $(this).css('background', "#02bb8c")
+       indiceAnterior=indiceActual
+    }else if(indiceAnterior!=indiceActual){      
+        
+        $("th:eq("+ indiceAnterior +")").css('background', "#FFFFFF")
+        $(this).css('background', "#02bb8c")
+        indiceAnterior=indiceActual
+    }
+
+
+
+    $.ajax({
+        type: "POST",
+        url: '/process-file3',
+        data: JSON.stringify(theLink),
+        dataType: 'json'
+    }).done(function (data) {
+        console.log(data);
+
+    });
+
+}
+function insertAfter(e, i) {
+    console.log('e' + e, i);
+    if (e.nextSibling) {
+        e.parentNode.insertBefore(i, e.nextSibling);
+    } else {
+        e.parentNode.appendChild(i);
     }
 }
 function percentt() {
-   
+
     if (flag_porcentaje == false) {
         for (i = 0; i < content.porcentaje.length; i++) {
             var p = ''
@@ -22,7 +60,7 @@ function percentt() {
             p += (content.porcentaje[i][0] * 100).toFixed(2);
 
             newDiv2.innerHTML = "<b>Positive: " + p + "%" + "<b/>"
-            insertAfter(d2,newDiv2)
+            insertAfter(d2, newDiv2)
             acumulador += parseFloat(p)
 
             flag_porcentaje = true;
@@ -32,7 +70,7 @@ function percentt() {
         var negativo = 100 - acumulador
         var lista = [acumulador, negativo]
         console.log('cambio');
-     
+
 
         chartt(lista)
         $("#salida").show()
@@ -43,8 +81,13 @@ function percentt() {
         flag_porcentaje = false;
         acumulador = 0;
         chart(0)
-        $("#fileChart").css({ "display": "none" });
-       
+        $("#salida").css({ "display": "none" });
+        $("#btn-send").show()
+        $("#btncln").css({ "display": "none" });
+
+    })
+    $("#btnclear").click(function () {
+        location.reload()
 
     })
 
@@ -63,22 +106,8 @@ $(function () {
             success: function (d) {
                 var content = JSON.parse(d)
                 $("#tbl").html(content["contenido"]).show()
-                $("th").click(function () {
-                    $(this).css('background', "#02bb8c")
-                    var theLink = $(this).text();
-                    $.ajax({
-                        type: "POST",
-                        url: '/process-file3',
-                        data: JSON.stringify(theLink),
-                        dataType: 'json'
-                    }).done(function (data) {
-                        console.log(data);
-
-                    });
-
-
-
-                });
+                $("th").unbind('click',getTH)
+                $("th").click(getTH)
             },
         });
     });
@@ -96,17 +125,17 @@ $(document).ready(function () {
                 content = JSON.parse(response)
 
                 var output_file = document.getElementById('output_file')
-              
-                if(flagData==false){
+
+                if (flagData == false) {
                     for (i = 0; i < content.contenido.length; i++) {
                         var a = ''
                         var divcContent = document.createElement('div')
                         divcContent.setAttribute("id", "n")
-                        divcContent.setAttribute("class","contenido")
+                        divcContent.setAttribute("class", "contenido")
                         console.log(divcContent);
                         var newDiv = document.createElement('div')
                         newDiv.setAttribute("id", i)
-                        
+
                         for (z = 0; z < content.contenido[i].length; z++) {
                             a += content.contenido[i][z];
                         }
@@ -114,12 +143,15 @@ $(document).ready(function () {
                         divcContent.appendChild(newDiv)
                         output_file.appendChild(divcContent)
                     }
-                   
+
                     flagData = true;
                     console.log(flagData);
                 }
                 percentt()
-           
+                $("#btnclear").show()
+                $("#btncln").show()
+                $("#btn-send").css({ "display": "none" })
+
             },
             error: function (error) {
                 console.log(error);
@@ -137,7 +169,6 @@ function chartt(porcentajes) {
     var ctx = document.getElementById('fileChart').getContext("2d");
 
     if (flChart) {
-
         flChart.destroy();
     }
     flChart = new Chart(ctx, {

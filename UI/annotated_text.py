@@ -4,18 +4,23 @@ from zipfile import Path
 from flask import json
 import pandas as pd
 import sys
+import nltk
+from nltk import data
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/')
 import training as t
 
+stop_words = set(stopwords.words("english"))
 def procesed_text(text, c):
-
+   
     if(text != ''):
         key_words = deserialize_file(c)
         color = str(c)
         text = text.split(' ')
         lista = []
         for i in text:
-            if(i in key_words):
+            if(i in key_words and i not in stop_words):
                 t = '<span class='+color+'>' + i + '</span>'
                 lista.append(t)
             else:
@@ -31,7 +36,6 @@ def procesed_tweet(text, c):
         color = str(c)
        
         lista = []
-        print('texto_virgen',text)
         l=[]
         for row in text:
             
@@ -39,7 +43,7 @@ def procesed_tweet(text, c):
             texto = row.split(' ')
 
             for i in texto:
-                if(i in key_words):
+                if(i in key_words and i not in stop_words):
                     t = '<span class='+color+'>' + i + '</span>'
                     lista.append(t)
                     lista.append(' ')
@@ -70,7 +74,7 @@ def procesed_csv(path, c, f):
             text = row.split(' ')
 
             for i in text:
-                if(i in key_words):
+                if(i in key_words and i not in stop_words):
                     t = '<span class='+color+'>' + i + '</span>'
                     lista.append(t)
                     lista.append(' ')
@@ -159,3 +163,12 @@ def openFiles(path):
     data = f.read()
     data=data.replace('"','')
     return data
+
+def clearFiles():
+    f_field=open('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt','w')
+    f_field.write('')
+    f_field.close()
+
+    f_path=open('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt','w')
+    f_path.write('')
+    f_path.close()

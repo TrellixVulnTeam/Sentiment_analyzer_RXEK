@@ -8,9 +8,9 @@
 
 /* TOGGLE */
 .switch {
-  
+
   position: relative;
-  display: inline-block;  
+  display: inline-block;
   width: 60px;
   height: 30px;
   margin-left: 6px;
@@ -20,11 +20,11 @@
   opacity: 0;
   width: 0;
   height: 0;
-  
+
 }
 
 .slider {
-  
+
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -51,9 +51,11 @@
 #racism:checked+.slider {
   background-color: #02bb8c;
 }
+
 #sexism:checked+.slider {
   background-color: #53baf5;
 }
+
 #bullying:checked+.slider {
   background-color: #fa976f;
 }
@@ -81,14 +83,47 @@ input:checked+.slider:before {
 
 }
 
-#button_analyze {  
-  margin-left: 20px;
-  width: 120px;
-  height: 50px;  
+.btn {
+  cursor: pointer; 
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  margin-left: 8px;
+  color: #4b4a4a;
+  border: 2px solid rgb(192, 192, 192);
+  background-color: #fff;
+
+
 }
 
-#btn-fun{
+#btn-send:hover {
+  color: #fff;
+  background-color: #02bb8c;
+  border: 1px solid #02bb8c;
+}
+
+#btn-fun {
   display: flex;
   flex-flow: row wrap;
-  width: 265px;
+  align-content: flex-end;
+  justify-content: flex-end;
+  width: 300px;
 }
+
+#btn-send:hover {
+  background-color: #0d7feb;
+  border: 1px solid #005dc7dc;
+  color: #fff;
+}
+#btncln:hover{
+  background-color: #ffd23d;
+  border: 1px solid #ebbd25dc;
+  color: #fff;
+}
+
+#btnclear:hover{
+  background-color: #fd5145;
+  border: 1px solid #ec3535dc;
+  color: #fff;
+}
+

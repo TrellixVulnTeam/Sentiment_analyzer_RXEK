@@ -1,6 +1,4 @@
 import twitter_tweepy
-import PyPDF2
-
 from flask import Flask, json
 from flask import render_template, request, request, jsonify
 import annotated_text as at
@@ -9,8 +7,8 @@ import os
 import sys
 sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/')
 import training as t
-app = Flask(__name__)
 
+app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = '/home/jules/Documentos/Personal/Sentiment_analyzer/tmp'
 
 field=''
@@ -40,7 +38,7 @@ def pro():
 
 @app.route("/file-analysis")
 def get_file_analysis():
-
+    at.clearFiles()
     return render_template('file-analysis.html')
 
 
@@ -54,18 +52,11 @@ def process_file():
     else:
         f = request.files['archivo']
         filename = secure_filename(f.filename)
-        pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        ext = pth.split('.').pop()
-        f.save(pth)
-        if(ext == 'csv'):
-            tabla = at.dataframe_show(pth)
-            data = {"contenido": tabla}
-        elif(ext == 'pdf'):
-            reader = PyPDF2.PdfFileReader(pth)
-
-            page = reader.getPage(0)
-            pdfDat = page.extractText()
-            data = {"contenido": pdfDat}
+        pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)       
+        f.save(pth)       
+        tabla = at.dataframe_show(pth)
+        data = {"contenido": tabla}
+       
         with open('ruta.txt', 'w') as f:
             f.write(pth)
 
@@ -75,29 +66,16 @@ def process_file():
 @app.route("/process-file2", methods=["POST"])
 def p():
     
-    valor = at.openFiles(
-        '/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt')
-    ruta = at.openFiles(
-        '/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt')
-    ext = ruta.split('.').pop()
-
+    valor = at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt')
+    ruta = at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt')  
     checkbox = request.form['chx']
-    if(ext == 'csv'):
-        d = at.procesed_csv(ruta, checkbox, valor)
-        # porcentaje=t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
-        porcentaje = json.loads(at.texto_documento(
-            ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox)))
-        porcentaje = porcentaje["porcentaje"]
-        data = {"contenido": d, "porcentaje": porcentaje}
-    elif(ext == 'pdf'):
-        reader = PyPDF2.PdfFileReader(ruta)
-        page = reader.getPage(0)
-        pdfDat = page.extractText()
-        d = at.procesed_text(pdfDat, checkbox)
-        porcentaje = at.texto_documento(ruta, valor, at.select_clf(
-            checkbox), at.select_BoW_pkl(checkbox))
+  
+    d = at.procesed_csv(ruta, checkbox, valor)
+    # porcentaje=t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
+    porcentaje = json.loads(at.texto_documento(ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox)))
+    porcentaje = porcentaje["porcentaje"]
+    data = {"contenido": d, "porcentaje": porcentaje}    
 
-        data = {"contenido": d, "porcentaje": [10, 90]}
     return json.dumps(data)
 
 

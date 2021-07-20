@@ -2,6 +2,23 @@ var acumulador = 0;
 var flagData = false;
 var flag_porcentaje = false;
 var content = {}
+var clean = function () {
+    $("#output_twitter").children().remove();
+    flagData = false;
+    flag_porcentaje = false;
+    acumulador = 0;
+    chart(0)
+    $("#salida").css({ "display": "none" });
+    $("#twitterChart").css({"display": "none"})
+    $("#output_twitter").css({"width":"590px"})
+    $("#btn-send").show()
+    $("#btncln").css({ "display": "none" });
+}
+
+var reload = function () {
+    location.reload()
+}
+
 function percent() {
     console.log(document.getElementById("0"))
     console.log(content);
@@ -24,21 +41,15 @@ function percent() {
         var negativo = 100 - acumulador
         var lista = [acumulador, negativo]
         console.log('cambio');
-       
+
         $("#salida").show()
         chart(lista)
-        
-    }
-    $("#btncln").click(function () {
-        $("#output_twitter").children().remove();
 
-        flagData = false;
-        flag_porcentaje = false;
-        acumulador = 0;
-        chart(0)
-        $("#twitterChart").css({ "display": "none" });
-        
-    })
+    }
+    $("#btncln").unbind("click", clean)
+    $("#btncln").click(clean)
+    $("#btnclear").unbind("click", reload)
+    $("#btnclear").click(reload)
 
 
 }
@@ -53,40 +64,65 @@ $(document).ready(function () {
 
                 content = JSON.parse(response)
                 console.log(content);
-                if(content["tag"]=='hashtag'||content["tag"]=='user'){
-                var output_file = document.getElementById('output_twitter')
-                if (flagData == false) {
-                    for (i = 0; i < content.text.length; i++) {
-                        var a = ''
-                        var divcContent = document.createElement('div')
-                        divcContent.setAttribute("id", "n")
-                        divcContent.setAttribute("class","contenido")
-                        var newDiv = document.createElement('div')
-                        newDiv.setAttribute("id", i)
-                        for (z = 0; z < content.text[i].length; z++) {
-                            a += content.text[i][z];
+                if (content["tag"] == 'hashtag' || content["tag"] == 'user') {
+                    var output_file = document.getElementById('output_twitter')
+                    if (flagData == false) {
+                        for (i = 0; i < content.text.length; i++) {
+                            var a = ''
+                            var divcContent = document.createElement('div')
+                            divcContent.setAttribute("id", "n")
+                            divcContent.setAttribute("class", "contenido")
+                            var newDiv = document.createElement('div')
+                            newDiv.setAttribute("id", i)
+                            for (z = 0; z < content.text[i].length; z++) {
+                                a += content.text[i][z];
+                            }
+                            newDiv.innerHTML = a
+                            divcContent.appendChild(newDiv)
+                            output_file.appendChild(divcContent)
+                            flagData = true;
                         }
-                        newDiv.innerHTML = a
-                        divcContent.appendChild(newDiv)
-                        output_file.appendChild(divcContent)
-                        flagData = true;
-                    }
-                    console.log(flagData);
-                }
-                percent()    
-            }else if(content["tag"]=='url'){
-                var texto=document.createElement('div')
-                texto.setAttribute("class","cc")
-                var porcen=document.createElement('div')
-                porcen.setAttribute("class", "porcentaje")
-                var output_file = document.getElementById('output_twitter')
-                texto.innerHTML=content["text"]
-                porcen.innerHTML=((content["porcentaje"][0])*100).toFixed(2)
+                        console.log(flagData);
 
-                output_file.appendChild(texto)
-                output_file.appendChild(porcen)
-                $("#salida").show()
-            }
+                        percent()
+                        $("#btnclear").show()
+                        $("#btncln").show()
+                        $("#btn-send").css({ "display": "none" })
+                    }
+                } else if (content["tag"] == 'url') {
+
+                    var texto = document.createElement('div')                 
+
+                    var porcen = document.createElement('div')
+                    porcen.setAttribute("class", "porcentaje")
+
+                    var union = document.createElement('div')
+                    union.setAttribute("class", "content")
+
+                    var output_file = document.getElementById('output_twitter')
+                    texto.innerHTML = content["text"]
+                    porcen.innerHTML ="<b>Positive: " +((content["porcentaje"][0]) * 100).toFixed(2) +"% </b> "
+                  
+                    union.appendChild(texto)
+                    union.appendChild(porcen)
+                    output_file.appendChild(union)
+                  
+
+                    output_file.style.width="1000px" 
+                   
+                    $("#salida").show()
+           
+
+                    $("#btnclear").show()
+                    $("#btncln").show()
+                    $("#btn-send").css({ "display": "none" })
+                    
+                    $("#btncln").unbind("click", clean)
+                    $("#btncln").click(clean)
+                    $("#btnclear").unbind("click", reload)
+                    $("#btnclear").click(reload)
+                }
+
             },
             error: function (error) {
                 console.log(error);

@@ -12,7 +12,7 @@
           <input type="file" name="archivo" id="i_csv" required accept=".csv,application/pdf" />
           <label for="i_csv" id="file-drag">
             <div id="start">
-              <i class="fas fa-download" aria-hidden="true"></i>
+              <i class="fas fa-upload" aria-hidden="true"></i>
               <div id="text_file">Select a file or drag here</div>
               <span id="file-upload-btn"> Select a file</span>
             </div>
@@ -36,14 +36,12 @@
           <!-- <div id="button_analyze">
             <button type="button" id="analysis" class="btn">Chart</button>
           </div> -->
-          <div id="btn-fun">
-          <div id="boton-cln">
-            <button type="button" id="btncln" class="btn"><i class="fas fa-trash"></i></button>
+          <div id="btn-fun">            
+            <button type="button" id="btnclear" class="btn" style="display: none;"><i class="fas fa-trash"></i></button>
+            <button type="button" id="btncln" class="btn" style="display: none;"><i class=" fas fa-broom"></i></button>
+            <button type="submit" id="btn-send" class="btn" ><i class=" fas fa-play"></i></button>
+
           </div>
-          <div id="boton">
-            <button type="submit" id="btn-send" class="btn"><i class="fas fa-play"></i></button>
-          </div>
-        </div>
         </div>
       </form>
     </div>
@@ -55,7 +53,7 @@
       </div>
       <div id="ff">
         <div id="output_file">
-          
+
         </div>
         <div class="chart-container">
           <canvas id="fileChart"></canvas>

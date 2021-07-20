@@ -55,19 +55,18 @@ ps = PorterStemmer()
 def make_tokenization(d):
    
     data_processed = []
-
+    
     for row in d:
        for i in row:
-            stop_words = set(stopwords.words("english"))
             text = word_tokenize(i)#solucionar
 
+            stop_words = set(stopwords.words("english"))
+            
             text = [ps.stem(w)for w in text if not w in stop_words and w.isalnum()]
-            # print(text)
             text = ' '.join(text)
 
             data_processed.append(text)
             # print('data',data_processed)
-
             return data_processed
 
 # Este metodo crea la bolsa de palabras,recibiendo como parametro el DataFrame que retorna el metodo make_tokenization,
@@ -77,6 +76,7 @@ def make_tokenization(d):
 def make_BoW(dN):
     bagOfWordsModel = TfidfVectorizer()
     bagOfWordsModel.fit(dN)
+    
     return bagOfWordsModel
 
 
@@ -86,3 +86,5 @@ def make_BoW(dN):
 def make_matrix(BoW_M, d):
     texts_BoW = BoW_M.transform(d)
     return texts_BoW
+
+
