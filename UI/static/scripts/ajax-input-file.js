@@ -2,32 +2,30 @@ var acumulador = 0;
 var flagData = false;
 var flag_porcentaje = false;
 var content = {}
-
-var indiceAnterior=null;
-var indiceCero=0
+var warning;
+var tabla;
+var indiceAnterior = null;
+var indiceCero = 0
 var theLink;
 
 var getTH = function () {
 
-   
-   
     var indiceActual = $(this).index()
+
     $(this).css('background', "#02bb8c")
     theLink = $(this).text();
-   
-
+    $("#warning").css({ "display": "none" });
     if (indiceAnterior == null) {
-       indiceAnterior=indiceActual;      
-    }else if (indiceAnterior==indiceActual) {         
-       $(this).css('background', "#02bb8c")
-       indiceAnterior=indiceActual
-    }else if(indiceAnterior!=indiceActual){      
-        
-        $("th:eq("+ indiceAnterior +")").css('background', "#FFFFFF")
+        indiceAnterior = indiceActual;
+    } else if (indiceAnterior == indiceActual) {
         $(this).css('background', "#02bb8c")
-        indiceAnterior=indiceActual
-    }
+        indiceAnterior = indiceActual
+    } else if (indiceAnterior != indiceActual) {
 
+        $("th:eq(" + indiceAnterior + ")").css('background', "#FFFFFF")
+        $(this).css('background', "#02bb8c")
+        indiceAnterior = indiceActual
+    }
 
 
     $.ajax({
@@ -57,9 +55,9 @@ function percentt() {
             d2 = document.getElementById(i)
             var newDiv2 = document.createElement('div')
             newDiv2.setAttribute("class", "porcentaje")
-            p += (content.porcentaje[i][0] * 100).toFixed(2);
+            p += (content.porcentaje[i][1] * 100).toFixed(2);
 
-            newDiv2.innerHTML = "<b>Positive: " + p + "%" + "<b/>"
+            newDiv2.innerHTML = "<b>"+ p + "%" + "<b/>"
             insertAfter(d2, newDiv2)
             acumulador += parseFloat(p)
 
@@ -67,9 +65,8 @@ function percentt() {
         }
 
         acumulador = acumulador / content.porcentaje.length
-        var negativo = 100 - acumulador
-        var lista = [acumulador, negativo]
-        console.log('cambio');
+        var positivo = 100 - acumulador
+        var lista = [acumulador, positivo]
 
 
         chartt(lista)
@@ -77,10 +74,12 @@ function percentt() {
     }
     $("#btncln").click(function () {
         $("#output_file").children().remove();
+        $("#n-rows").val('')
         flagData = false;
         flag_porcentaje = false;
         acumulador = 0;
         chart(0)
+        
         $("#salida").css({ "display": "none" });
         $("#btn-send").show()
         $("#btncln").css({ "display": "none" });
@@ -104,10 +103,20 @@ $(function () {
             cache: false,
             processData: false,
             success: function (d) {
-                var content = JSON.parse(d)
-                $("#tbl").html(content["contenido"]).show()
-                $("th").unbind('click',getTH)
-                $("th").click(getTH)
+                var content = JSON.parse(d);
+                console.log(content);              
+                $("#warning").html("Select a table header").show();                
+                $("#tbl").html(content["contenido"]);
+                $('.dataframe').DataTable({
+                    "ordering": false
+                });
+                $("#number-rows").show();
+                $("#num-total-rows").html(content["rows"]);
+                $("th").unbind('click', getTH);
+
+                $("th").click(getTH);
+
+
             },
         });
     });
@@ -115,7 +124,9 @@ $(function () {
 });
 
 $(document).ready(function () {
+    selector();
     function login() {
+
         $.ajax({
             url: "/process-file2",
             data: $('form').serialize(),
@@ -160,12 +171,13 @@ $(document).ready(function () {
     }
     $("#formuu").submit(function (event) {
         event.preventDefault();
+        validateFile()
         login()
     })
 })
 let flChart;
 function chartt(porcentajes) {
-    console.log("fileChart");
+
     var ctx = document.getElementById('fileChart').getContext("2d");
 
     if (flChart) {
@@ -175,18 +187,20 @@ function chartt(porcentajes) {
 
         type: 'doughnut',
         data: {
-            labels: ['Positive', 'Negative'],
+            labels: ['Yes', 'No'],
             datasets: [{
                 label: '# of Votes',
                 data: porcentajes,
+              
                 backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)'
+                    'rgba(255, 139, 139, 1)',
+                    'rgba(163, 234, 202, 1)'
 
                 ],
+                hoverOffset: 6,
                 borderColor: [
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(54, 162, 235, 0.5)'
+                    'rgba(255, 139, 139, 1)',
+                    'rgba(163, 234, 202, 1)'
 
                 ],
                 circumference: 180,

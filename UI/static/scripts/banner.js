@@ -1,12 +1,11 @@
-MyBanners = new Array('UI/static/images/enviar.png', '/home/jules/Documentos/Personal/Sentiment_analyzer/UI/static/images/i_pdf.png')
-banner = 0
-function ShowBanners() {
-    if (document.images) {
-        banner++
-        if (banner == MyBanners.length) {
-            banner = 0
-        }
-        document.ChangeBanner.src = MyBanners[banner]
-        setTimeout("ShowBanners()", 5000)
+let image = document.getElementById("image")
+images=["static/images/text_analysis.png","static/images/file_analysis.png","static/images/twitter_analysis.png"]
+var index =0;
+setInterval(()=>{
+    image.src=images[index]
+    index++;
+    if(index==3){
+        index=0
     }
-}
+},2000)
+image.src=images[0]

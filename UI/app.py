@@ -5,6 +5,7 @@ import annotated_text as at
 from werkzeug.utils import secure_filename
 import os
 import sys
+import pandas as pd
 sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/')
 import training as t
 
@@ -55,7 +56,9 @@ def process_file():
         pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)       
         f.save(pth)       
         tabla = at.dataframe_show(pth)
-        data = {"contenido": tabla}
+        print(tabla)
+        rows=pd.read_csv(pth)        
+        data = {"contenido": tabla,"rows":len(rows)}
        
         with open('ruta.txt', 'w') as f:
             f.write(pth)
@@ -69,12 +72,12 @@ def p():
     valor = at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt')
     ruta = at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt')  
     checkbox = request.form['chx']
-  
-    d = at.procesed_csv(ruta, checkbox, valor)
-    # porcentaje=t.classifier(at.texto_documento(ruta,valor),at.select_clf(checkbox),at.select_BoW_pkl(checkbox))
-    porcentaje = json.loads(at.texto_documento(ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox)))
+    limit = request.form['n-rows']
+    print(limit)
+    d = at.procesed_csv(ruta, checkbox, valor,limit)   
+    porcentaje = json.loads(at.texto_documento(ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox),limit))
     porcentaje = porcentaje["porcentaje"]
-    data = {"contenido": d, "porcentaje": porcentaje}    
+    data = {"contenido": d, "porcentaje": porcentaje,"limit":limit}    
 
     return json.dumps(data)
 
@@ -105,7 +108,7 @@ def process_twitter():
     opt = request.form['tags']
     checkbox = request.form['chx']
     data = twitter_tweepy.select_option(opt, input_text)
-    print(data)
+  
     if(opt=='hashtag' or opt=='user'):
         porcentaje = json.loads(at.texto_twitter(data, at.select_clf(checkbox), at.select_BoW_pkl(checkbox)))
         porcentaje = porcentaje["porcentaje"]

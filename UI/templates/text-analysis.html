@@ -6,50 +6,44 @@
     <h2>Type Text to Analyze</h2>
 
     <div id="formulario">
-      <form method="post" id="analysis-text">
-        <div id="fusion">
-          <div id="txt_area">
-            <textarea name="text_area" id="text_area" cols="90" rows="16" required></textarea>
-          </div>
+      <form method="post" id="analysis-text" ">
+        <div id=" fusion">
+        <div id="txt_area">
+          <textarea name="text_area" id="text_area" cols="90" rows="16"></textarea>
         </div>
-        <div id="botones">
-          <div id="selectores">
-            <label class="nombre">Racism</label><label class="switch"><input value="racism" name="chx" id="racism"
-                type="checkbox" /><span class="slider round"></span></label>
-            <label class="nombre">Sexism</label><label class="switch"><input value="sexism" name="chx" id="sexism"
-                type="checkbox" /><span class="slider round"></span></label>
-            <!-- <label class="nombre">Bullying</label><label class="switch"><input value="bullying" name="chx" id="bullying"
-                type="checkbox" /><span class="slider round"></span></label> -->
-          </div>
+    </div>
+    <div id="botones">
+      <div id="selectores">
+        <label class="nombre">Racism</label><label class="switch"><input value="racism" name="chx" id="racism"
+            class="checks" type="checkbox" /><span class="slider round"></span></label>
+        <label class="nombre">Sexism</label><label class="switch"><input value="sexism" name="chx" id="sexism"
+            class="checks" type="checkbox" /><span class="slider round"></span></label>
+      </div>
+      <div id="btn-fun">
+        <button type="button" id="btnclear" class="btn" style="display: none;"><i class="fas fa-trash"></i></button>
+        <button type="button" id="btncln" class="btn" style="display: none;"><i class=" fas fa-broom"></i></button>
+        <button type="submit" id="btn-send" class="btn"><i class=" fas fa-play"></i></button>
 
-          <!-- <div id="button_analyze">
-            <button type="button" id="analysis" class="btn">Chart</button>
-          </div> -->
-          <div id="btn-fun">            
-            <button type="button" id="btnclear" class="btn" style="display: none;"><i class="fas fa-trash"></i></button>
-            <button type="button" id="btncln" class="btn" style="display: none;"><i class=" fas fa-broom"></i></button>
-            <button type="submit" id="btn-send" class="btn" ><i class=" fas fa-play"></i></button>
+      </div>
+    </div>
+    </form>
+  </div>
 
-          </div>
-        </div>
-      </form>
+  <div id="salida" style="display: none;">
+    <div id="h2-output">
+      <h2>Results:</h2>
     </div>
 
-    <div id="salida" style="display: none;">
-      <div id="h2-output">
-        <h2>Results:</h2>
+    <div id="output">
+      <div class="content">
+        <div id="texto"></div>
+        <span class="porcentaje">Positive: &nbsp;<span id="por_dato"> </span>%</span>
       </div>
-
-      <div id="output">
-        <div class="content">
-          <div id="texto"></div>
-          <span class="porcentaje">Positive: &nbsp;<span id="por_dato"> </span>%</span>
-        </div>
-      </div>
-
     </div>
-   
 
   </div>
+
+
+</div>
 </div>
 {%endblock%}

@@ -30,35 +30,33 @@ def getTweet(url):
 
 def get_tweets_by_user(user):
     lista =[]
-    tweets = api.user_timeline(user, tweet_mode='extended')
-
-    for i in tweets[:10]:
+    if(user !=''):
+        tweets = api.user_timeline(user, tweet_mode='extended')
+        print(tweets)
+        for i in tweets[:10]:
+        
+            value=i.full_text
+        
+            lista.append(value)
     
-        value=i.full_text
-       
-        lista.append(value)
-   
-    return lista
-# get_tweets_by_user('_tech_J')
+        return lista
+
 def get_tweets_by_query(query):
     lista =[]
     tweets = api.search(query, tweet_mode='extended')
 
-    for i in tweets[:10]:
-        print(i)
-        value=i.full_text
-       
+    for i in tweets[:10]:       
+        value=i.full_text       
         lista.append(value)
    
     return lista
-def select_option(opt, data):
- 
-    elecion = ''
+def select_option(opt, data):    
+    eleccion = ''
     if(opt == 'user'):
-        elecion = get_tweets_by_user(data)
+        eleccion = get_tweets_by_user(data)
     elif(opt == 'hashtag'):
-        elecion=get_tweets_by_query(data)
+        eleccion=get_tweets_by_query(data)
     elif(opt == 'url'):
-        elecion = getTweet(data)
+        eleccion = getTweet(data)
    
-    return elecion
+    return eleccion

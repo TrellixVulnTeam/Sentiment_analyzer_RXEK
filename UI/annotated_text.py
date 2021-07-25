@@ -56,8 +56,8 @@ def procesed_tweet(text, c):
         
         return l
 
-def procesed_csv(path, c, f):
-
+def procesed_csv(path, c, f,limit):
+    print(limit)
     if(path != ''):
         key_words = deserialize_file(c)
 
@@ -68,7 +68,7 @@ def procesed_csv(path, c, f):
         df = pd.read_csv(path)
         
         l=[]
-        for row in df[f][:100]:
+        for row in df[f][:int(limit)]:
             print(row)
             lista = []
             text = row.split(' ')
@@ -87,14 +87,14 @@ def procesed_csv(path, c, f):
         
         return l
 # text,clasifier,bow
-def texto_documento(path,f,clasifier,bow):
+def texto_documento(path,f,clasifier,bow,limit):
     
     if(path != ''):  
       
         df = pd.read_csv(path)
         lista = []
         p=[]
-        for row in df[f][0:100]:
+        for row in df[f][:int(limit)]:
           
            lista.append(row)
            p.append(t.classifier(row,clasifier,bow))
@@ -109,7 +109,7 @@ def texto_twitter(data,clasifier,bow):
        
         lista = []
         p=[]
-        for row in data[0:100]:
+        for row in data:
           
            lista.append(row)
            p.append(t.classifier(row,clasifier,bow))
@@ -129,7 +129,7 @@ def dataframe_show(arc):
     if(arc != ''):
         df = pd.read_csv(arc)
         df = df.astype(str).apply(lambda x: x.str.slice(0, 50))
-        return df.to_html(max_rows=16, justify='left', index=False)
+        return df.to_html(justify='left', index=False)
 
 def select_BoW(key):
 

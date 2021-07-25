@@ -1,15 +1,17 @@
 #principal {
-  height: 100%;
-  width: 100%;
+  height: auto;
+  width: 100% ;  
   display: flex;
   flex-flow: column wrap;
-  align-items: center;
+  align-items: center; 
+
 }
 
 #p {
   padding-top: 14px;
-  width: 65%;
+  width: 1100px;
   padding-left: 50px;
+ 
 }
 
 #formulario {
@@ -27,16 +29,13 @@
 }
 
 
-
-
-
 /* TEXT AREA */
 
 #text_area {
   border: 1px solid rgb(202, 202, 202);
   border-radius: 14px;
   padding: 10px;
-  width: 1000px;
+  width: 1010px; 
   font-size: 17px;
   -webkit-box-shadow: 1px 10px 30px 18px rgba(209, 208, 213, 1);
   -moz-box-shadow: 1px 10px 30px 18px rgb(35, 14, 119);
@@ -52,9 +51,10 @@
   margin-top: 30px;
   display: flex;
   flex-flow: row wrap;
-  width: 1000px;  
+  width: 1010px;  
   align-items: flex-end;
-  justify-content: space-between
+  justify-content: space-between;
+  
 }
 
 #selectores {
@@ -66,15 +66,40 @@
   width: 320px;
   border-radius: 14px;
   font-weight: bold;
+ 
 }
+#number-rows{
+margin-left: 10px;
 
+background-color: #fff;
+border: 2px solid rgb(202, 202, 202);
+padding: 12px;
+border-radius: 14px;
+width: 380px;
+
+}
+#n-rows{
+  
+  width: 60px;  
+  border: 2px solid rgb(202, 202, 202);
+  border-radius: 6px;
+  padding: 2px;
+  font-size: 16px;
+ 
+
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 #h2-output {
   margin-top: 14px;
 }
 
 #ff {
 
-  width: 1000px;
+  width: 1010px; 
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -84,7 +109,7 @@
   margin-top: 8px;
   height: 400px;
   overflow: auto;
-  width: 1000px;
+  width: 1010px; 
   padding: 6px;
   border-radius: 10px;
   background: #fff;
@@ -137,10 +162,10 @@
   justify-content: center;
   margin-top: 4px;
   margin-bottom: 4px;
-  width: 140px;
+  width: 140px!important;
   padding: 4px;
   border-radius: 16px;
-  background-color: #02bb8c;
+  background-color: #4B8BF5;
   color: #fff;
   font-size: 14px;
   font-weight: bold;
@@ -157,4 +182,14 @@
   border-radius: 10px;
   margin-bottom: 10px;
   display: none;
+}
+
+#warning{
+  display: none;
+  margin-top: 15px;
+  font-weight: bold;
+  width: 1000px;
+  height: 30px;
+ padding-left: 15px;
+ color: rgb(236, 53, 53);
 }

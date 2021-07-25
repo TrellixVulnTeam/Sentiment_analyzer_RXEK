@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
 
-  width: 1000px;
+  width: 1010px;
 }
 
 #i_csv {
@@ -17,9 +17,9 @@
 
 #file-drag {
   font-size: 14px;
-  width: 1000px;
+  width: 1010px;
   height: 260px;
-  border: 3px solid #eee;
+  border: 2px solid #eee;
   border-radius: 14px;
   background: #fff;
   display: flex;
@@ -29,7 +29,7 @@
 }
 
 #file-drag:hover {
-  border: 3px solid #454cad;
+  border: 2px solid #454cad;
 }
 
 #start {
@@ -44,7 +44,7 @@
   font-size: 18px;
 }
 
-.fa-upload{
+.fa-upload {
   padding: 2px;
   font-size: 22px;
   color: #4b4a4a;
@@ -68,20 +68,62 @@
 }
 
 #tbl {
+
   margin-top: 20px;
   background: #fff;
-  width: 1000px;
-  height: 280px;
-  overflow: scroll;
-  display: none;
+  width: 1010px;
+  height: 350px;
+  overflow: auto;
+
 }
 
 table {
   background: #fff;
   border-collapse: collapse;
   width: 1000px;
+ 
 }
 
+#DataTables_Table_0_wrapper {
+
+  width: 1010px;
+  padding: 4px;
+}
+
+.dataTables_length,#DataTables_Table_0_info {
+  
+  width: 350px;
+  height: 40px;
+  float: left;
+  margin-top: 10px;
+}
+
+.dataTables_wrapper .dataTables_filter,.dataTables_paginate {
+  float: right;
+  width: 350px;
+  height: 40px;
+  margin-right:26px ;
+  margin-top: 20px;
+ 
+ 
+ 
+}
+.paginate_button{ 
+
+  cursor: pointer;
+  padding: .25em .5em;
+
+}
+.current{
+  border: 1px solid #979797;  
+  border-radius: 6px;
+  box-sizing: border-box;
+  width: 50px;
+  background-color: #FFF;
+  background: linear-gradient(to bottom, white 0%, #dcdcdc 100%);
+ 
+  
+}
 td,
 th {
   border: 1px solid #dddddd;

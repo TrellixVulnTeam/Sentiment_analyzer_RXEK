@@ -9,7 +9,7 @@
     <div id="formulario">
       <form method="post" class="uploader" enctype="multipart/form-data" id="formuu">
         <div id="secondary">
-          <input type="file" name="archivo" id="i_csv" required accept=".csv,application/pdf" />
+          <input type="file" name="archivo" id="i_csv"  accept=".csv" />
           <label for="i_csv" id="file-drag">
             <div id="start">
               <i class="fas fa-upload" aria-hidden="true"></i>
@@ -26,16 +26,19 @@
         <div id="botones">
           <div id="selectores">
             <label class="nombre">Racism</label><label class="switch"><input value="racism" name="chx" id="racism"
-                type="checkbox" /><span class="slider round"></span></label>
+                class="checks" type="checkbox" /><span class="slider round"></span></label>
             <label class="nombre">Sexism</label><label class="switch"><input value="sexism" name="chx" id="sexism"
-                type="checkbox" /><span class="slider round"></span></label>
-            <!-- <label class="nombre">Bullying</label><label class="switch"><input value="bullying" name="chx" id="bullying"
-                type="checkbox" /><span class="slider round"></span></label> -->
+                class="checks" type="checkbox" /><span class="slider round"></span></label>
           </div>
 
-          <!-- <div id="button_analyze">
-            <button type="button" id="analysis" class="btn">Chart</button>
-          </div> -->
+          <div id="number-rows" style="display: none;">
+            <label for="n-rows">Number of rows to analyze</label>
+            <input type="number" name="n-rows" id="n-rows">
+            <label for="n-rows">of</label>
+            <span id="num-total-rows"></span>
+          </div>
+
+          
           <div id="btn-fun">            
             <button type="button" id="btnclear" class="btn" style="display: none;"><i class="fas fa-trash"></i></button>
             <button type="button" id="btncln" class="btn" style="display: none;"><i class=" fas fa-broom"></i></button>
@@ -45,6 +48,7 @@
         </div>
       </form>
     </div>
+    <div id="warning"></div>
     <div id="tbl"></div>
 
     <div id="salida" style="display: none;">
