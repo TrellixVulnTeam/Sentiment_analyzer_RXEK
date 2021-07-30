@@ -12,7 +12,7 @@ import training as t
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = '/home/jules/Documentos/Personal/Sentiment_analyzer/tmp'
 
-field=''
+indexes=[]
 @app.route("/")
 def home():
     return render_template('home.html')
@@ -56,7 +56,7 @@ def process_file():
         pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)       
         f.save(pth)       
         tabla = at.dataframe_show(pth)
-        print(tabla)
+
         rows=pd.read_csv(pth)        
         data = {"contenido": tabla,"rows":len(rows)}
        
@@ -68,17 +68,26 @@ def process_file():
 
 @app.route("/process-file2", methods=["POST"])
 def p():
+    indexes_order=set(indexes)
+    indexes_order=sorted(indexes_order)
+    indexes_order=list(indexes_order)
+
     
     valor = at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt')
     ruta = at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt')  
     checkbox = request.form['chx']
-    limit = request.form['n-rows']
-    print(limit)
-    d = at.procesed_csv(ruta, checkbox, valor,limit)   
-    porcentaje = json.loads(at.texto_documento(ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox),limit))
-    porcentaje = porcentaje["porcentaje"]
-    data = {"contenido": d, "porcentaje": porcentaje,"limit":limit}    
-
+    if(indexes == [] ):
+        limit = request.form['n-rows']   
+        d = at.procesed_csv(ruta, checkbox, valor,limit)   
+        porcentaje = json.loads(at.texto_documento(ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox),limit))
+        porcentaje = porcentaje["porcentaje"]
+        data = {"contenido": d, "porcentaje": porcentaje} 
+    else:
+        d = at.procesed_csv2(ruta, checkbox, valor,indexes_order)   
+        porcentaje = json.loads(at.texto_documento2(ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox),indexes_order))
+        porcentaje = porcentaje["porcentaje"]
+        data = {"contenido": d, "porcentaje": porcentaje}   
+    indexes.clear()
     return json.dumps(data)
 
 
@@ -92,6 +101,17 @@ def pa():
     with open('mi_fichero.txt', 'w') as f:
         f.write(data)
     return data
+
+@app.route("/process-file4", methods=["POST"])
+def pas():
+
+    rf = request.form
+    for key in rf.keys():
+        print(key)
+        indexes.append(int(key))
+    
+  
+    return 'a'
 
 
 @app.route("/twitter-analysis")

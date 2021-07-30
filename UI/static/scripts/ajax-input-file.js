@@ -7,10 +7,10 @@ var tabla;
 var indiceAnterior = null;
 var indiceCero = 0
 var theLink;
-
+var indexes = [];
 var getTH = function () {
 
-    var indiceActual = $(this).index()
+    let indiceActual = $(this).index()
 
     $(this).css('background', "#02bb8c")
     theLink = $(this).text();
@@ -26,8 +26,6 @@ var getTH = function () {
         $(this).css('background', "#02bb8c")
         indiceAnterior = indiceActual
     }
-
-
     $.ajax({
         type: "POST",
         url: '/process-file3',
@@ -37,8 +35,10 @@ var getTH = function () {
         console.log(data);
 
     });
-
 }
+
+
+
 function insertAfter(e, i) {
     console.log('e' + e, i);
     if (e.nextSibling) {
@@ -47,17 +47,18 @@ function insertAfter(e, i) {
         e.parentNode.appendChild(i);
     }
 }
+
 function percentt() {
 
     if (flag_porcentaje == false) {
         for (i = 0; i < content.porcentaje.length; i++) {
-            var p = ''
-            d2 = document.getElementById(i)
-            var newDiv2 = document.createElement('div')
+            let p = ''
+            let d2 = document.getElementById("porcentaje" + i)
+            let newDiv2 = document.createElement('div')
             newDiv2.setAttribute("class", "porcentaje")
             p += (content.porcentaje[i][1] * 100).toFixed(2);
 
-            newDiv2.innerHTML = "<b>"+ p + "%" + "<b/>"
+            newDiv2.innerHTML = "<b>" + p + "%" + "<b/>"
             insertAfter(d2, newDiv2)
             acumulador += parseFloat(p)
 
@@ -65,8 +66,8 @@ function percentt() {
         }
 
         acumulador = acumulador / content.porcentaje.length
-        var positivo = 100 - acumulador
-        var lista = [acumulador, positivo]
+        let positivo = 100 - acumulador
+        let lista = [acumulador, positivo]
 
 
         chartt(lista)
@@ -79,7 +80,7 @@ function percentt() {
         flag_porcentaje = false;
         acumulador = 0;
         chart(0)
-        
+
         $("#salida").css({ "display": "none" });
         $("#btn-send").show()
         $("#btncln").css({ "display": "none" });
@@ -94,6 +95,7 @@ function percentt() {
 }
 $(function () {
     $('#i_csv').change(function () {
+        indexes = []
         d = { "formu": new FormData($('#formuu')[0]) };
         $.ajax({
             type: 'POST',
@@ -103,18 +105,53 @@ $(function () {
             cache: false,
             processData: false,
             success: function (d) {
-                var content = JSON.parse(d);
-                console.log(content);              
-                $("#warning").html("Select a table header").show();                
-                $("#tbl").html(content["contenido"]);
-                $('.dataframe').DataTable({
-                    "ordering": false
+                let content = JSON.parse(d);
+                
+                $("#warning").html("Select a table header").show();
+                $("#tbl").html(content["contenido"]).show();
+        
+                $("tr").prepend("<td></td>")
+
+                var table = $('.dataframe').DataTable({
+                    "ordering": false,
+
+                    columnDefs: [{
+                        targets: 0,
+                        data: null,
+
+                        defaultContent: '',
+                        orderable: false,
+                        className: 'select-checkbox',
+
+                    }],
+
+                    select: {
+                        style: 'multi',
+                        selector: 'td:first-child'
+                    },
+                    order: [[1, 'asc']]
                 });
+
+                $('.dataframe tbody').on('click', 'td', function () {
+                    let value = table.row(this).index()
+                   
+                    $.ajax({
+                        type: "POST",
+                        url: '/process-file4',
+                        data: JSON.stringify(value),
+                        dataType: 'json'
+                    }).done(function (data) {
+                        console.log(data);
+                
+                    });
+                });
+
                 $("#number-rows").show();
                 $("#num-total-rows").html(content["rows"]);
-                $("th").unbind('click', getTH);
 
+                $("th").unbind('click', getTH);
                 $("th").click(getTH);
+
 
 
             },
@@ -125,6 +162,7 @@ $(function () {
 
 $(document).ready(function () {
     selector();
+
     function login() {
 
         $.ajax({
@@ -134,18 +172,18 @@ $(document).ready(function () {
             success: function (response) {
 
                 content = JSON.parse(response)
-
-                var output_file = document.getElementById('output_file')
+                console.log(content);
+                let output_file = document.getElementById('output_file')
 
                 if (flagData == false) {
                     for (i = 0; i < content.contenido.length; i++) {
-                        var a = ''
-                        var divcContent = document.createElement('div')
-                        divcContent.setAttribute("id", "n")
+                        let a = ''
+                        let divcContent = document.createElement('div')
+                        divcContent.setAttribute("id", "content" + i)
                         divcContent.setAttribute("class", "contenido")
-                        console.log(divcContent);
-                        var newDiv = document.createElement('div')
-                        newDiv.setAttribute("id", i)
+
+                        let newDiv = document.createElement('div')
+                        newDiv.setAttribute("id", "porcentaje" + i)
 
                         for (z = 0; z < content.contenido[i].length; z++) {
                             a += content.contenido[i][z];
@@ -156,7 +194,7 @@ $(document).ready(function () {
                     }
 
                     flagData = true;
-                    console.log(flagData);
+
                 }
                 percentt()
                 $("#btnclear").show()
@@ -176,9 +214,10 @@ $(document).ready(function () {
     })
 })
 let flChart;
+
 function chartt(porcentajes) {
 
-    var ctx = document.getElementById('fileChart').getContext("2d");
+    let ctx = document.getElementById('fileChart').getContext("2d");
 
     if (flChart) {
         flChart.destroy();
@@ -191,7 +230,7 @@ function chartt(porcentajes) {
             datasets: [{
                 label: '# of Votes',
                 data: porcentajes,
-              
+
                 backgroundColor: [
                     'rgba(255, 139, 139, 1)',
                     'rgba(163, 234, 202, 1)'

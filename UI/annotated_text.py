@@ -12,8 +12,10 @@ sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/')
 import training as t
 
 stop_words = set(stopwords.words("english"))
+
+
 def procesed_text(text, c):
-   
+
     if(text != ''):
         key_words = deserialize_file(c)
         color = str(c)
@@ -28,17 +30,18 @@ def procesed_text(text, c):
                 lista.append(t)
         strA = " ".join(lista)
         return strA
-        
+
+
 def procesed_tweet(text, c):
 
     if(text != ''):
         key_words = deserialize_file(c)
         color = str(c)
-       
+
         lista = []
-        l=[]
+        l = []
         for row in text:
-            
+
             lista = []
             texto = row.split(' ')
 
@@ -53,26 +56,27 @@ def procesed_tweet(text, c):
                     lista.append(' ')
 
             l.append(lista)
-        
+
         return l
 
-def procesed_csv(path, c, f,limit):
+
+def procesed_csv(path, c, f, limit):
     print(limit)
     if(path != ''):
         key_words = deserialize_file(c)
 
         if(c == ''):
             color = 'black'
-        else: 
+        else:
             color = str(c)
         df = pd.read_csv(path)
-        
-        l=[]
+
+        l = []
         for row in df[f][:int(limit)]:
-            print(row)
+            
             lista = []
             text = row.split(' ')
-
+            print(text)
             for i in text:
                 if(i in key_words and i not in stop_words):
                     t = '<span class='+color+'>' + i + '</span>'
@@ -84,39 +88,112 @@ def procesed_csv(path, c, f,limit):
                     lista.append(' ')
 
             l.append(lista)
-        
+
         return l
-# text,clasifier,bow
-def texto_documento(path,f,clasifier,bow,limit):
+
+
+def procesed_csv2(path, c, f, indexes):
+
     
-    if(path != ''):  
+    if(path != ''):
+        key_words = deserialize_file(c)
+
+        if(c == ''):
+            color = 'black'
+        else:
+            color = str(c)
+        df = pd.read_csv(path)
+
+        l = []
+
+        for ind in indexes:
+
+            actual_row = df.iloc[ind]
+            actual_row = (actual_row[f])
+            lista = []
+            text = actual_row.split(' ')
+            print(text)
+            for i in text:
+                print(i)
+                if(i in key_words and i not in stop_words):
+                    t = '<span class='+color+'>' + i + '</span>'
+                    lista.append(t)
+                    lista.append(' ')
+                else:
+                    t = '<span class="no-color" >' + i + '</span>'
+                    lista.append(t)
+                    lista.append(' ')
+
+            l.append(lista)
+
+        return l
       
+
+      
+
+
+# text,clasifier,bow
+def texto_documento(path, f, clasifier, bow, limit):
+
+    if(path != ''):
+
         df = pd.read_csv(path)
         lista = []
-        p=[]
+        p = []
         for row in df[f][:int(limit)]:
-          
-           lista.append(row)
-           p.append(t.classifier(row,clasifier,bow))
-       
-        data={"text":lista,"porcentaje":p}
-        
+
+            lista.append(row)
+            p.append(t.classifier(row, clasifier, bow))
+
+        data = {"text": lista, "porcentaje": p}
+
         return json.dumps(data)
 
-def texto_twitter(data,clasifier,bow):
-    
-    if(data != ''):       
-       
+
+def texto_documento2(path, f, clasifier, bow,indexes):
+
+    if(path != ''):
+
+        df = pd.read_csv(path)
         lista = []
-        p=[]
-        for row in data:
-          
-           lista.append(row)
-           p.append(t.classifier(row,clasifier,bow))
-       
-        data={"text":lista,"porcentaje":p}
-        
+        p = []
+        # for row in df[f]:
+
+        #     lista.append(row)
+        #     p.append(t.classifier(row, clasifier, bow))
+
+        for ind in indexes:
+
+            actual_row = df.iloc[ind]
+            actual_row = (actual_row[f])
+            lista = []
+            
+           
+           
+              
+            lista.append(actual_row)
+            p.append(t.classifier(actual_row, clasifier, bow))
+            data = {"text": lista, "porcentaje": p}
+
         return json.dumps(data)
+
+
+def texto_twitter(data, clasifier, bow):
+
+    if(data != ''):
+
+        lista = []
+        p = []
+        for row in data:
+
+            lista.append(row)
+            p.append(t.classifier(row, clasifier, bow))
+
+        data = {"text": lista, "porcentaje": p}
+
+        return json.dumps(data)
+
+
 def deserialize_file(c):
     x = c
     path_bow = select_BoW(x)
@@ -125,11 +202,13 @@ def deserialize_file(c):
     fileIn.close()
     return dataLoad
 
+
 def dataframe_show(arc):
     if(arc != ''):
         df = pd.read_csv(arc)
         df = df.astype(str).apply(lambda x: x.str.slice(0, 50))
-        return df.to_html(justify='left', index=False)
+        return df.to_html(table_id="my-table", justify='left', index=False)
+
 
 def select_BoW(key):
 
@@ -137,8 +216,9 @@ def select_BoW(key):
         BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Racism.dat"
     elif(key == 'sexism'):
         BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/binary/Sexism.dat"
-   
+
     return BoW
+
 
 def select_clf(key):
 
@@ -146,8 +226,9 @@ def select_clf(key):
         clf = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/racism_clf_.pkl"
     elif(key == 'sexism'):
         clf = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/classifiers/sexism_clf_.pkl"
-   
+
     return clf
+
 
 def select_BoW_pkl(key):
 
@@ -155,20 +236,24 @@ def select_BoW_pkl(key):
         BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Racism.pkl"
     elif(key == 'sexism'):
         BoW = "/home/jules/Documentos/Personal/Sentiment_analyzer/Serialized/plk/BoW/BoW_Sexism.pkl"
-   
+
     return BoW
 
+
 def openFiles(path):
-    f=open (path,'r')
+    f = open(path, 'r')
     data = f.read()
-    data=data.replace('"','')
+    data = data.replace('"', '')
     return data
 
+
 def clearFiles():
-    f_field=open('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt','w')
+    f_field = open(
+        '/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt', 'w')
     f_field.write('')
     f_field.close()
 
-    f_path=open('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt','w')
+    f_path = open(
+        '/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt', 'w')
     f_path.write('')
     f_path.close()

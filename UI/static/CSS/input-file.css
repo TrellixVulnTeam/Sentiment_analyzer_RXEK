@@ -1,142 +1,133 @@
 #secondary {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  width: 1010px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1010px;
 }
 
 #i_csv {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
 #file-drag {
-  font-size: 14px;
-  width: 1010px;
-  height: 260px;
-  border: 2px solid #eee;
-  border-radius: 14px;
-  background: #fff;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
+    font-size: 14px;
+    width: 1010px;
+    height: 260px;
+    border: 2px solid #eee;
+    border-radius: 14px;
+    background: #fff;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 #file-drag:hover {
-  border: 2px solid #454cad;
+    border: 2px solid #454cad;
 }
 
 #start {
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
 }
 
 #hdn {
-  flex-flow: column wrap;
-  align-items: center;
-  font-size: 18px;
+    flex-flow: column wrap;
+    align-items: center;
+    font-size: 18px;
 }
 
 .fa-upload {
-  padding: 2px;
-  font-size: 22px;
-  color: #4b4a4a;
+    padding: 2px;
+    font-size: 22px;
+    color: #4b4a4a;
 }
 
 #text_file {
-  padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 #file-upload-btn {
-  background: #02bb8c;
-  font-size: 15px;
-  font-weight: bold;
-  color: #fff;
-  padding: 8px;
-
-  border-radius: 4px;
-  cursor: pointer;
+    background: #02bb8c;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 #tbl {
-
-  margin-top: 20px;
-  background: #fff;
-  width: 1010px;
-  height: 350px;
-  overflow: auto;
-
+    margin-top: 20px;
+    background: #fff;
+    width: 1010px;
+    height: 350px;
+    overflow: auto;
+    display: none;
 }
 
 table {
-  background: #fff;
-  border-collapse: collapse;
-  width: 1000px;
- 
+    background: #fff;
+    border-collapse: collapse;
+    width: 1000px;
 }
 
 #DataTables_Table_0_wrapper {
-
-  width: 1010px;
-  padding: 4px;
+    width: 1010px;
+    padding: 4px;
 }
 
-.dataTables_length,#DataTables_Table_0_info {
-  
-  width: 350px;
-  height: 40px;
-  float: left;
-  margin-top: 10px;
+.dataTables_length,
+#DataTables_Table_0_info {
+    width: 350px;
+    height: 40px;
+    float: left;
+    margin-top: 10px;
 }
 
-.dataTables_wrapper .dataTables_filter,.dataTables_paginate {
-  float: right;
-  width: 350px;
-  height: 40px;
-  margin-right:26px ;
-  margin-top: 20px;
- 
- 
- 
+.dataTables_wrapper .dataTables_filter,
+.dataTables_paginate {
+    float: right;
+    width: 350px;
+    height: 40px;
+    margin-right: 26px;
+    margin-top: 20px;
 }
-.paginate_button{ 
 
-  cursor: pointer;
-  padding: .25em .5em;
+.paginate_button {
+    cursor: pointer;
+    padding: .25em .5em;
+}
 
+.current {
+    border: 1px solid #979797;
+    border-radius: 6px;
+    box-sizing: border-box;
+    width: 50px;
+    background-color: #FFF;
+    background: linear-gradient(to bottom, white 0%, #dcdcdc 100%);
 }
-.current{
-  border: 1px solid #979797;  
-  border-radius: 6px;
-  box-sizing: border-box;
-  width: 50px;
-  background-color: #FFF;
-  background: linear-gradient(to bottom, white 0%, #dcdcdc 100%);
- 
-  
-}
+
 td,
 th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
 }
 
 th:hover {
-  cursor: pointer;
-  background: #02bb8c;
+    cursor: pointer;
+    background: #02bb8c;
 }
 
-
 tr:nth-child(even) {
-  background-color: #dddddd;
+    background-color: #dddddd;
 }
