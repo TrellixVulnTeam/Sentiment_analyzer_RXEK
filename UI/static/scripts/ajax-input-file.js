@@ -11,30 +11,32 @@ var indexes = [];
 var getTH = function () {
 
     let indiceActual = $(this).index()
-
-    $(this).css('background', "#02bb8c")
-    theLink = $(this).text();
-    $("#warning").css({ "display": "none" });
-    if (indiceAnterior == null) {
-        indiceAnterior = indiceActual;
-    } else if (indiceAnterior == indiceActual) {
+    if (indiceActual != 0) {
         $(this).css('background', "#02bb8c")
-        indiceAnterior = indiceActual
-    } else if (indiceAnterior != indiceActual) {
+        theLink = $(this).text();
+        $("#warning").css({ "display": "none" });
+        if (indiceAnterior == null) {
+            indiceAnterior = indiceActual;
+        } else if (indiceAnterior == indiceActual) {
+            $(this).css('background', "#02bb8c")
+            indiceAnterior = indiceActual
+        } else if (indiceAnterior != indiceActual) {
 
-        $("th:eq(" + indiceAnterior + ")").css('background', "#FFFFFF")
-        $(this).css('background', "#02bb8c")
-        indiceAnterior = indiceActual
+            $("th:eq(" + indiceAnterior + ")").css('background', "#FFFFFF")
+            $(this).css('background', "#02bb8c")
+            indiceAnterior = indiceActual
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '/process-file3',
+            data: JSON.stringify(theLink),
+            dataType: 'json'
+        }).done(function (data) {
+            console.log(data);
+
+        });
     }
-    $.ajax({
-        type: "POST",
-        url: '/process-file3',
-        data: JSON.stringify(theLink),
-        dataType: 'json'
-    }).done(function (data) {
-        console.log(data);
-
-    });
 }
 
 
@@ -106,15 +108,19 @@ $(function () {
             processData: false,
             success: function (d) {
                 let content = JSON.parse(d);
-                
+
                 $("#warning").html("Select a table header").show();
                 $("#tbl").html(content["contenido"]).show();
-        
-                $("tr").prepend("<td></td>")
+
+                addHeader()
+                appendColumn()
+
+                var nColumnas = $("#my-table tr:last td").length - 1;
+                var tbl = jQuery('table');
+                jQuery.moveColumn(tbl, nColumnas, 0);
 
                 var table = $('.dataframe').DataTable({
                     "ordering": false,
-
                     columnDefs: [{
                         targets: 0,
                         data: null,
@@ -130,21 +136,87 @@ $(function () {
                         selector: 'td:first-child'
                     },
                     order: [[1, 'asc']]
+
                 });
 
-                $('.dataframe tbody').on('click', 'td', function () {
-                    let value = table.row(this).index()
-                   
+
+                table.on("click", "th.select-checkbox", function () {
+                    var page = table.page.info();
+
+                    if ($("th.select-checkbox").hasClass("selected")) {
+
+                        for (p = page.start; p < page.end; p++) {
+                            table.rows(p).deselect();
+                            $("th.select-checkbox").removeClass("selected");
+                            let value = table.row(p).index()
+                            
+                            console.log(value);
+                            if ($.inArray(value, indexes) != -1) {
+                                indexes.pop(value)
+                            };
+
+                        }
+                    } else {
+                        for (p = page.start; p < page.end; p++) {
+                            table.rows(p).select();
+                            $("th.select-checkbox").addClass("selected");
+                            let value = table.row(p).index()
+                            
+                            console.log(value);
+                            if ($.inArray(value, indexes) == -1) {
+                                indexes.push(value)
+                            };
+                        }
+                    }
                     $.ajax({
                         type: "POST",
                         url: '/process-file4',
-                        data: JSON.stringify(value),
+                        data: JSON.stringify(indexes),
                         dataType: 'json'
                     }).done(function (data) {
                         console.log(data);
-                
+
                     });
+                })
+
+                table.on('page.dt', function () {
+                    let selected = table.rows({ page: 'current', selected: true }).count()
+                    console.log(selected);
+                    if (selected == 0) {
+                        if ($("th.select-checkbox").hasClass("selected") && $("input.select-checkbox").prop('checked', true)) {
+
+                            $("th.select-checkbox").removeClass("selected");
+                            $("input.select-checkbox").prop('checked', false);
+                        }
+                    }
+                    if (selected != 0) {
+
+                        $("th.select-checkbox").addClass("selected");
+                        $("input.select-checkbox").prop('checked', true);
+
+                    }
+
+
+
                 });
+
+                // $('.dataframe tbody').on('click', '.select-checkbox', function () {
+                //     let value = table.row(this).index()
+
+                //     $.ajax({
+                //         type: "POST",
+                //         url: '/process-file4',
+                //         data: JSON.stringify(indexes),
+                //         dataType: 'json'
+                //     }).done(function (data) {
+                //         console.log(data);
+
+                //     });
+                // });
+
+
+
+
 
                 $("#number-rows").show();
                 $("#num-total-rows").html(content["rows"]);

@@ -61,7 +61,7 @@ def procesed_tweet(text, c):
 
 
 def procesed_csv(path, c, f, limit):
-    print(limit)
+ 
     if(path != ''):
         key_words = deserialize_file(c)
 
@@ -76,7 +76,7 @@ def procesed_csv(path, c, f, limit):
             
             lista = []
             text = row.split(' ')
-            print(text)
+            
             for i in text:
                 if(i in key_words and i not in stop_words):
                     t = '<span class='+color+'>' + i + '</span>'
@@ -112,9 +112,9 @@ def procesed_csv2(path, c, f, indexes):
             actual_row = (actual_row[f])
             lista = []
             text = actual_row.split(' ')
-            print(text)
+            
             for i in text:
-                print(i)
+              
                 if(i in key_words and i not in stop_words):
                     t = '<span class='+color+'>' + i + '</span>'
                     lista.append(t)
@@ -166,11 +166,7 @@ def texto_documento2(path, f, clasifier, bow,indexes):
 
             actual_row = df.iloc[ind]
             actual_row = (actual_row[f])
-            lista = []
-            
-           
-           
-              
+            lista = []                             
             lista.append(actual_row)
             p.append(t.classifier(actual_row, clasifier, bow))
             data = {"text": lista, "porcentaje": p}
@@ -207,7 +203,7 @@ def dataframe_show(arc):
     if(arc != ''):
         df = pd.read_csv(arc)
         df = df.astype(str).apply(lambda x: x.str.slice(0, 50))
-        return df.to_html(table_id="my-table", justify='left', index=False)
+        return df.to_html(table_id="my-table",classes="pandas",justify='left', index=False)
 
 
 def select_BoW(key):

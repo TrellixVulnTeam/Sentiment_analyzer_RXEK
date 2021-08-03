@@ -24,12 +24,11 @@ function checkFiles() {
 function addHeader() {
     var table = document.getElementById("my-table");
     var th = document.createElement("th")
-    th.setAttribute("id", "chx-th")
-    var chx_b = document.createElement("input")
-    chx_b.setAttribute("type", "checkbox");
-
-    console.log(table.rows)
-    th.appendChild(chx_b)
+    var chx = document.createElement("input")
+    chx.setAttribute("type", "checkbox")
+    chx.setAttribute("class", "select-checkbox")
+    chx.setAttribute("id", "caca")
+    th.appendChild(chx)
     var row1 = table.rows[0];
     row1.appendChild(th);
 
@@ -38,21 +37,31 @@ function addHeader() {
 
 
 function createCell(cell, id) {
-    console.log(id)
+   
+    let ch = document.createElement("div");
 
-    let ch = document.createElement("INPUT");
-    ch.setAttribute("type", "checkbox");
-    ch.setAttribute("id", id);
     cell.appendChild(ch);
 }
 
 // append column to the HTML table
 function appendColumn() {
-    let tbl = document.getElementById('my-table'), // table reference
+    var tbl = document.getElementById('my-table'), // table reference
         i;
     // open loop for each row and append cell
-    console.log("Adas"+tbl.rows.length);
-    for (i = tbl.columns.length; i>=0; i--) {
-        createCell(tbl.rows[i].insertCell(tbl.rows[i].cells.length), "chx-row" + i);
+    for (i = 1; i < tbl.rows.length; i++) {
+        createCell(tbl.rows[i].insertCell(tbl.rows[i].cells.length), i, 'chx' + i);
     }
 }
+
+var nColumnas = $("#my-table tr:last td").length - 1;
+
+jQuery.moveColumn = function (table, from, to) {
+    var rows = jQuery('tr', table);
+    var cols;
+    rows.each(function () {
+        cols = jQuery(this).children('th, td');
+
+        cols.eq(from).detach().insertBefore(cols.eq(to));
+    });
+}
+

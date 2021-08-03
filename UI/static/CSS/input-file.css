@@ -101,6 +101,10 @@ table {
     margin-right: 26px;
     margin-top: 20px;
 }
+.select-checkbox{
+cursor: pointer;
+}
+
 
 .paginate_button {
     cursor: pointer;
@@ -123,7 +127,7 @@ th {
     padding: 8px;
 }
 
-th:hover {
+th:hover:not(:first-child) {
     cursor: pointer;
     background: #02bb8c;
 }
