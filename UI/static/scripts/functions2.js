@@ -37,7 +37,7 @@ function addHeader() {
 
 
 function createCell(cell, id) {
-   
+
     let ch = document.createElement("div");
 
     cell.appendChild(ch);
@@ -65,3 +65,109 @@ jQuery.moveColumn = function (table, from, to) {
     });
 }
 
+function changeTH(lastIndex, actualIndex, ele) {
+
+    if (lastIndex == null) {
+        lastIndex = actualIndex;
+
+    } else if (lastIndex == actualIndex) {
+        $(ele).css('background', "#02bb8c")
+        lastIndex = actualIndex
+
+    } else if (lastIndex != actualIndex) {
+
+        $("th:eq(" + lastIndex + ")").css('background', "#FFFFFF")
+        $(ele).css('background', "#02bb8c")
+        lastIndex = actualIndex
+
+    }
+    return lastIndex
+}
+
+
+function makeChart(data, selector, nameChart) {
+
+    let ctx = document.getElementById(selector).getContext("2d");
+
+    if (nameChart) {
+        nameChart.destroy();
+    }
+    nameChart = new Chart(ctx, {
+
+        type: 'doughnut',
+        data: {
+            labels: ['Yes', 'No'],
+            datasets: [{
+
+                data: data,
+
+                backgroundColor: [
+                    'rgba(253, 92, 99, 1)',
+                    'rgba(0, 193, 110, 1)'
+
+                ],
+                hoverOffset: 3,
+                borderColor: [
+                    'rgba(255, 139, 139, 1)',
+                    'rgba(163, 234, 202, 1)'
+
+                ],
+                circumference: 180,
+                rotation: -90,
+                borderWidth: 1
+            }]
+        },
+
+    });
+    return nameChart
+}
+
+function makeElementPercent(elementID, dataContent, flag, acumulador) {
+    var returnedObject = {};
+    for (i = 0; i < dataContent.porcentaje.length; i++) {
+        let p = ''
+        let d2 = document.getElementById(elementID + i)
+        let newDiv2 = document.createElement('div')
+        newDiv2.setAttribute("class", "porcentaje")
+        p += (dataContent.porcentaje[i][1] * 100).toFixed(2);
+
+        newDiv2.innerHTML = "<b>" + p + "%" + "<b/>"
+        insertAfter(d2, newDiv2)
+        acumulador += parseFloat(p)
+
+        flag = true;
+    }
+    returnedObject["acumulador"] = acumulador;
+    returnedObject["flag"] = flag;
+
+    return returnedObject;
+}
+
+function makeElementContent(dataContent,output_file){
+    for (i = 0; i < dataContent.contenido.length; i++) {
+        let a = ''
+        let divcContent = document.createElement('div')
+        divcContent.setAttribute("id", "content" + i)
+        divcContent.setAttribute("class", "contenido")
+
+        let newDiv = document.createElement('div')
+        newDiv.setAttribute("id", "porcentaje" + i)
+
+        for (z = 0; z < dataContent.contenido[i].length; z++) {
+            a += dataContent.contenido[i][z];
+        }
+        newDiv.innerHTML = a
+        divcContent.appendChild(newDiv)
+        output_file.appendChild(divcContent)
+    }
+
+}
+
+function insertAfter(e, i) {
+    console.log('e' + e, i);
+    if (e.nextSibling) {
+        e.parentNode.insertBefore(i, e.nextSibling);
+    } else {
+        e.parentNode.appendChild(i);
+    }
+}

@@ -4,6 +4,7 @@ from flask import render_template, request, request, jsonify
 import annotated_text as at
 from werkzeug.utils import secure_filename
 import os
+import re
 import sys
 import pandas as pd
 sys.path.append('/home/jules/Documentos/Personal/Sentiment_analyzer/src/')
@@ -68,7 +69,7 @@ def process_file():
 
 @app.route("/process-file2", methods=["POST"])
 def p():
-    
+    print("metodo p",indexes)
     valor = at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt')
     ruta = at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt')  
     checkbox = request.form['chx']
@@ -79,6 +80,7 @@ def p():
         porcentaje = porcentaje["porcentaje"]
         data = {"contenido": d, "porcentaje": porcentaje} 
     else:
+       
         indexes_order=set(indexes)
         indexes_order=sorted(indexes_order)
         indexes_order=list(indexes_order)
@@ -105,9 +107,18 @@ def pa():
 def pas():
 
     rf = request.form
+    
     for key in rf.keys():
-        print(key)
-        
+      
+        key=re.sub(r"[\([{})\]]",'',key)               
+        key = key.split(',')
+
+
+        for k in key:    
+            print(k)    
+            if(k != "," ):
+               
+                indexes.append(int(k))
     
   
     return 'a'

@@ -71,7 +71,10 @@
     width: 1010px;
     height: 350px;
     overflow: auto;
+    padding: 6px;
+    border-radius: 4px;
     display: none;
+
 }
 
 table {

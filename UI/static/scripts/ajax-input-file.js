@@ -3,29 +3,65 @@ var flagData = false;
 var flag_porcentaje = false;
 var content = {}
 var warning;
-var tabla;
 var indiceAnterior = null;
-var indiceCero = 0
 var theLink;
 var indexes = [];
+var table;
+var page;
+var flChart;
+
+
+var selectCheckBox = function () {
+    let value = table.row(this).index()
+
+    dddd = addOrDeleteElementArray(this, value, indexes, table)
+    console.log(dddd)
+    $.ajax({
+        type: "POST",
+        url: '/process-file4',
+        data: JSON.stringify(dddd),
+        dataType: 'json'
+    }).done(function (data) {
+        console.log(data);
+
+    });
+}
+
+var selectAllCheckBoxes = function () {
+    
+    page = table.page.info();
+    var dddd;
+    console.log("entraaaos");
+
+    if ($("input.select-checkbox").hasClass("selected")) {
+
+        dddd = deleteAllIndex(indexes, page, table)
+    } else {
+
+        dddd = insertAllIndex(indexes, page, table, this)
+        console.log(dddd)
+    }
+    $.ajax({
+        type: "POST",
+        url: '/process-file4',
+        data: JSON.stringify(dddd),
+        dataType: 'json'
+    }).done(function (data) {
+        console.log(data);
+
+    });
+}
+
 var getTH = function () {
 
     let indiceActual = $(this).index()
     if (indiceActual != 0) {
+
         $(this).css('background', "#02bb8c")
         theLink = $(this).text();
         $("#warning").css({ "display": "none" });
-        if (indiceAnterior == null) {
-            indiceAnterior = indiceActual;
-        } else if (indiceAnterior == indiceActual) {
-            $(this).css('background', "#02bb8c")
-            indiceAnterior = indiceActual
-        } else if (indiceAnterior != indiceActual) {
 
-            $("th:eq(" + indiceAnterior + ")").css('background', "#FFFFFF")
-            $(this).css('background', "#02bb8c")
-            indiceAnterior = indiceActual
-        }
+        indiceAnterior = changeTH(indiceAnterior, indiceActual, this)
 
         $.ajax({
             type: "POST",
@@ -40,39 +76,18 @@ var getTH = function () {
 }
 
 
-
-function insertAfter(e, i) {
-    console.log('e' + e, i);
-    if (e.nextSibling) {
-        e.parentNode.insertBefore(i, e.nextSibling);
-    } else {
-        e.parentNode.appendChild(i);
-    }
-}
-
 function percentt() {
-
+    console.log("p" + indexes);
     if (flag_porcentaje == false) {
-        for (i = 0; i < content.porcentaje.length; i++) {
-            let p = ''
-            let d2 = document.getElementById("porcentaje" + i)
-            let newDiv2 = document.createElement('div')
-            newDiv2.setAttribute("class", "porcentaje")
-            p += (content.porcentaje[i][1] * 100).toFixed(2);
 
-            newDiv2.innerHTML = "<b>" + p + "%" + "<b/>"
-            insertAfter(d2, newDiv2)
-            acumulador += parseFloat(p)
+        var returnValue = makeElementPercent("porcentaje", content, flag_porcentaje, acumulador)
+        flag_porcentaje = returnValue.flag;
 
-            flag_porcentaje = true;
-        }
-
-        acumulador = acumulador / content.porcentaje.length
+        acumulador = returnValue.acumulador / content.porcentaje.length
         let positivo = 100 - acumulador
         let lista = [acumulador, positivo]
 
-
-        chartt(lista)
+        flChart = makeChart(lista, 'fileChart', flChart)
         $("#salida").show()
     }
     $("#btncln").click(function () {
@@ -81,7 +96,7 @@ function percentt() {
         flagData = false;
         flag_porcentaje = false;
         acumulador = 0;
-        chart(0)
+        indexes = cleanCheckbox(indexes, table)
 
         $("#salida").css({ "display": "none" });
         $("#btn-send").show()
@@ -115,11 +130,9 @@ $(function () {
                 addHeader()
                 appendColumn()
 
-                var nColumnas = $("#my-table tr:last td").length - 1;
-                var tbl = jQuery('table');
-                jQuery.moveColumn(tbl, nColumnas, 0);
+                jQuery.moveColumn(jQuery('table'), $("#my-table tr:last td").length - 1, 0);
 
-                var table = $('.dataframe').DataTable({
+                table = $('.dataframe').DataTable({
                     "ordering": false,
                     columnDefs: [{
                         targets: 0,
@@ -140,81 +153,23 @@ $(function () {
                 });
 
 
-                table.on("click", "th.select-checkbox", function () {
-                    var page = table.page.info();
-
-                    if ($("th.select-checkbox").hasClass("selected")) {
-
-                        for (p = page.start; p < page.end; p++) {
-                            table.rows(p).deselect();
-                            $("th.select-checkbox").removeClass("selected");
-                            let value = table.row(p).index()
-                            
-                            console.log(value);
-                            if ($.inArray(value, indexes) != -1) {
-                                indexes.pop(value)
-                            };
-
-                        }
-                    } else {
-                        for (p = page.start; p < page.end; p++) {
-                            table.rows(p).select();
-                            $("th.select-checkbox").addClass("selected");
-                            let value = table.row(p).index()
-                            
-                            console.log(value);
-                            if ($.inArray(value, indexes) == -1) {
-                                indexes.push(value)
-                            };
-                        }
-                    }
-                    $.ajax({
-                        type: "POST",
-                        url: '/process-file4',
-                        data: JSON.stringify(indexes),
-                        dataType: 'json'
-                    }).done(function (data) {
-                        console.log(data);
-
-                    });
-                })
+                $("input.select-checkbox").unbind('click', selectAllCheckBoxes);
+                $('input.select-checkbox').click(selectAllCheckBoxes)
 
                 table.on('page.dt', function () {
-                    let selected = table.rows({ page: 'current', selected: true }).count()
-                    console.log(selected);
-                    if (selected == 0) {
-                        if ($("th.select-checkbox").hasClass("selected") && $("input.select-checkbox").prop('checked', true)) {
+                    let rowsSelected = table.rows({ page: 'current', selected: true }).count()
 
-                            $("th.select-checkbox").removeClass("selected");
-                            $("input.select-checkbox").prop('checked', false);
-                        }
-                    }
-                    if (selected != 0) {
-
-                        $("th.select-checkbox").addClass("selected");
-                        $("input.select-checkbox").prop('checked', true);
-
-                    }
-
-
+                    checkboxChangePage(rowsSelected);
 
                 });
 
-                // $('.dataframe tbody').on('click', '.select-checkbox', function () {
-                //     let value = table.row(this).index()
-
-                //     $.ajax({
-                //         type: "POST",
-                //         url: '/process-file4',
-                //         data: JSON.stringify(indexes),
-                //         dataType: 'json'
-                //     }).done(function (data) {
-                //         console.log(data);
-
-                //     });
-                // });
-
-
+                table.on( 'length.dt', function (  ) {
+                    
+                    page = table.page.info();
+                    console.log(page);
+                } );
+                $("td.select-checkbox").unbind('click', selectCheckBox);
+                $('td.select-checkbox').click(selectCheckBox)
 
 
 
@@ -224,8 +179,6 @@ $(function () {
                 $("th").unbind('click', getTH);
                 $("th").click(getTH);
 
-
-
             },
         });
     });
@@ -233,10 +186,9 @@ $(function () {
 });
 
 $(document).ready(function () {
-    selector();
 
     function login() {
-
+        indexes = []
         $.ajax({
             url: "/process-file2",
             data: $('form').serialize(),
@@ -244,27 +196,12 @@ $(document).ready(function () {
             success: function (response) {
 
                 content = JSON.parse(response)
-                console.log(content);
+
                 let output_file = document.getElementById('output_file')
 
                 if (flagData == false) {
-                    for (i = 0; i < content.contenido.length; i++) {
-                        let a = ''
-                        let divcContent = document.createElement('div')
-                        divcContent.setAttribute("id", "content" + i)
-                        divcContent.setAttribute("class", "contenido")
 
-                        let newDiv = document.createElement('div')
-                        newDiv.setAttribute("id", "porcentaje" + i)
-
-                        for (z = 0; z < content.contenido[i].length; z++) {
-                            a += content.contenido[i][z];
-                        }
-                        newDiv.innerHTML = a
-                        divcContent.appendChild(newDiv)
-                        output_file.appendChild(divcContent)
-                    }
-
+                    makeElementContent(content, output_file)
                     flagData = true;
 
                 }
@@ -285,40 +222,3 @@ $(document).ready(function () {
         login()
     })
 })
-let flChart;
-
-function chartt(porcentajes) {
-
-    let ctx = document.getElementById('fileChart').getContext("2d");
-
-    if (flChart) {
-        flChart.destroy();
-    }
-    flChart = new Chart(ctx, {
-
-        type: 'doughnut',
-        data: {
-            labels: ['Yes', 'No'],
-            datasets: [{
-                label: '# of Votes',
-                data: porcentajes,
-
-                backgroundColor: [
-                    'rgba(255, 139, 139, 1)',
-                    'rgba(163, 234, 202, 1)'
-
-                ],
-                hoverOffset: 6,
-                borderColor: [
-                    'rgba(255, 139, 139, 1)',
-                    'rgba(163, 234, 202, 1)'
-
-                ],
-                circumference: 180,
-                rotation: -90,
-                borderWidth: 1
-            }]
-        },
-
-    });
-}

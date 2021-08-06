@@ -151,7 +151,7 @@ def texto_documento(path, f, clasifier, bow, limit):
 
 
 def texto_documento2(path, f, clasifier, bow,indexes):
-
+    print("indexes texto documento",indexes)
     if(path != ''):
 
         df = pd.read_csv(path)
