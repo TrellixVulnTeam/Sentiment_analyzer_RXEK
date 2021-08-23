@@ -11,7 +11,7 @@ $(document).ready(function () {
                 var content = JSON.parse(response)
                 $("input[name='chx']").prop("disabled", true)
                 $("#texto").html(content["text"])
-                $("#por_dato").html(((content["porcentaje"][0]) * 100).toFixed(2))
+                $("#por_dato").html(((content["porcentaje"][1]) * 100).toFixed(2))
                 $("#salida").show()
                 $("#btnclear").show()
                 $("#btncln").show()

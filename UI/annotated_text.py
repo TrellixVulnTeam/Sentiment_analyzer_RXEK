@@ -20,15 +20,10 @@ def procesed_text(text, c):
         key_words = deserialize_file(c)
         color = str(c)
         text = text.split(' ')
-        lista = []
-        for i in text:
-            if(i in key_words and i not in stop_words):
-                t = '<span class='+color+'>' + i + '</span>'
-                lista.append(t)
-            else:
-                t = '<span class="no-color" >' + i + '</span>'
-                lista.append(t)
-        strA = " ".join(lista)
+        
+        data = text_colorized(text,key_words,color)
+            
+        strA = " ".join(data)
         return strA
 
 
@@ -37,64 +32,21 @@ def procesed_tweet(text, c):
     if(text != ''):
         key_words = deserialize_file(c)
         color = str(c)
-
-        lista = []
+       
         l = []
         for row in text:
 
-            lista = []
+       
             texto = row.split(' ')
 
-            for i in texto:
-                if(i in key_words and i not in stop_words):
-                    t = '<span class='+color+'>' + i + '</span>'
-                    lista.append(t)
-                    lista.append(' ')
-                else:
-                    t = '<span class="no-color" >' + i + '</span>'
-                    lista.append(t)
-                    lista.append(' ')
-
-            l.append(lista)
+            data = text_colorized(texto,key_words,color)
+            l.append(data)
 
         return l
 
 
-def procesed_csv(path, c, f, limit):
- 
-    if(path != ''):
-        key_words = deserialize_file(c)
-
-        if(c == ''):
-            color = 'black'
-        else:
-            color = str(c)
-        df = pd.read_csv(path)
-
-        l = []
-        for row in df[f][:int(limit)]:
-            
-            lista = []
-            text = row.split(' ')
-            
-            for i in text:
-                if(i in key_words and i not in stop_words):
-                    t = '<span class='+color+'>' + i + '</span>'
-                    lista.append(t)
-                    lista.append(' ')
-                else:
-                    t = '<span class="no-color" >' + i + '</span>'
-                    lista.append(t)
-                    lista.append(' ')
-
-            l.append(lista)
-
-        return l
-
-
-def procesed_csv2(path, c, f, indexes):
-
-    
+def procesed_csv(path, c, f, field_index,selector):
+    print(selector)
     if(path != ''):
         key_words = deserialize_file(c)
 
@@ -106,33 +58,31 @@ def procesed_csv2(path, c, f, indexes):
 
         l = []
 
-        for ind in indexes:
-
-            actual_row = df.iloc[ind]
-            actual_row = (actual_row[f])
-            lista = []
-            text = actual_row.split(' ')
+        if(selector == 0):
+            for row in df[f][:int(field_index)]:
+                
             
-            for i in text:
-              
-                if(i in key_words and i not in stop_words):
-                    t = '<span class='+color+'>' + i + '</span>'
-                    lista.append(t)
-                    lista.append(' ')
-                else:
-                    t = '<span class="no-color" >' + i + '</span>'
-                    lista.append(t)
-                    lista.append(' ')
+                text = row.split(' ')
+                
+                data = text_colorized(text,key_words,color)
+                l.append(data)
 
-            l.append(lista)
+            return l
+        elif(selector==1):
+            for ind in field_index:
 
-        return l
-      
+                actual_row = df.iloc[ind]
+                actual_row = (actual_row[f])
+                
+                text = actual_row.split(' ')
+                
+                data=text_colorized(text,key_words,color)
+                l.append(data)
 
-      
+            return l
 
 
-# text,clasifier,bow
+
 def texto_documento(path, f, clasifier, bow, limit):
 
     if(path != ''):
@@ -157,11 +107,7 @@ def texto_documento2(path, f, clasifier, bow,indexes):
         df = pd.read_csv(path)
         lista = []
         p = []
-        # for row in df[f]:
-
-        #     lista.append(row)
-        #     p.append(t.classifier(row, clasifier, bow))
-
+  
         for ind in indexes:
 
             actual_row = df.iloc[ind]
@@ -253,3 +199,19 @@ def clearFiles():
         '/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt', 'w')
     f_path.write('')
     f_path.close()
+
+
+def text_colorized(text_data,kw,color):
+     lista=[]
+     for i in text_data:
+              
+        if(i in kw and i not in stop_words):
+            t = '<span class='+color+'>' + i + '</span>'
+            lista.append(t)
+            lista.append(' ')
+        else:
+            t = '<span class="no-color" >' + i + '</span>'
+            lista.append(t)
+            lista.append(' ')
+
+     return lista

@@ -70,21 +70,23 @@ def process_file():
 @app.route("/process-file2", methods=["POST"])
 def p():
     print("metodo p",indexes)
+
+    selector = 0
     valor = at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/mi_fichero.txt')
     ruta = at.openFiles('/home/jules/Documentos/Personal/Sentiment_analyzer/UI/ruta.txt')  
     checkbox = request.form['chx']
     if(indexes == [] ):
         limit = request.form['n-rows']   
-        d = at.procesed_csv(ruta, checkbox, valor,limit)   
+        d = at.procesed_csv(ruta, checkbox, valor,limit,selector)   
         porcentaje = json.loads(at.texto_documento(ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox),limit))
         porcentaje = porcentaje["porcentaje"]
         data = {"contenido": d, "porcentaje": porcentaje} 
     else:
-       
+        selector = 1
         indexes_order=set(indexes)
         indexes_order=sorted(indexes_order)
         indexes_order=list(indexes_order)
-        d = at.procesed_csv2(ruta, checkbox, valor,indexes_order)   
+        d = at.procesed_csv(ruta, checkbox, valor,indexes_order,selector)   
         porcentaje = json.loads(at.texto_documento2(ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox),indexes_order))
         porcentaje = porcentaje["porcentaje"]
         data = {"contenido": d, "porcentaje": porcentaje}   
