@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="{{url_for("static",filename="CSS/annotated.css")}}">
   <link rel="stylesheet" href="{{url_for("static",filename="CSS/input-file.css")}}">
   <link rel="stylesheet" href="{{url_for("static",filename="CSS/twitter.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="CSS/responsive_text_analysis.css")}}">
+  <link rel="stylesheet" href="{{url_for("static",filename="CSS/responsive_file.css")}}">
 
   <script src="https://kit.fontawesome.com/7615de3938.js" crossorigin="anonymous"></script>
 
@@ -30,7 +32,7 @@
 </head>
 
 <body>
-  <header>
+ 
     <nav>
       <ul class="menu">
         <li><a href="/"> Home</a></li>
@@ -38,8 +40,12 @@
         <li><a href="file-analysis">Document Analyzer</a></li>
         <li><a href="twitter-analysis">Twitter Analyzer</a></li>
       </ul>
+
+      <!-- <div class="hide">
+        <i class="fa fa-bars" aria-hidden="true"></i> Menu
+      </div> -->
     </nav>
-  </header>
+
   <!--Estructura-->
   {%block content%}
   {%endblock%}

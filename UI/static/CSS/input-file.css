@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 1010px;
+    
 }
 
 #i_csv {
@@ -15,9 +15,7 @@
 }
 
 #file-drag {
-    font-size: 14px;
-    width: 1010px;
-    height: 260px;
+        
     border: 2px solid #eee;
     border-radius: 14px;
     background: #fff;
@@ -40,7 +38,7 @@
 #hdn {
     flex-flow: column wrap;
     align-items: center;
-    font-size: 18px;
+    
 }
 
 .fa-upload {

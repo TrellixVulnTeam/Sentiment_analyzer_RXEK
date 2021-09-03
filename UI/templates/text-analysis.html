@@ -3,15 +3,13 @@
 {%block content%}
 <div id="principal">
   <div id="p">
-    <h2>Type Text to Analyze</h2>
+    <h2 class="type">Type Text to Analyze</h2>
 
-    <div id="formulario">
-      <form method="post" id="analysis-text" ">
-        <div id=" fusion">
-        <div id="txt_area">
+        <form method="post" id="analysis-text" ">      
+        
           <textarea name="text_area" id="text_area" cols="90" rows="16"></textarea>
-        </div>
-    </div>
+        
+  
     <div id="botones">
       <div id="selectores">
         <label class="nombre">Racism</label><label class="switch"><input value="racism" name="chx" id="racism"
@@ -27,7 +25,7 @@
       </div>
     </div>
     </form>
-  </div>
+  
 
   <div id="salida" style="display: none;">
     <div id="h2-output">
