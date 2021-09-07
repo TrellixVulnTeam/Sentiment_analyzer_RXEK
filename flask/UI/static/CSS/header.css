@@ -1,0 +1,23 @@
+
+nav .menu{
+    
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    background-color: rgb(36, 35, 35);
+    font-weight: bold;
+    
+}
+
+li a{
+    
+    padding: 1em;
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+li a:hover {
+    background-color: #3c3f42;
+  }

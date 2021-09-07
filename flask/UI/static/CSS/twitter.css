@@ -1,0 +1,49 @@
+#url_tweet{
+    width: 885px;
+    height: 40px;
+    border-radius: 4px;
+    border: 2px solid rgb(202, 202, 202);
+    font-size: 18px;
+}
+
+#option_twitter{  
+    width: 100px;
+    margin-right: 14px;
+    
+}
+
+#twitter-text{
+  
+    margin-top: 20px;    
+    width: 1000px;
+    border-radius: 14px;
+}
+#input_group{
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 10px;  
+    width: 1000px;
+    
+    
+}
+
+select{
+    width: 100px;
+    height: 34px;
+    border-radius: 6px;
+    background: white;
+    font-size: 20px;
+    text-align-last:right;
+    padding-right: 29px;
+    
+}
+#tags{
+    
+    height: 40px;
+    font-weight: bold;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(192, 192, 192);
+}
+.fa-hashtag{
+    color: black;
+}

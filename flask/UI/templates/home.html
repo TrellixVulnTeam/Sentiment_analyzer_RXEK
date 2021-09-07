@@ -1,0 +1,15 @@
+{%extends 'base/base.html'%} 
+{%block content%}
+<div id="principal-home">
+    <div id="img-content">
+
+        <img src="{{url_for("static",filename="images/iMAC2.png")}}" id="mac">
+        <img src="" id="image">
+
+    </div>
+    <div id="documentation">
+        <a href="{{url_for("static",filename="manual/sample.pdf")}}" id="download-manual" download="user_manual.pdf">Download Documentation</a>
+    </div>
+</div>
+{%endblock%}
+

@@ -1,0 +1,49 @@
+{%extends 'base/base.html'%}
+<!--Estructura-->
+{%block content%}
+<div id="main">
+  <div id="m_container">
+    <h2 class="type">Type Text to Analyze</h2>
+
+        <form method="post" id="analysis-text" ">      
+        
+          <textarea name="text_area" id="text_area" cols="90" rows="16"></textarea>
+        
+  
+    <div id="buttons">
+      <div id="selectors">
+        <label class="name_selector">Racism</label><label class="switch"><input value="racism" name="chx" id="racism"
+            class="checks" type="checkbox" /><span class="slider round"></span></label>
+        <label class="name_selector">Sexism</label><label class="switch"><input value="sexism" name="chx" id="sexism"
+            class="checks" type="checkbox" /><span class="slider round"></span></label>
+      </div>
+      <div id="btn-fun">
+        <button type="button" id="btnclear" class="btn" style="display: none;"><i class="fas fa-trash"></i></button>
+        <button type="button" id="btncln" class="btn" style="display: none;"><i class=" fas fa-broom"></i></button>
+        <button type="submit" id="btn-send" class="btn"><i class=" fas fa-play"></i></button>
+
+      </div>
+    </div>
+    </form>
+  
+
+  <div id="output_main" style="display: none;">
+    <div id="h2-output">
+      <h2>Analysis Results:</h2>
+    </div>
+      
+    
+    <div id="output_secondary">
+      <div class="content">
+        <div id="content_text"></div>
+        <span class="porcentaje"><span id="por_dato"> </span>%</span>
+      </div>
+    </div>
+
+  </div>
+  
+
+</div>
+</div>
+<!-- <button id="btnCrearPdf" class="btn">Click</button> -->
+{%endblock%}

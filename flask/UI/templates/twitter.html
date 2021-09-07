@@ -1,0 +1,58 @@
+{%extends 'base/base.html'%}
+<!--Estructura-->
+{%block content%}
+<div id="main">
+    <div id="m_container">
+        <h2>Type URL of twitter to Analyze</h2>
+
+        <div id="formulario_twitter">
+            <form method="post" id="twitter-text">
+                <div id="input_group">
+                    <div id="option_twitter">
+                        <select name="tags" id="tags">
+                            <option name="opt" id="opt" value="hashtag">#</option>
+                            <option name="opt" id="opt" value="user">@</option>
+                            <option name="opt" id="opt" value="url">URL</option>
+                        </select>
+                    </div>
+                    <div id="input_tweet">
+                        <input type="text" name="url_tweet" id="url_tweet">
+                    </div>
+                </div>
+                <div id="buttons">
+                    <div id="selectors">
+                        <label class="name_selector">Racism</label><label class="switch"><input value="racism" name="chx" id="racism"
+                            class="checks" type="checkbox" /><span class="slider round"></span></label>
+                        <label class="name_selector">Sexism</label><label class="switch"><input value="sexism" name="chx" id="sexism"
+                            class="checks" type="checkbox" /><span class="slider round"></span></label>
+                      </div>
+
+                 
+                    <div id="btn-fun">            
+                        <button type="button" id="btnclear" class="btn" style="display: none;"><i class="fas fa-trash"></i></button>
+                        <button type="button" id="btncln" class="btn" style="display: none;"><i class=" fas fa-broom"></i></button>
+                        <button type="submit" id="btn-send" class="btn" ><i class=" fas fa-play"></i></button>
+            
+                      </div>
+            </form>
+        </div>
+
+        <div id="output_main" style="display: none;">
+          
+                <h2>Analysis Results:</h2>
+            
+
+            <div id="output_group">
+                <div id="output_secondary_twitter">
+                    
+                </div>
+                <div class="chart-container">
+                  <canvas id="twitterChart"></canvas>
+                </div>
+              </div>
+        </div>
+
+        <button id="btnCrearPdf" class="btn">Click</button>
+    </div>
+</div>
+{%endblock%}

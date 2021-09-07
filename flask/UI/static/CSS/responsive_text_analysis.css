@@ -1,0 +1,135 @@
+@media (min-width: 768px) {
+  body {
+    width: 100%;
+  }
+
+  #text_area {
+    width: 680px;
+    height: 280px;
+  }
+  #m_container {
+    width: 768px;
+   
+  }
+  #buttons {
+    width: 680px;
+  }
+  #btn-fun {
+   
+    width: auto;
+  }
+  #selectors {
+    width: 320px;
+  }
+  #number-rows {
+    width: 380px;
+  }
+  #n-rows {
+    width: 60px;
+    font-size: 16px;
+  }
+
+  #h2-output {
+    margin-top: 14px;
+  }
+
+
+  #output_main {
+   
+    width: 680px;
+  }
+  #output_secondary {
+    height: 300px;
+    width: 680px;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+/* container width: 970 */
+@media (min-width: 1000px) {
+  body {
+    width: 100%;
+  }
+
+  #text_area {
+    width: 750px;
+    height: 280px;
+  }
+  #m_container {
+    width: 900px;
+    
+  }
+  #buttons {
+    width: 750px;
+  }
+
+  #selectors {
+    width: 320px;
+  }
+  #number-rows {
+    width: 380px;
+  }
+  #n-rows {
+    width: 60px;
+    font-size: 16px;
+  }
+
+  #h2-output {
+    margin-top: 14px;
+  }
+
+  #ff {
+    width: 600px;
+  }
+
+  #output_main {
+ 
+    width: 750px;
+  }
+  #output_secondary {
+    height: 300px;
+    width: 750px;
+  }
+}
+
+@media (min-width: 1150px) {
+  body {
+    width: 100%;
+  }
+
+  #text_area {
+    width: 1010px;
+  }
+  #m_container {
+   
+    width: 1100px;
+  }
+  #buttons {
+    width: 1010px;
+  }
+
+  #selectors {
+    width: 320px;
+  }
+  #number-rows {
+    width: 380px;
+  }
+  #n-rows {
+    width: 60px;
+    font-size: 16px;
+  }
+
+  #h2-output {
+    margin-top: 14px;
+  }
+
+  #output_main {
+   
+    width: 1010px;
+  }
+
+  #output_secondary {
+    height: 350px;
+    width: 1010px;
+  }
+}
