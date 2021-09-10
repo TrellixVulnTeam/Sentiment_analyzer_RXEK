@@ -18,27 +18,27 @@ def home():
 
 
 @app.route("/text-analysis")
-def show_text_analysis():
+def render_text_analysis():
 
     return render_template('text-analysis.html')
 
 
 @app.route("/process-text-analysis", methods=["POST"])
-def pro():
+def process_text_analysis():
 
     txt_area = request.form['text_area']
     checkbox = request.form['chx']
 
-    porcentaje = t.classifier(txt_area, at.select_clf(
+    content_text = at.procesed_text(txt_area, checkbox)
+    percentage = t.classifier(txt_area, at.select_clf(
         checkbox), at.select_BoW_pkl(checkbox))
-    data = {"text": at.procesed_text(
-        txt_area, checkbox), "porcentaje": porcentaje}
+    data = {"text": content_text, "porcentaje": percentage}
 
     return json.dumps(data)
 
 
 @app.route("/file-analysis")
-def get_file_analysis():
+def render_file_analysis():
     at.clearFiles()
     return render_template('file-analysis.html')
 
@@ -67,15 +67,15 @@ def process_file():
 
 
 @app.route("/process-file-analysis", methods=["POST"])
-def p():
+def process_table_header():
 
-    selector = 0
-    valor = at.openFiles(os.path.abspath("mi_fichero.txt"))
+    option_mode = 0
+    valor = at.openFiles(os.path.abspath("header.txt"))
     ruta = at.openFiles(os.path.abspath("ruta.txt"))
     checkbox = request.form['chx']
     if(indexes == []):
         limit = request.form['n-rows']
-        d = at.procesed_csv(ruta, checkbox, valor, limit, selector)
+        d = at.procesed_csv(ruta, checkbox, valor, limit, option_mode)
         porcentaje = json.loads(at.texto_documento(
             ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox), limit))
         porcentaje = porcentaje["porcentaje"]
@@ -83,12 +83,11 @@ def p():
         data = {"contenido": d, "porcentaje": porcentaje}
 
     else:
-        selector = 1
-        indexes_order = set(indexes)
-        indexes_order = sorted(indexes_order)
-        indexes_order = list(indexes_order)
-        print("metodo p", indexes_order)
-        d = at.procesed_csv(ruta, checkbox, valor, indexes_order, selector)
+        option_mode = 1
+      
+        indexes_order = list(sorted( set(indexes)))
+  
+        d = at.procesed_csv(ruta, checkbox, valor, indexes_order, option_mode)
         porcentaje = json.loads(at.texto_documento2(ruta, valor, at.select_clf(
             checkbox), at.select_BoW_pkl(checkbox), indexes_order))
         porcentaje = porcentaje["porcentaje"]
@@ -99,36 +98,34 @@ def p():
 
 
 @app.route("/process-file-get-header", methods=["POST"])
-def pa():
+def get_header():
 
     rf = request.form
     for key in rf.keys():
         data = key
 
-    with open('mi_fichero.txt', 'w') as f:
+    with open('header.txt', 'w') as f:
         f.write(data)
     return data
 
 
 @app.route("/process-get-index-checkbox", methods=["POST"])
-def pas():
+def get_index_checbox():
     indexes.clear()
     rf = request.form
     keys = rf.keys()
     keys = list(keys)[0]
 
     for i in keys:
-        if(i == "]" or i == "[" or i == ","):
-            's'
-        else:
-
-            indexes.append(int(i))
+        if(i != "]" and i != "[" and i != ","):
+           indexes.append(int(i))
+      
 
     return 'a'
 
 
 @app.route("/twitter-analysis")
-def show_twitter_analysis():
+def render_twitter_analysis():
 
     return render_template('twitter.html')
 
