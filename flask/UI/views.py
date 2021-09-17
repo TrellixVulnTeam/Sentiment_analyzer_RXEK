@@ -84,9 +84,9 @@ def process_table_header():
 
     else:
         option_mode = 1
-      
-        indexes_order = list(sorted( set(indexes)))
-  
+
+        indexes_order = list(sorted(set(indexes)))
+
         d = at.procesed_csv(ruta, checkbox, valor, indexes_order, option_mode)
         porcentaje = json.loads(at.texto_documento2(ruta, valor, at.select_clf(
             checkbox), at.select_BoW_pkl(checkbox), indexes_order))
@@ -118,8 +118,7 @@ def get_index_checbox():
 
     for i in keys:
         if(i != "]" and i != "[" and i != ","):
-           indexes.append(int(i))
-      
+            indexes.append(int(i))
 
     return 'a'
 

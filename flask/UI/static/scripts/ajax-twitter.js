@@ -4,12 +4,12 @@ var flag_porcentaje = false;
 var content = {}
 var twChart;
 var clean = function () {
-    $("#output_twitter").children().remove();
+    $("#output_secondary_twitter").children().remove();
     flagData = false;
     flag_porcentaje = false;
     acumulador = 0;
-    chart(0)
-    $("#salida").css({ "display": "none" });
+    
+    $("#output_main").css({ "display": "none" });
     $("#twitterChart").css({ "display": "none" })
     $("#output_secondary_twitter").css({ "width": "590px" })
     $("#btn-send").show()
