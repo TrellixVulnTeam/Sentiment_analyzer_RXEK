@@ -27,19 +27,19 @@ def procesed_tweet(text, c):
         key_words = deserialize_file(c)
         color = str(c)
 
-        l = []
+        processed_tweet_list = []
         for row in text:
 
             texto = row.split(' ')
 
             data = text_colorized(texto, key_words, color)
-            l.append(data)
+            processed_tweet_list.append(data)
 
-        return l
+        return processed_tweet_list
 
 
 def procesed_csv(path, c, f, field_index, selector):
-    print(selector)
+    
     if(path != ''):
         key_words = deserialize_file(c)
 
@@ -49,7 +49,7 @@ def procesed_csv(path, c, f, field_index, selector):
             color = str(c)
         df = pd.read_csv(path)
 
-        l = []
+        processed_csv_list = []
 
         if(selector == 0):
             for row in df[f][:int(field_index)]:
@@ -57,9 +57,9 @@ def procesed_csv(path, c, f, field_index, selector):
                 text = row.split(' ')
 
                 data = text_colorized(text, key_words, color)
-                l.append(data)
+                processed_csv_list.append(data)
 
-            return l
+            return processed_csv_list
         elif(selector == 1):
             for ind in field_index:
 
@@ -69,12 +69,12 @@ def procesed_csv(path, c, f, field_index, selector):
                 text = actual_row.split(' ')
 
                 data = text_colorized(text, key_words, color)
-                l.append(data)
+                processed_csv_list.append(data)
 
-            return l
+            return processed_csv_list
 
 
-def texto_documento(path, f, clasifier, bow, limit):
+def get_text_csv_nrows(path, f, clasifier, bow, limit):
 
     if(path != ''):
 
@@ -86,13 +86,13 @@ def texto_documento(path, f, clasifier, bow, limit):
             lista.append(row)
             p.append(t.classifier(row, clasifier, bow))
 
-        data = {"text": lista, "porcentaje": p}
+        data = {"text": lista, "percent_data": p}
 
         return json.dumps(data)
 
 
-def texto_documento2(path, f, clasifier, bow, indexes):
-    print("indexes texto documento", indexes)
+def get_text_csv_index_checkbox(path, f, clasifier, bow, indexes):
+    
     if(path != ''):
 
         df = pd.read_csv(path)
@@ -106,23 +106,23 @@ def texto_documento2(path, f, clasifier, bow, indexes):
             lista = []
             lista.append(actual_row)
             p.append(t.classifier(actual_row, clasifier, bow))
-            data = {"text": lista, "porcentaje": p}
+            data = {"text": lista, "percent_data": p}
 
         return json.dumps(data)
 
 
-def texto_twitter(data, clasifier, bow):
+def twitter_text(data, clasifier, bow):
 
     if(data != ''):
 
-        lista = []
+        twitter_text_list = []
         p = []
         for row in data:
 
-            lista.append(row)
+            twitter_text_list.append(row)
             p.append(t.classifier(row, clasifier, bow))
 
-        data = {"text": lista, "porcentaje": p}
+        data = {"text": twitter_text_list, "twitter_text_per": p}
 
         return json.dumps(data)
 
@@ -149,7 +149,6 @@ def select_BoW(key):
         BoW = os.path.abspath("Serialized/binary/Racism.dat")
     elif(key == 'sexism'):
         BoW = os.path.abspath("Serialized/binary/Sexism.dat")
-    print("ruta", BoW)
     return BoW
 
 
@@ -161,7 +160,6 @@ def select_clf(key):
     elif(key == 'sexism'):
         clf = os.path.abspath(
             "Serialized/plk/classifiers/sexism_clf_.pkl")
-    print("clf", clf)
     return clf
 
 
@@ -171,7 +169,6 @@ def select_BoW_pkl(key):
         BoW = os.path.abspath("Serialized/plk/BoW/BoW_Racism.pkl")
     elif(key == 'sexism'):
         BoW = os.path.abspath("Serialized/plk/BoW/BoW_Sexism.pkl")
-
     return BoW
 
 
@@ -184,30 +181,27 @@ def openFiles(path):
 
 def clearFiles():
     
-    f_field = open(
-        os.path.abspath('mi_fichero.txt'), 'w')
+    f_field = open(os.path.abspath('mi_fichero.txt'), 'w')
     f_field.write('')
     f_field.close()
 
-    f_path = open(
-        os.path.abspath('ruta.txt'), 'w')
+    f_path = open(os.path.abspath('ruta.txt'), 'w')
 
-    print(f_path)    
     f_path.write('')
     f_path.close()
 
 
 def text_colorized(text_data, kw, color):
-    lista = []
+    list_data_colorized = []
     for i in text_data:
 
         if(i in kw and i not in stop_words):
             t = '<span class='+color+'>' + i + '</span>'
-            lista.append(t)
-            lista.append(' ')
+            list_data_colorized.append(t)
+            list_data_colorized.append(' ')
         else:
             t = '<span class="no-color" >' + i + '</span>'
-            lista.append(t)
-            lista.append(' ')
+            list_data_colorized.append(t)
+            list_data_colorized.append(' ')
 
-    return lista
+    return list_data_colorized

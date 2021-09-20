@@ -27,7 +27,6 @@ function addHeader() {
     var chx = document.createElement("input")
     chx.setAttribute("type", "checkbox")
     chx.setAttribute("class", "select-checkbox")
-    chx.setAttribute("id", "caca")
     th.appendChild(chx)
     var row1 = table.rows[0];
     row1.appendChild(th);
@@ -121,43 +120,50 @@ function makeChart(data, selector, nameChart) {
     });
     return nameChart
 }
-
-function makeElementPercent(elementID, dataContent, flag, acumulador) {
+function dataClean(secondaryContainer, mainContainer, btnS, btnC) {
+    $(secondaryContainer).children().remove();
+    $(mainContainer).css({ display: "none" });
+    $(btnS).show();
+    $(btnC).css({ display: "none" });
+}
+function makeElementPercent(elementID, dataContent, flag, acm) {
     var returnedObject = {};
-    for (i = 0; i < dataContent.porcentaje.length; i++) {
-        let p = ''
-        let d2 = document.getElementById(elementID + i)
-        let newDiv2 = document.createElement('div')
-        newDiv2.setAttribute("class", "porcentaje")
-        p += (dataContent.porcentaje[i][1] * 100).toFixed(2);
+    console.log(dataContent);
+    for (i = 0; i < dataContent.percent_data.length; i++) {
+        let aux = ''
+        let container = document.getElementById(elementID + i)
+        let perDiv = document.createElement('div')
+        perDiv.setAttribute("class", "percentage")
+        aux += (dataContent.percent_data[i][1] * 100).toFixed(2);
 
-        newDiv2.innerHTML = "<b>" + p + "%" + "<b/>"
-        insertAfter(d2, newDiv2)
-        acumulador += parseFloat(p)
+        perDiv.innerHTML = "<b>" + aux + "%" + "<b/>"
+        insertAfter(container, perDiv)
+        acm += parseFloat(aux)
 
         flag = true;
     }
-    returnedObject["acumulador"] = acumulador;
+    returnedObject["acumul"] = acm;
     returnedObject["flag"] = flag;
 
     return returnedObject;
 }
 
-function makeElementContent(dataContent,output_file){
-    for (i = 0; i < dataContent.contenido.length; i++) {
-        let a = ''
+function makeElementContent(dataContent, output_file) {
+
+    for (i = 0; i < dataContent.data.length; i++) {
+        let aux = ''
         let divcContent = document.createElement('div')
         divcContent.setAttribute("id", "content" + i)
-        divcContent.setAttribute("class", "contenido")
+        divcContent.setAttribute("class", "cnt")
 
-        let newDiv = document.createElement('div')
-        newDiv.setAttribute("id", "porcentaje" + i)
+        let perContainer = document.createElement('div')
+        perContainer.setAttribute("id", "objectPerc" + i)
 
-        for (z = 0; z < dataContent.contenido[i].length; z++) {
-            a += dataContent.contenido[i][z];
+        for (z = 0; z < dataContent.data[i].length; z++) {
+            aux += dataContent.data[i][z];
         }
-        newDiv.innerHTML = a
-        divcContent.appendChild(newDiv)
+        perContainer.innerHTML = aux
+        divcContent.appendChild(perContainer)
         output_file.appendChild(divcContent)
     }
 
@@ -170,4 +176,26 @@ function insertAfter(e, i) {
     } else {
         e.parentNode.appendChild(i);
     }
+}
+
+function makeElementURLTwitter() {
+    var dataText = document.createElement('div')
+
+    var percnt = document.createElement('div')
+    percnt.style.width = "140px"
+    percnt.setAttribute("class", "percentage")
+
+    var container = document.createElement('div')
+    container.setAttribute("class", "content")
+
+    var output_file = document.getElementById('output_secondary_twitter')
+    dataText.innerHTML = content["data"]
+    percnt.innerHTML = "<b>" + ((content["percent_data"][1]) * 100).toFixed(2) + "% </b> "
+
+    container.appendChild(dataText)
+    container.appendChild(percnt)
+    output_file.appendChild(container)
+
+    output_file.style.width = "1000px"
+
 }

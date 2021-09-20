@@ -32,7 +32,7 @@ def process_text_analysis():
     content_text = at.procesed_text(txt_area, checkbox)
     percentage = t.classifier(txt_area, at.select_clf(
         checkbox), at.select_BoW_pkl(checkbox))
-    data = {"text": content_text, "porcentaje": percentage}
+    data = {"text": content_text, "text_per": percentage}
 
     return json.dumps(data)
 
@@ -55,10 +55,10 @@ def process_file():
         filename = secure_filename(f.filename)
         pth = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         f.save(pth)
-        tabla = at.dataframe_show(pth)
+        table = at.dataframe_show(pth)
 
         rows = pd.read_csv(pth)
-        data = {"contenido": tabla, "rows": len(rows)}
+        data = {"content-table": table, "rows": len(rows)}
 
         with open('ruta.txt', 'w') as f:
             f.write(pth)
@@ -71,28 +71,27 @@ def process_table_header():
 
     option_mode = 0
     valor = at.openFiles(os.path.abspath("header.txt"))
-    ruta = at.openFiles(os.path.abspath("ruta.txt"))
+    file_path = at.openFiles(os.path.abspath("ruta.txt"))
     checkbox = request.form['chx']
     if(indexes == []):
         limit = request.form['n-rows']
-        d = at.procesed_csv(ruta, checkbox, valor, limit, option_mode)
-        porcentaje = json.loads(at.texto_documento(
-            ruta, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox), limit))
-        porcentaje = porcentaje["porcentaje"]
+        d = at.procesed_csv(file_path, checkbox, valor, limit, option_mode)
+        percent_data = json.loads(at.get_text_csv_nrows(
+            file_path, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox), limit))
+        percent_data = percent_data["percent_data"]
         indexes.clear()
-        data = {"contenido": d, "porcentaje": porcentaje}
+        data = {"data": d, "percent_data": percent_data}
 
     else:
         option_mode = 1
-
         indexes_order = list(sorted(set(indexes)))
 
-        d = at.procesed_csv(ruta, checkbox, valor, indexes_order, option_mode)
-        porcentaje = json.loads(at.texto_documento2(ruta, valor, at.select_clf(
+        d = at.procesed_csv(file_path, checkbox, valor, indexes_order, option_mode)
+        percent_data = json.loads(at.get_text_csv_index_checkbox(file_path, valor, at.select_clf(
             checkbox), at.select_BoW_pkl(checkbox), indexes_order))
-        porcentaje = porcentaje["porcentaje"]
+        percent_data = percent_data["percent_data"]
         indexes.clear()
-        data = {"contenido": d, "porcentaje": porcentaje}
+        data = {"data": d, "percent_data": percent_data}
 
     return json.dumps(data)
 
@@ -139,14 +138,14 @@ def process_twitter():
     data = tp.select_option(opt, input_text)
 
     if(opt == 'hashtag' or opt == 'user'):
-        porcentaje = json.loads(at.texto_twitter(
+        tw_perc = json.loads(at.twitter_text(
             data, at.select_clf(checkbox), at.select_BoW_pkl(checkbox)))
-        porcentaje = porcentaje["porcentaje"]
+        tw_perc = tw_perc["twitter_text_per"]
         c = at.procesed_tweet(data, checkbox)
     elif(opt == 'url'):
-        porcentaje = t.classifier(data, at.select_clf(
+        tw_perc = t.classifier(data, at.select_clf(
             checkbox), at.select_BoW_pkl(checkbox))
         c = at.procesed_text(data, checkbox)
-    contenido = {"text": c, "porcentaje": porcentaje, "tag": opt}
+    contenido = {"data": c, "percent_data": tw_perc, "tag": opt}
 
     return json.dumps(contenido)

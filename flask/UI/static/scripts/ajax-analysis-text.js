@@ -1,7 +1,14 @@
 $(document).ready(function () {
   selector();
-
-  function login() {
+  var dataClean = function () {
+    $("input[name='chx']").prop("disabled", false);
+    $("#output_main").css({ display: "none" });
+    $("#content_text").children().remove();
+    $("data_text_per").children().remove();
+    $("#btn-send").show();
+    $("#btn-cln").css({ display: "none" });
+  }
+  function textProcessed() {
     $.ajax({
       url: "/process-text-analysis",
       data: $("form").serialize(),
@@ -10,10 +17,10 @@ $(document).ready(function () {
         var content = JSON.parse(response);
         $("input[name='chx']").prop("disabled", true);
         $("#content_text").html(content["text"]);
-        $("#por_dato").html((content["porcentaje"][1] * 100).toFixed(2));
+        $("#data_text_per").html((content["text_per"][1] * 100).toFixed(2));
         $("#output_main").show();
-        $("#btnclear").show();
-        $("#btncln").show();
+        $("#btn-remove").show();
+        $("#btn-cln").show();
         $("#btn-send").css({ display: "none" });
 
         console.log(response);
@@ -22,22 +29,18 @@ $(document).ready(function () {
         console.log(error);
       },
     });
-    $("#btncln").click(function () {
-      $("input[name='chx']").prop("disabled", false);
-      $("#output_main").css({ display: "none" });
-      $("#content_text").children().remove();
-      $("por_dato").children().remove();
-      $("#btn-send").show();
-      $("#btncln").css({ display: "none" });
-    });
-    $("#btnclear").click(function () {
+
+    $("#btn-cln").unbind(dataClean);
+    $("#btn-cln").click(dataClean);
+
+    $("#btn-remove").click(function () {
       location.reload();
     });
   }
   $("#analysis-text").submit(function (event) {
     event.preventDefault();
     if (validateText() == true) {
-      login();
+      textProcessed();
     }
   });
 });

@@ -1,10 +1,9 @@
-var acumulador = 0;
+var negativeAcumulator = 0;
 var flagData = false;
-var flag_porcentaje = false;
+var flagPercentage = false;
 var content = {};
 var warning;
-var indiceAnterior = null;
-var theLink;
+var lastIndex = null;
 var indexes = [];
 var table;
 var page;
@@ -47,13 +46,13 @@ var selectAllCheckBoxes = function () {
 };
 
 var getTH = function () {
-  let indiceActual = $(this).index();
-  if (indiceActual != 0) {
+  let actualIndex = $(this).index();
+  if (actualIndex != 0) {
     $(this).css("background", "#02bb8c");
     header_field = $(this).text();
     $("#warning").css({ display: "none" });
 
-    indiceAnterior = changeTH(indiceAnterior, indiceActual, this);
+    lastIndex = changeTH(lastIndex, actualIndex, this);
 
     $.ajax({
       type: "POST",
@@ -66,48 +65,43 @@ var getTH = function () {
   }
 };
 
-function percentt() {
-  console.log("p" + indexes);
-  if (flag_porcentaje == false) {
-    var returnValue = makeElementPercent(
-      "porcentaje",
-      content,
-      flag_porcentaje,
-      acumulador
-    );
-    flag_porcentaje = returnValue.flag;
+function makeFilePercent() {
 
-    acumulador = returnValue.acumulador / content.porcentaje.length;
-    let positivo = 100 - acumulador;
-    let lista = [acumulador, positivo];
+  if (flagPercentage == false) {
+    var returnValue = makeElementPercent("objectPerc", content, flagPercentage, negativeAcumulator);
+    flagPercentage = returnValue.flag;
 
-    flChart = makeChart(lista, "fileChart", flChart);
+    negativeAcumulator = returnValue.acumul / content.percent_data.length;
+    let positive = 100 - negativeAcumulator;
+    let percList = [negativeAcumulator, positive];
+
+    flChart = makeChart(percList, "fileChart", flChart);
     $("#output_main").show();
   }
-  $("#btncln").click(function () {
-    $("#output_secondary_file").children().remove();
+
+
+  $("#btn-cln").click(function () {
+    dataClean("#output_secondary_file", "#output_main", "#btn-send", "#btn-cln")
     $("#n-rows").val("");
     flagData = false;
-    flag_porcentaje = false;
-    acumulador = 0;
+    flagPercentage = false;
+    negativeAcumulator = 0;
     indexes = cleanCheckbox(indexes, table);
     indexes = [];
-    $("#output_main").css({ display: "none" });
-    $("#btn-send").show();
-    $("#btncln").css({ display: "none" });
   });
-  $("#btnclear").click(function () {
+
+  $("#btn-remove").click(function () {
     location.reload();
   });
 }
 $(function () {
   $("#i_csv").change(function () {
     indexes = [];
-    d = { formu: new FormData($("#file-form")[0]) };
+    d = { nform: new FormData($("#file-form")[0]) };
     $.ajax({
       type: "POST",
       url: "/process-file-show-table",
-      data: d["formu"],
+      data: d["nform"],
       contentType: false,
       cache: false,
       processData: false,
@@ -115,12 +109,14 @@ $(function () {
         let content = JSON.parse(d);
 
         $("#warning").html("Select a table header").show();
-        $("#tbl").html(content["contenido"]).show();
+        $("#tbl").html(content["content-table"]).show();
 
         addHeader();
         appendColumn();
 
-        jQuery.moveColumn( jQuery("table"),$("#my-table tr:last td").length - 1,0);
+        jQuery.moveColumn(
+          jQuery("table"),
+          $("#my-table tr:last td").length - 1, 0);
 
         table = $(".dataframe").DataTable({
           ordering: false,
@@ -179,16 +175,16 @@ $(document).ready(function () {
       type: "POST",
       success: function (response) {
         content = JSON.parse(response);
-
+        console.log(content);
         let output_file = document.getElementById("output_secondary_file");
 
         if (flagData == false) {
           makeElementContent(content, output_file);
           flagData = true;
         }
-        percentt();
-        $("#btnclear").show();
-        $("#btncln").show();
+        makeFilePercent();
+        $("#btn-remove").show();
+        $("#btn-cln").show();
         $("#btn-send").css({ display: "none" });
       },
       error: function (error) {

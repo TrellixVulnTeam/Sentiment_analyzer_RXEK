@@ -115,13 +115,13 @@ input:checked+.slider:before {
   border: 1px solid #005dc7dc;
   color: #fff;
 }
-#btncln:hover{
+#btn-cln:hover{
   background-color: #ffd23d;
   border: 1px solid #ebbd25dc;
   color: #fff;
 }
 
-#btnclear:hover{
+#btn-remove:hover{
   background-color: #fd5145;
   border: 1px solid #ec3535dc;
   color: #fff;
