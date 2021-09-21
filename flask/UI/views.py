@@ -49,7 +49,7 @@ def process_file():
     data = ''
 
     if 'archivo' not in request.files:
-        print("errrr")
+        print("Error,file not found")
     else:
         f = request.files['archivo']
         filename = secure_filename(f.filename)
@@ -60,7 +60,7 @@ def process_file():
         rows = pd.read_csv(pth)
         data = {"content-table": table, "rows": len(rows)}
 
-        with open('ruta.txt', 'w') as f:
+        with open('/home/jules/Documentos/Personal/Sentiment_analyzer/flask/paths/path.txt', 'w') as f:
             f.write(pth)
 
     return json.dumps(data)
@@ -70,8 +70,9 @@ def process_file():
 def process_table_header():
 
     option_mode = 0
-    valor = at.openFiles(os.path.abspath("header.txt"))
-    file_path = at.openFiles(os.path.abspath("ruta.txt"))
+    valor = at.openFiles(os.path.abspath("paths/header.txt"))
+    print(valor)
+    file_path = at.openFiles(os.path.abspath("paths/path.txt"))
     checkbox = request.form['chx']
     if(indexes == []):
         limit = request.form['n-rows']
@@ -103,7 +104,7 @@ def get_header():
     for key in rf.keys():
         data = key
 
-    with open('header.txt', 'w') as f:
+    with open('/home/jules/Documentos/Personal/Sentiment_analyzer/flask/paths/header.txt', 'w') as f:
         f.write(data)
     return data
 
@@ -119,7 +120,7 @@ def get_index_checbox():
         if(i != "]" and i != "[" and i != ","):
             indexes.append(int(i))
 
-    return 'a'
+    return 'nothing'
 
 
 @app.route("/twitter-analysis")

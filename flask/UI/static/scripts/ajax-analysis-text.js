@@ -7,6 +7,7 @@ $(document).ready(function () {
     $("data_text_per").children().remove();
     $("#btn-send").show();
     $("#btn-cln").css({ display: "none" });
+     $("#btnCrearPdf").css({ display: "none" });
   }
   function textProcessed() {
     $.ajax({
@@ -22,6 +23,8 @@ $(document).ready(function () {
         $("#btn-remove").show();
         $("#btn-cln").show();
         $("#btn-send").css({ display: "none" });
+        $("#btnCrearPdf").show();
+        
 
         console.log(response);
       },

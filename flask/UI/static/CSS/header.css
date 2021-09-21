@@ -1,23 +1,22 @@
-
-nav .menu{
-    
-    display: flex;
-    flex-flow: row wrap;
-    margin: 0px;
-    padding: 0px;
-    list-style-type: none;
-    background-color: rgb(36, 35, 35);
-    font-weight: bold;
-    
+.menu {  
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  font-weight: bold;
 }
-
-li a{
-    
-    padding: 1em;
+li {
+    float: left;
+  }
+li a {
     display: block;
-    text-decoration: none;
     color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
 li a:hover {
-    background-color: #3c3f42;
-  }
+  background-color: #3c3f42;
+}
+

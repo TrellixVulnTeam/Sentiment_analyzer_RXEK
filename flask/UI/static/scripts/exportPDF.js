@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const $boton = document.querySelector("#btnCrearPdf");
     $boton.addEventListener("click", () => {
      
-        let elementoParaConvertir = document.getElementById('salida'); // <-- Aquí puedes elegir cualquier elemento del DOM
+        let elementoParaConvertir = document.getElementById('output_main'); // <-- Aquí puedes elegir cualquier elemento del DOM
 
         var opt = {
             margin:       [1, 2],

@@ -83,6 +83,7 @@ function makeFilePercent() {
   $("#btn-cln").click(function () {
     dataClean("#output_secondary_file", "#output_main", "#btn-send", "#btn-cln")
     $("#n-rows").val("");
+    $("#btnCrearPdf").css({ display: "none" });
     flagData = false;
     flagPercentage = false;
     negativeAcumulator = 0;
@@ -96,6 +97,9 @@ function makeFilePercent() {
 }
 $(function () {
   $("#i_csv").change(function () {
+    $("#tbl").css({ display: "none" })
+    $("#anim-loading").show();
+
     indexes = [];
     d = { nform: new FormData($("#file-form")[0]) };
     $.ajax({
@@ -106,7 +110,9 @@ $(function () {
       cache: false,
       processData: false,
       success: function (d) {
-        let content = JSON.parse(d);
+        $("#anim-loading").css({ display: "none" })       
+
+       let content = JSON.parse(d);
 
         $("#warning").html("Select a table header").show();
         $("#tbl").html(content["content-table"]).show();
@@ -186,6 +192,7 @@ $(document).ready(function () {
         $("#btn-remove").show();
         $("#btn-cln").show();
         $("#btn-send").css({ display: "none" });
+        $("#btnCrearPdf").show();
       },
       error: function (error) {
         console.log(error);

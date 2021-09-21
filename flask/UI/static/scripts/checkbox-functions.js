@@ -1,37 +1,20 @@
 function addOrDeleteElementArray(sel, value, vector, table) {
-    console.log("----------------------");
-    console.log($(sel));   
-    console.log(value);
-    console.log(vector);
-    console.log("----------------------");
-    console.log("----------------------");
 
     if ($(sel).hasClass('selected') == false) {
-        console.log("entra if erroneo")
 
         if ($.inArray(value, vector) == -1) {
             vector.push(value)
-            console.log($(sel));
             $(sel).addClass('selected')
         }
 
-
-        console.log($(sel));
     } else {
         if (table.rows(value, "selected")) {
-            $(sel).removeClass('selected')
-            console.log("el valor " + value + "posicion " + vector.indexOf(value));
+            $(sel).removeClass('selected')           
             indice = vector.indexOf(value)
             vector.splice(indice, 1)
-
         }
-
     }
 
-    // console.log("+++++++++++++++++++++++");
-    // console.log($(sel));
-    // console.log("+++++++++++++++++++++++");
-    console.log(vector);
     return vector
 }
 

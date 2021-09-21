@@ -4,14 +4,14 @@
   }
 
   #secondary {
-    width: 600px;
+    width: 680px;
   }
   #tbl {
-    width: 600px;
+    width: 680px;
   }
 
   #file-drag {
-    width: 600px;
+    width: 680px;
     height: 260px;
   }
 
@@ -20,10 +20,58 @@
   }
 
   #output_group,
-  #output_secondary_file {
-    width: 600px;
+  #output_secondary_file,#output_secondary_twitter{
+    width: 680px;
+  }
+  #buttons {
+    width: 680px;
+  }
+
+  #selectors {
+    width: 271px;
+    height: 40px;
+  }
+  #number-rows {
+    width: 310px;
+    height: 45px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .slider:before {
+    height: 16px;
+    width: 16px;
+  }
+  .slider.round {
+    border-radius: 36px;
+    width: 50px;
+    height: 20px;
+  }
+  .name_selector {
+    font-size: 13px;
+  }
+  #btn-fun {
+    align-self: flex-end;
+    justify-self: flex-end;
+  }
+  .btn {
+    width: 45px;
+    height: 35px;
+  }
+  #url_tweet {
+    width: 568px;
+    height: 40px;
+  }
+
+  #fileChart,
+  #twitterChart {
+   
+    height: 680px !important;
+    width: 680px !important;
+    
   }
 }
+
 
 /* Medium devices (desktops, 992px and up) */
 /* container width: 970 */
@@ -51,11 +99,54 @@
   }
 
   #output_group,
-  #output_secondary_file {
+  #output_secondary_file,#output_secondary_twitter {
     width: 750px;
   }
+  #buttons {
+    width: 750px;
+  }
+  #selectors {
+    width: 298px;
+    height: 45px;
+  }
+  #number-rows {
+    width: 330px;
+    height: 45px;
+    padding: 10px;
+    font-size: 14px;
+  }
 
- 
+  .slider:before {
+    height: 20px;
+    width: 20px;
+  }
+  .slider.round {
+    border-radius: 36px;
+    width: 57px;
+    height: 24px;
+  }
+  .name_selector {
+    font-size: 14px;
+  }
+  #btn-fun {
+    align-self: flex-end;
+    justify-self: flex-end;
+  }
+  .btn {
+    width: 60px;
+    height: 35px;
+  }
+  #url_tweet {
+    width: 640px;
+    height: 40px;
+  }
+  #fileChart,
+  #twitterChart {
+   
+    height: 750px !important;
+    width: 750px !important;
+    
+  }
 }
 
 @media (min-width: 1150px) {
@@ -81,6 +172,7 @@
 
   #selectors {
     width: 320px;
+    height: 55px;
   }
   #number-rows {
     width: 380px;
@@ -97,7 +189,44 @@
   #output_group {
     width: 1010px;
   }
-  #output_secondary_file {
-    width: 600px;
+  #output_secondary_file,#output_secondary_twitter {
+    width: 590px;
+  }
+  #buttons {
+    width: 1010px;
+  }
+
+  #number-rows {
+    width: 380px;
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .slider:before {
+    height: 26px;
+    width: 26px;
+  }
+  .slider.round {
+    border-radius: 36px;
+    width: 60px;
+    height: 30px;
+  }
+  .name_selector {
+    font-size: 16px;
+  }
+  .btn {
+    width: 80px;
+    height: 40px;
+  }
+  #url_tweet {
+    width: 885px;
+    height: 40px;
+  }
+  #fileChart,
+  #twitterChart {
+   
+    height: 400px !important;
+    width: 400px !important;
+    
   }
 }

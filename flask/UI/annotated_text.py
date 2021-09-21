@@ -181,11 +181,11 @@ def openFiles(path):
 
 def clearFiles():
     
-    f_field = open(os.path.abspath('mi_fichero.txt'), 'w')
+    f_field = open(os.path.abspath('/home/jules/Documentos/Personal/Sentiment_analyzer/flask/paths/header.txt'), 'w')
     f_field.write('')
     f_field.close()
 
-    f_path = open(os.path.abspath('ruta.txt'), 'w')
+    f_path = open(os.path.abspath('/home/jules/Documentos/Personal/Sentiment_analyzer/flask/paths/path.txt'), 'w')
 
     f_path.write('')
     f_path.close()

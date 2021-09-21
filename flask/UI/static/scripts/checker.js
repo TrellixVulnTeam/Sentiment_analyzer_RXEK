@@ -44,7 +44,7 @@ function validateFile() {
     var validSelector = false
 
     if (inputFile.files.length == 0) {
-        console.log("entra")
+          alert("You must select one file")
         fileDrag.style.border = "1px solid red";
         validFile = false;
     } else {
@@ -53,8 +53,8 @@ function validateFile() {
     }
 
     if (!checkboxRacism.checked && !checkboxSexism.checked) {
-
-        selectores.style.border = "1px solid red";
+  alert("You must select one of the options")
+        selectors.style.border = "1px solid red";
         validSelector = false;
 
     } else {
@@ -77,7 +77,7 @@ function validateTwitter() {
     var validSelector = false
 
     if (inputTweet.value.length == 0 || inputTweet.value == ' ') {
-
+    alert("You must type a url ,user or hashtag")
         inputTweet.style.border = "1px solid red";
         validInput = false;
     } else {
@@ -86,7 +86,7 @@ function validateTwitter() {
     }
 
     if (!checkboxRacism.checked && !checkboxSexism.checked) {
-
+ alert("You must select one of the options")
         selectors.style.border = "1px solid red";
         validSelector = false;
     } else {
@@ -103,18 +103,15 @@ function validateTwitter() {
 function selector() {
        
     $(document).on('click', '.checks', function () {
-
-        //Revisa en que status está el checkbox y controlalo según lo //desees
+      
         let val = $(this).attr("id")
         console.log((val));
         if (val == "racism") {
-            console.log("entra");
             $("#sexism").prop("checked", false);
 
         }
         
         if (val == "sexism") {
-            console.log("entra2");
             $("#racism").prop("checked", false);
 
         }
