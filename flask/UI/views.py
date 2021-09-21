@@ -60,7 +60,7 @@ def process_file():
         rows = pd.read_csv(pth)
         data = {"content-table": table, "rows": len(rows)}
 
-        with open('/home/jules/Documentos/Personal/Sentiment_analyzer/flask/paths/path.txt', 'w') as f:
+        with open(os.path.abspath("paths/path.txt"), 'w') as f:
             f.write(pth)
 
     return json.dumps(data)
@@ -70,15 +70,15 @@ def process_file():
 def process_table_header():
 
     option_mode = 0
-    valor = at.openFiles(os.path.abspath("paths/header.txt"))
-    print(valor)
+    header_value = at.openFiles(os.path.abspath("paths/header.txt"))
+    
     file_path = at.openFiles(os.path.abspath("paths/path.txt"))
     checkbox = request.form['chx']
     if(indexes == []):
         limit = request.form['n-rows']
-        d = at.procesed_csv(file_path, checkbox, valor, limit, option_mode)
+        d = at.procesed_csv(file_path, checkbox, header_value, limit, option_mode)
         percent_data = json.loads(at.get_text_csv_nrows(
-            file_path, valor, at.select_clf(checkbox), at.select_BoW_pkl(checkbox), limit))
+            file_path, header_value, at.select_clf(checkbox), at.select_BoW_pkl(checkbox), limit))
         percent_data = percent_data["percent_data"]
         indexes.clear()
         data = {"data": d, "percent_data": percent_data}
@@ -87,8 +87,8 @@ def process_table_header():
         option_mode = 1
         indexes_order = list(sorted(set(indexes)))
 
-        d = at.procesed_csv(file_path, checkbox, valor, indexes_order, option_mode)
-        percent_data = json.loads(at.get_text_csv_index_checkbox(file_path, valor, at.select_clf(
+        d = at.procesed_csv(file_path, checkbox, header_value, indexes_order, option_mode)
+        percent_data = json.loads(at.get_text_csv_index_checkbox(file_path, header_value, at.select_clf(
             checkbox), at.select_BoW_pkl(checkbox), indexes_order))
         percent_data = percent_data["percent_data"]
         indexes.clear()
@@ -104,7 +104,7 @@ def get_header():
     for key in rf.keys():
         data = key
 
-    with open('/home/jules/Documentos/Personal/Sentiment_analyzer/flask/paths/header.txt', 'w') as f:
+    with open(os.path.abspath("paths/header.txt"),'w') as f:
         f.write(data)
     return data
 
