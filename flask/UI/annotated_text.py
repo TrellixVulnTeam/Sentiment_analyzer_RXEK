@@ -8,8 +8,9 @@ from src import training as t
 stop_words = set(stopwords.words("english"))
 
 
+# Esta funcion recibe un texto procedente del textarea y lo devuelve con las palabras clave coloreadas
 def procesed_text(text, c):
-   
+
     if(text != ''):
         key_words = deserialize_file(c)
         color = str(c)
@@ -19,6 +20,7 @@ def procesed_text(text, c):
 
         strA = " ".join(data)
         return strA
+# Esta funcion recibe un texto procedente de un tweet y lo devuelve con las palabras clave coloreadas
 
 
 def procesed_tweet(text, c):
@@ -37,9 +39,11 @@ def procesed_tweet(text, c):
 
         return processed_tweet_list
 
+# Esta funcion recibe un texto procedente de un csv y lo devuelve con las palabras clave coloreadas
+
 
 def procesed_csv(path, c, f, field_index, selector):
-    
+
     if(path != ''):
         key_words = deserialize_file(c)
 
@@ -73,6 +77,8 @@ def procesed_csv(path, c, f, field_index, selector):
 
             return processed_csv_list
 
+ # Devuelve el porcentaje y el texto procesado procedente de las filas  introducidas mediante un campo de texto de un csv
+
 
 def get_text_csv_nrows(path, f, clasifier, bow, limit):
 
@@ -90,9 +96,11 @@ def get_text_csv_nrows(path, f, clasifier, bow, limit):
 
         return json.dumps(data)
 
+ # Devuelve el porcentaje y el texto procesado procedente de las filas  introducidas mediante un campo de texto de un csv
+
 
 def get_text_csv_index_checkbox(path, f, clasifier, bow, indexes):
-    
+
     if(path != ''):
 
         df = pd.read_csv(path)
@@ -110,6 +118,8 @@ def get_text_csv_index_checkbox(path, f, clasifier, bow, indexes):
 
         return json.dumps(data)
 
+ # Devuelve el porcentaje y el texto procesado procedente de un tweet
+
 
 def twitter_text(data, clasifier, bow):
 
@@ -126,6 +136,8 @@ def twitter_text(data, clasifier, bow):
 
         return json.dumps(data)
 
+ # Deserializa la bolsa de palabras
+
 
 def deserialize_file(c):
     x = c
@@ -135,12 +147,16 @@ def deserialize_file(c):
     fileIn.close()
     return dataLoad
 
+# devuelve el dataframe en formato html
+
 
 def dataframe_show(arc):
     if(arc != ''):
         df = pd.read_csv(arc)
         df = df.astype(str).apply(lambda x: x.str.slice(0, 50))
         return df.to_html(table_id="my-table", classes="pandas", justify='left', index=False)
+
+# devuelve la bolsa de palabras seleccionada en formato dat
 
 
 def select_BoW(key):
@@ -150,6 +166,8 @@ def select_BoW(key):
     elif(key == 'sexism'):
         BoW = os.path.abspath("Serialized/binary/Sexism.dat")
     return BoW
+
+# devuelve uno de los clasificadores en formato pkl
 
 
 def select_clf(key):
@@ -161,6 +179,8 @@ def select_clf(key):
         clf = os.path.abspath(
             "Serialized/plk/classifiers/sexism_clf_.pkl")
     return clf
+
+# devuelve la bolsa de palabras seleccionada en formato pkl
 
 
 def select_BoW_pkl(key):
@@ -178,9 +198,11 @@ def openFiles(path):
     data = data.replace('"', '')
     return data
 
+# limpia los archivos donde se guarda la ruta del csv y la cabecera seleccionada
+
 
 def clearFiles():
-    
+
     f_field = open(os.path.abspath('paths/header.txt'), 'w')
     f_field.write('')
     f_field.close()
@@ -189,6 +211,8 @@ def clearFiles():
 
     f_path.write('')
     f_path.close()
+
+# colorea el texto
 
 
 def text_colorized(text_data, kw, color):

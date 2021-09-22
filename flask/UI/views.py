@@ -96,7 +96,7 @@ def process_table_header():
 
     return json.dumps(data)
 
-
+#recupera la cabecera que se ha seleccionado en la tabla
 @app.route("/process-file-get-header", methods=["POST"])
 def get_header():
 
@@ -108,7 +108,7 @@ def get_header():
         f.write(data)
     return data
 
-
+# recupera todos los indices que se han seleccioando emdiante los checkbox
 @app.route("/process-get-index-checkbox", methods=["POST"])
 def get_index_checbox():
     indexes.clear()

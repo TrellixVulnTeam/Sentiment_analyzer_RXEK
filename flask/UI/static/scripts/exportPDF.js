@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const $boton = document.querySelector("#btnCrearPdf");
     $boton.addEventListener("click", () => {
      
-        let elementoParaConvertir = document.getElementById('output_main'); // <-- Aquí puedes elegir cualquier elemento del DOM
+        let eleToConvert = document.getElementById('output_main'); // <-- Aquí puedes elegir cualquier elemento del DOM
 
         var opt = {
             margin:       [1, 2],
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             y: 6,  scrollY: 10},
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'l' }
           };
-          html2pdf().set(opt).from(elementoParaConvertir).save();
+          html2pdf().set(opt).from(eleToConvert).save();
             
         
             

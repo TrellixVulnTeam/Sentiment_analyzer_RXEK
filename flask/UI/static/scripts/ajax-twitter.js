@@ -54,7 +54,7 @@ $(document).ready(function () {
                 if (content["tag"] == 'hashtag' || content["tag"] == 'user') {
                    
                     var output_secondary_twitter = document.getElementById('output_secondary_twitter')
-                    // output_secondary_twitter.style.width =  "590px";
+               
                     if (flagData == false) {
                         makeElementContent(content, output_secondary_twitter);
                         flagData = true;

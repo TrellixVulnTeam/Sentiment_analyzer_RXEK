@@ -1,15 +1,16 @@
 function addOrDeleteElementArray(sel, value, vector, table) {
-
+    c
     if ($(sel).hasClass('selected') == false) {
 
         if ($.inArray(value, vector) == -1) {
+
             vector.push(value)
             $(sel).addClass('selected')
         }
 
     } else {
         if (table.rows(value, "selected")) {
-            $(sel).removeClass('selected')           
+            $(sel).removeClass('selected')
             indice = vector.indexOf(value)
             vector.splice(indice, 1)
         }

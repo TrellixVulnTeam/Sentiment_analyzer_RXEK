@@ -3,9 +3,12 @@
 <div id="principal-home">
     <div id="img-content">
 
-        <img src="{{url_for("static",filename="images/iMAC2.png")}}" id="mac">
-        <img src="" id="image">
+        <!-- <img src="{{url_for("static",filename="images/iMAC2.png")}}" id="mac">
+        <img src="" id="image"> -->
 
+        <video controls autoplay  width="1280" height="720"  > 
+            <source src={{ url_for('static', filename="images/demo.mp4") }} type="video/mp4">          
+          </video>
     </div>
     <div id="documentation">
         <a href="{{url_for("static",filename="manual/manual_usuario.pdf")}}" id="download-manual" download="user_manual.pdf">Download Documentation</a>

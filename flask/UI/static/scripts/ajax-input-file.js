@@ -9,6 +9,7 @@ var table;
 var page;
 var flChart;
 
+// Envia mediante ajax cada indice perteneciente a cada checkbox seleccionado
 var selectCheckBox = function () {
   let value = table.row(this).index();
 
@@ -45,6 +46,7 @@ var selectAllCheckBoxes = function () {
   });
 };
 
+//Devuelve mediante ajax la cabecera de la tabla
 var getTH = function () {
   let actualIndex = $(this).index();
   if (actualIndex != 0) {
@@ -64,7 +66,7 @@ var getTH = function () {
     });
   }
 };
-
+//Crea el grafico
 function makeFilePercent() {
 
   if (flagPercentage == false) {
@@ -90,11 +92,13 @@ function makeFilePercent() {
     indexes = cleanCheckbox(indexes, table);
     indexes = [];
   });
-
+//limpia todo el contenido
   $("#btn-remove").click(function () {
     location.reload();
   });
 }
+
+//Muestra la tabla que pertenece al dataframe
 $(function () {
   $("#i_csv").change(function () {
     $("#tbl").css({ display: "none" })
@@ -116,14 +120,14 @@ $(function () {
 
         $("#warning").html("Select a table header").show();
         $("#tbl").html(content["content-table"]).show();
-
+//Crea la cabecera para insertar un checkbox que marca el resto de checkbox
         addHeader();
         appendColumn();
 
         jQuery.moveColumn(
           jQuery("table"),
           $("#my-table tr:last td").length - 1, 0);
-
+//Propiedades de la tabla con DATATABLES
         table = $(".dataframe").DataTable({
           ordering: false,
           columnDefs: [
@@ -147,6 +151,7 @@ $(function () {
         $("input.select-checkbox").unbind("click", selectAllCheckBoxes);
         $("input.select-checkbox").click(selectAllCheckBoxes);
 
+        //informacion que se usa para los checkbox de cada cabecera
         table.on("page.dt", function () {
           let rowsSelected = table
             .rows({ page: "current", selected: true })
@@ -154,10 +159,10 @@ $(function () {
 
           checkboxChangePage(rowsSelected);
         });
-
+//informacion de la pagina actual de la tabla
         table.on("length.dt", function () {
           page = table.page.info();
-          console.log(page);
+        
         });
         $("td.select-checkbox").unbind("click", selectCheckBox);
         $("td.select-checkbox").click(selectCheckBox);

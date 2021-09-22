@@ -30,23 +30,6 @@ body {
 
 }
 
-#image {
-  position: absolute;
-  margin-top: 60px;
-  width: 700px;
-  height: 500px;  
-  z-index: 1;
-
-}
-
-#mac {
-  margin-top: 10px;
-  position: absolute;
-  z-index: -1;
-  width: auto;
-  height: auto;  
-
-}
 #documentation{
   display: flex;
   flex-flow: column wrap;
