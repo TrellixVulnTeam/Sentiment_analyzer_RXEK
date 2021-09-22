@@ -1,5 +1,5 @@
 function addOrDeleteElementArray(sel, value, vector, table) {
-    c
+    
     if ($(sel).hasClass('selected') == false) {
 
         if ($.inArray(value, vector) == -1) {
