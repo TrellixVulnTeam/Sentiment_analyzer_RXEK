@@ -28,10 +28,11 @@ var selectCheckBox = function () {
 var selectAllCheckBoxes = function () {
   page = table.page.info();
   var data_index;
-  console.log("entraaaos");
+
 
   if ($("input.select-checkbox").hasClass("selected")) {
     data_index = deleteAllIndex(indexes, page, table);
+    console.log(data_index);
   } else {
     data_index = insertAllIndex(indexes, page, table, this);
     console.log(data_index);
@@ -128,6 +129,7 @@ $(function () {
           jQuery("table"),
           $("#my-table tr:last td").length - 1, 0);
 //Propiedades de la tabla con DATATABLES
+$(document).ready(function() {
         table = $(".dataframe").DataTable({
           ordering: false,
           columnDefs: [
@@ -147,10 +149,25 @@ $(function () {
           },
           order: [[1, "asc"]],
         });
+        // $("td.select-checkbox").unbind("click", selectCheckBox);
+        // $("td.select-checkbox").click(selectCheckBox);
 
-        $("input.select-checkbox").unbind("click", selectAllCheckBoxes);
-        $("input.select-checkbox").click(selectAllCheckBoxes);
-
+        // $("input.select-checkbox").unbind("click", selectAllCheckBoxes);
+        // $("input.select-checkbox").click(selectAllCheckBoxes);
+        $('.dataframe tbody').on('click', 'td.select-checkbox', function () {
+          var value = table.row( this ).index();
+          data_index = addOrDeleteElementArray(this, value, indexes, table);
+          console.log(data_index);
+          $.ajax({
+            type: "POST",
+            url: "/process-get-index-checkbox",
+            data: JSON.stringify(data_index),
+            dataType: "json",
+          }).done(function (data) {
+            console.log(data);
+          });
+     
+      });
         //informacion que se usa para los checkbox de cada cabecera
         table.on("page.dt", function () {
           let rowsSelected = table
@@ -164,14 +181,13 @@ $(function () {
           page = table.page.info();
         
         });
-        $("td.select-checkbox").unbind("click", selectCheckBox);
-        $("td.select-checkbox").click(selectCheckBox);
-
+     
         $("#number-rows").show();
         $("#num-total-rows").html(content["rows"]);
 
         $("th").unbind("click", getTH);
         $("th").click(getTH);
+      } );
       },
     });
   });

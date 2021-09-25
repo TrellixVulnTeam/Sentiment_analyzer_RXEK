@@ -19,12 +19,33 @@ function addOrDeleteElementArray(sel, value, vector, table) {
     return vector
 }
 
+// function addOrDeleteElementArray(sel, value, vector, table) {
+    
+//     if ($(sel).hasClass('selected') == false) {
+
+//         if ($.inArray(value, vector) == -1) {
+
+//             vector.push(value)
+//             $(sel).addClass('selected')
+//         }
+
+//     } else {
+//         if (table.rows(value, "selected")) {
+//             $(sel).removeClass('selected')
+//             indice = vector.indexOf(value)
+//             vector.splice(indice, 1)
+//         }
+//     }
+
+//     return vector
+// }
+
 function deleteAllIndex(vector, page, table) {
     for (p = page.start; p < page.end; p++) {
         table.rows(p).deselect();
         $("input.select-checkbox").removeClass("selected");
         $("td.select-checkbox").removeClass("selected");
-        vector.splice(0, 1);
+        vector.splice(vector.indexOf(page.start), 1);
 
     }
     return vector
