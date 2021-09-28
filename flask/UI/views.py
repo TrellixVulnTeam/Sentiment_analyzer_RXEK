@@ -6,7 +6,7 @@ import pandas as pd
 from src import training as t
 from UI import twitter_tweepy as tp
 from UI import annotated_text as at
-
+import re
 app.config['UPLOAD_FOLDER'] = os.path.abspath('UI/tmp')
 
 indexes = []
@@ -86,7 +86,7 @@ def process_table_header():
     else:
         option_mode = 1
         indexes_order = list(sorted(set(indexes)))
-
+        print(indexes_order)
         d = at.procesed_csv(file_path, checkbox, header_value, indexes_order, option_mode)
         percent_data = json.loads(at.get_text_csv_index_checkbox(file_path, header_value, at.select_clf(
             checkbox), at.select_BoW_pkl(checkbox), indexes_order))
@@ -113,13 +113,13 @@ def get_header():
 def get_index_checbox():
     indexes.clear()
     rf = request.form
-    keys = rf.keys()
-    keys = list(keys)[0]
+    keys = list(rf.keys())[0]    
+    keys = [int(s) for s in re.findall(r'-?\d+\.?\d*', keys)]
 
+  
     for i in keys:
-        if(i != "]" and i != "[" and i != ","):
-            indexes.append(int(i))
-
+        indexes.append(int(i))
+        
     return 'nothing'
 
 

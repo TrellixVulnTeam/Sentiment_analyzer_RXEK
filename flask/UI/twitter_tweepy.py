@@ -1,6 +1,4 @@
-
 import tweepy
-
 
 def o_auth():
     auth = tweepy.OAuthHandler("WfuAkJq5Z1ZaPnMpxaLCqaayJ",
@@ -31,7 +29,7 @@ def getTweet(url):
 def get_tweets_by_user(user):
     lista =[]
     if(user !=''):
-        tweets = api.user_timeline(user, tweet_mode='extended')
+        tweets = api.user_timeline(user_name=user, tweet_mode='extended')
         print(tweets)
         for i in tweets[:10]:
         
@@ -43,7 +41,7 @@ def get_tweets_by_user(user):
 
 def get_tweets_by_query(query):
     lista =[]
-    tweets = api.search(query, tweet_mode='extended')
+    tweets = api.search_tweets(query, tweet_mode='extended')
 
     for i in tweets[:10]:       
         value=i.full_text       

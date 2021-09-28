@@ -1,5 +1,6 @@
-function addOrDeleteElementArray(sel, value, vector, table) {
+function addOrDeleteElementArray(sel, value,vector, table) {
     
+  
     if ($(sel).hasClass('selected') == false) {
 
         if ($.inArray(value, vector) == -1) {
@@ -19,28 +20,10 @@ function addOrDeleteElementArray(sel, value, vector, table) {
     return vector
 }
 
-// function addOrDeleteElementArray(sel, value, vector, table) {
-    
-//     if ($(sel).hasClass('selected') == false) {
 
-//         if ($.inArray(value, vector) == -1) {
 
-//             vector.push(value)
-//             $(sel).addClass('selected')
-//         }
-
-//     } else {
-//         if (table.rows(value, "selected")) {
-//             $(sel).removeClass('selected')
-//             indice = vector.indexOf(value)
-//             vector.splice(indice, 1)
-//         }
-//     }
-
-//     return vector
-// }
-
-function deleteAllIndex(vector, page, table) {
+function deleteAllIndex(page,vector, table) {
+   
     for (p = page.start; p < page.end; p++) {
         table.rows(p).deselect();
         $("input.select-checkbox").removeClass("selected");
@@ -51,7 +34,8 @@ function deleteAllIndex(vector, page, table) {
     return vector
 }
 
-function insertAllIndex(vector, page, table, ele) {
+function insertAllIndex(page, table,vector, ele) {
+   
     for (p = page.start; p < page.end; p++) {
         table.rows(p).select();
         $(ele).addClass("selected");

@@ -13,12 +13,12 @@ var flChart;
 var selectCheckBox = function () {
   let value = table.row(this).index();
 
-  data_index = addOrDeleteElementArray(this, value, indexes, table);
-  console.log(data_index);
+  indexes = addOrDeleteElementArray(this, value, indexes,table);
+  console.log(indexes);
   $.ajax({
     type: "POST",
     url: "/process-get-index-checkbox",
-    data: JSON.stringify(data_index),
+    data: JSON.stringify(indexes),
     dataType: "json",
   }).done(function (data) {
     console.log(data);
@@ -27,20 +27,19 @@ var selectCheckBox = function () {
 
 var selectAllCheckBoxes = function () {
   page = table.page.info();
-  var data_index;
 
 
   if ($("input.select-checkbox").hasClass("selected")) {
-    data_index = deleteAllIndex(indexes, page, table);
-    console.log(data_index);
+    indexes = deleteAllIndex(page, indexes,table);
+    console.log(indexes);
   } else {
-    data_index = insertAllIndex(indexes, page, table, this);
-    console.log(data_index);
+    indexes = insertAllIndex(page, table,indexes, this);
+    console.log(indexes);
   }
   $.ajax({
     type: "POST",
     url: "/process-get-index-checkbox",
-    data: JSON.stringify(data_index),
+    data: JSON.stringify(indexes),
     dataType: "json",
   }).done(function (data) {
     console.log(data);
@@ -93,7 +92,7 @@ function makeFilePercent() {
     indexes = cleanCheckbox(indexes, table);
     indexes = [];
   });
-//limpia todo el contenido
+  //limpia todo el contenido
   $("#btn-remove").click(function () {
     location.reload();
   });
@@ -115,79 +114,101 @@ $(function () {
       cache: false,
       processData: false,
       success: function (d) {
-        $("#anim-loading").css({ display: "none" })       
+        $("#anim-loading").css({ display: "none" })
 
-       let content = JSON.parse(d);
+        let content = JSON.parse(d);
 
         $("#warning").html("Select a table header").show();
         $("#tbl").html(content["content-table"]).show();
-//Crea la cabecera para insertar un checkbox que marca el resto de checkbox
+        //Crea la cabecera para insertar un checkbox que marca el resto de checkbox
         addHeader();
         appendColumn();
 
         jQuery.moveColumn(
           jQuery("table"),
           $("#my-table tr:last td").length - 1, 0);
-//Propiedades de la tabla con DATATABLES
-$(document).ready(function() {
-        table = $(".dataframe").DataTable({
-          ordering: false,
-          columnDefs: [
-            {
-              targets: 0,
-              data: null,
+        //Propiedades de la tabla con DATATABLES
+        $(document).ready(function () {
+          table = $(".dataframe").DataTable({
+            ordering: false,
+            columnDefs: [
+              {
+                targets: 0,
+                data: null,
 
-              defaultContent: "",
-              orderable: false,
-              className: "select-checkbox",
+                defaultContent: "",
+                orderable: false,
+                className: "select-checkbox",
+              },
+            ],
+
+            select: {
+              style: "multi",
+              selector: "td:first-child",
             },
-          ],
-
-          select: {
-            style: "multi",
-            selector: "td:first-child",
-          },
-          order: [[1, "asc"]],
-        });
-        // $("td.select-checkbox").unbind("click", selectCheckBox);
-        // $("td.select-checkbox").click(selectCheckBox);
-
-        // $("input.select-checkbox").unbind("click", selectAllCheckBoxes);
-        // $("input.select-checkbox").click(selectAllCheckBoxes);
-        $('.dataframe tbody').on('click', 'td.select-checkbox', function () {
-          var value = table.row( this ).index();
-          data_index = addOrDeleteElementArray(this, value, indexes, table);
-          console.log(data_index);
-          $.ajax({
-            type: "POST",
-            url: "/process-get-index-checkbox",
-            data: JSON.stringify(data_index),
-            dataType: "json",
-          }).done(function (data) {
-            console.log(data);
+            order: [[1, "asc"]],
           });
-     
-      });
-        //informacion que se usa para los checkbox de cada cabecera
-        table.on("page.dt", function () {
-          let rowsSelected = table
-            .rows({ page: "current", selected: true })
-            .count();
+          //  $('.dataframe tbody').delegate($("td.select-checkbox").unbind("click", selectCheckBox));
+          // ('.dataframe tbody').delegate($("td.select-checkbox").click(selectCheckBox));
 
-          checkboxChangePage(rowsSelected);
-        });
-//informacion de la pagina actual de la tabla
-        table.on("length.dt", function () {
-          page = table.page.info();
-        
-        });
-     
-        $("#number-rows").show();
-        $("#num-total-rows").html(content["rows"]);
+          // $("input.select-checkbox").unbind("click", selectAllCheckBoxes);
+          // $("input.select-checkbox").click(selectAllCheckBoxes);
+          $('.dataframe tbody').on('click', 'td.select-checkbox', function () {
+            var value = table.row(this).index();
+            indexes = addOrDeleteElementArray(this, value,indexes, table);
+            console.log(indexes);
+            $.ajax({
+              type: "POST",
+              url: "/process-get-index-checkbox",
+              data: JSON.stringify(indexes),
+              dataType: "json",
+            }).done(function (data) {
+              console.log(data);
+            });
 
-        $("th").unbind("click", getTH);
-        $("th").click(getTH);
-      } );
+          });
+          $('.dataframe thead').on('click', 'input.select-checkbox', function () {
+            page = table.page.info();
+
+
+            if ($("input.select-checkbox").hasClass("selected")) {
+              indexes = deleteAllIndex(page, indexes,table);
+              console.log(indexes);
+            } else {
+              indexes = insertAllIndex(page, table,indexes, this);
+              console.log(indexes);
+            }
+            $.ajax({
+              type: "POST",
+              url: "/process-get-index-checkbox",
+              data: JSON.stringify(indexes),
+              dataType: "json",
+            }).done(function (data) {
+              console.log(data);
+            });
+
+          });
+
+          //informacion que se usa para los checkbox de cada cabecera
+          table.on("page.dt", function () {
+            let rowsSelected = table
+              .rows({ page: "current", selected: true })
+              .count();
+
+            checkboxChangePage(rowsSelected);
+          });
+          //informacion de la pagina actual de la tabla
+          table.on("length.dt", function () {
+            page = table.page.info();
+
+          });
+
+          $("#number-rows").show();
+          $("#num-total-rows").html(content["rows"]);
+
+          $("th").unbind("click", getTH);
+          $("th").click(getTH);
+        });
       },
     });
   });
